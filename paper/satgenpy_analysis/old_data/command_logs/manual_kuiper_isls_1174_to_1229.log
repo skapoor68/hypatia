@@ -1,0 +1,2 @@
+Must supply exactly six arguments
+Usage: python -m satgen.post_analysis.main_print_modified_routes_and_rtt.py [data_dir] [satellite_network_dir] [dynamic_state_update_interval_ms] [end_time_s] [src] [dst]

@@ -21,8 +21,14 @@
 # SOFTWARE.
 
 from satgen.distance_tools import *
+from itertools import islice
 import networkx as nx
 from astropy import units as u
+
+def k_shortest_paths(G, source, target, k, weight=None):
+    return list(
+        islice(nx.shortest_simple_paths(G, source, target, weight=weight), k)
+    )
 
 
 def construct_graph_with_distances(epoch, time_since_epoch_ns, satellites, ground_stations, list_isls,

@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html class="ng-csp" data-placeholder-focus="false" lang="en" >
+	<head data-requesttoken="KRsKHi8JQAUbQXgXUQc3IGcrH1spG3cOCQ8DOAwMSwY=:bOEkidkNj54/ciZiWEg5sZ38lMknd8xsBjlrGGUd8RA=">
+		<meta charset="utf-8">
+		<title>
+		polybox		</title>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="referrer" content="never">
+		<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0">
+		<meta name="theme-color" content="#745bca">
+		<link rel="icon" href="/apps/theme-polybox/core/img/favicon.ico">
+		<link rel="apple-touch-icon-precomposed" href="/apps/theme-polybox/core/img/favicon-touch.png">
+		<link rel="mask-icon" sizes="any" href="/core/img/favicon-mask.svg" color="#041e42">
+					<link rel="stylesheet" href="/core/vendor/select2/select2.css?v=f0c5a19e63073ad292701fa005f54741">
+					<link rel="stylesheet" href="/core/css/styles.css?v=f0c5a19e63073ad292701fa005f54741">
+					<link rel="stylesheet" href="/core/css/inputs.css?v=f0c5a19e63073ad292701fa005f54741">
+					<link rel="stylesheet" href="/core/css/header.css?v=f0c5a19e63073ad292701fa005f54741">
+					<link rel="stylesheet" href="/core/css/icons.css?v=f0c5a19e63073ad292701fa005f54741">
+					<link rel="stylesheet" href="/core/css/fonts.css?v=f0c5a19e63073ad292701fa005f54741">
+					<link rel="stylesheet" href="/core/css/apps.css?v=f0c5a19e63073ad292701fa005f54741">
+					<link rel="stylesheet" href="/core/css/global.css?v=f0c5a19e63073ad292701fa005f54741">
+					<link rel="stylesheet" href="/core/css/fixes.css?v=f0c5a19e63073ad292701fa005f54741">
+					<link rel="stylesheet" href="/core/css/multiselect.css?v=f0c5a19e63073ad292701fa005f54741">
+					<link rel="stylesheet" href="/core/css/mobile.css?v=f0c5a19e63073ad292701fa005f54741">
+					<link rel="stylesheet" href="/core/vendor/jquery-ui/themes/base/jquery-ui.css?v=f0c5a19e63073ad292701fa005f54741">
+					<link rel="stylesheet" href="/core/css/jquery-ui-fixes.css?v=f0c5a19e63073ad292701fa005f54741">
+					<link rel="stylesheet" href="/core/css/tooltip.css?v=f0c5a19e63073ad292701fa005f54741">
+					<link rel="stylesheet" href="/core/css/share.css?v=f0c5a19e63073ad292701fa005f54741">
+					<link rel="stylesheet" href="/apps/files_versions/css/versions.css?v=f0c5a19e63073ad292701fa005f54741">
+					<link rel="stylesheet" href="/apps/files_pdfviewer/css/style.css?v=f0c5a19e63073ad292701fa005f54741">
+					<link rel="stylesheet" href="/core/css/jquery.ocdialog.css?v=f0c5a19e63073ad292701fa005f54741">
+					<link rel="stylesheet" href="/apps/files_sharing/css/authenticate.css?v=f0c5a19e63073ad292701fa005f54741">
+					<link rel="stylesheet" href="/apps/theme-polybox/core/css/styles.css?v=f0c5a19e63073ad292701fa005f54741">
+					<link rel="stylesheet" href="/apps/theme-polybox/core/css/header.css?v=f0c5a19e63073ad292701fa005f54741">
+									<script src="/index.php/core/js/oc.js?v=f0c5a19e63073ad292701fa005f54741"></script>
+					<script src="/core/vendor/jquery/dist/jquery.min.js?v=f0c5a19e63073ad292701fa005f54741"></script>
+					<script src="/core/vendor/jquery-migrate/jquery-migrate.min.js?v=f0c5a19e63073ad292701fa005f54741"></script>
+					<script src="/core/vendor/jquery-ui/ui/jquery-ui.custom.js?v=f0c5a19e63073ad292701fa005f54741"></script>
+					<script src="/core/vendor/underscore/underscore.js?v=f0c5a19e63073ad292701fa005f54741"></script>
+					<script src="/core/vendor/moment/min/moment-with-locales.js?v=f0c5a19e63073ad292701fa005f54741"></script>
+					<script src="/core/vendor/handlebars/handlebars.js?v=f0c5a19e63073ad292701fa005f54741"></script>
+					<script src="/core/vendor/blueimp-md5/js/md5.js?v=f0c5a19e63073ad292701fa005f54741"></script>
+					<script src="/core/vendor/bootstrap/js/tooltip.js?v=f0c5a19e63073ad292701fa005f54741"></script>
+					<script src="/core/vendor/backbone/backbone.js?v=f0c5a19e63073ad292701fa005f54741"></script>
+					<script src="/core/vendor/es6-promise/es6-promise.auto.js?v=f0c5a19e63073ad292701fa005f54741"></script>
+					<script src="/core/vendor/davclient.js/lib/client.js?v=f0c5a19e63073ad292701fa005f54741"></script>
+					<script src="/core/vendor/clipboard/dist/clipboard.js?v=f0c5a19e63073ad292701fa005f54741"></script>
+					<script src="/core/vendor/bowser/src/bowser.js?v=f0c5a19e63073ad292701fa005f54741"></script>
+					<script src="/core/js/jquery.ocdialog.js?v=f0c5a19e63073ad292701fa005f54741"></script>
+					<script src="/core/js/oc-dialogs.js?v=f0c5a19e63073ad292701fa005f54741"></script>
+					<script src="/core/js/js.js?v=f0c5a19e63073ad292701fa005f54741"></script>
+					<script src="/core/js/l10n.js?v=f0c5a19e63073ad292701fa005f54741"></script>
+					<script src="/core/js/octemplate.js?v=f0c5a19e63073ad292701fa005f54741"></script>
+					<script src="/core/js/eventsource.js?v=f0c5a19e63073ad292701fa005f54741"></script>
+					<script src="/core/js/config.js?v=f0c5a19e63073ad292701fa005f54741"></script>
+					<script src="/core/search/js/search.js?v=f0c5a19e63073ad292701fa005f54741"></script>
+					<script src="/core/js/oc-requesttoken.js?v=f0c5a19e63073ad292701fa005f54741"></script>
+					<script src="/core/js/apps.js?v=f0c5a19e63073ad292701fa005f54741"></script>
+					<script src="/core/js/mimetype.js?v=f0c5a19e63073ad292701fa005f54741"></script>
+					<script src="/core/js/mimetypelist.js?v=f0c5a19e63073ad292701fa005f54741"></script>
+					<script src="/core/vendor/snapjs/dist/latest/snap.js?v=f0c5a19e63073ad292701fa005f54741"></script>
+					<script src="/core/vendor/select2/select2.js?v=f0c5a19e63073ad292701fa005f54741"></script>
+					<script src="/core/js/oc-backbone.js?v=f0c5a19e63073ad292701fa005f54741"></script>
+					<script src="/core/js/oc-backbone-webdav.js?v=f0c5a19e63073ad292701fa005f54741"></script>
+					<script src="/apps/guests/js/app.js?v=f0c5a19e63073ad292701fa005f54741"></script>
+					<script src="/core/js/shareconfigmodel.js?v=f0c5a19e63073ad292701fa005f54741"></script>
+					<script src="/core/js/sharemodel.js?v=f0c5a19e63073ad292701fa005f54741"></script>
+					<script src="/core/js/sharescollection.js?v=f0c5a19e63073ad292701fa005f54741"></script>
+					<script src="/core/js/shareitemmodel.js?v=f0c5a19e63073ad292701fa005f54741"></script>
+					<script src="/core/js/sharedialogresharerinfoview.js?v=f0c5a19e63073ad292701fa005f54741"></script>
+					<script src="/core/js/sharedialoglinklistview.js?v=f0c5a19e63073ad292701fa005f54741"></script>
+					<script src="/core/js/sharedialoglinkshareview.js?v=f0c5a19e63073ad292701fa005f54741"></script>
+					<script src="/core/js/sharedialogmailview.js?v=f0c5a19e63073ad292701fa005f54741"></script>
+					<script src="/core/js/sharedialoglinksocialview.js?v=f0c5a19e63073ad292701fa005f54741"></script>
+					<script src="/core/js/sharedialoglinkexpirationview.js?v=f0c5a19e63073ad292701fa005f54741"></script>
+					<script src="/core/js/sharedialogshareelistview.js?v=f0c5a19e63073ad292701fa005f54741"></script>
+					<script src="/core/js/sharedialogview.js?v=f0c5a19e63073ad292701fa005f54741"></script>
+					<script src="/core/js/share.js?v=f0c5a19e63073ad292701fa005f54741"></script>
+					<script src="/core/js/user.js?v=f0c5a19e63073ad292701fa005f54741"></script>
+					<script src="/apps/files_pdfviewer/js/previewplugin.js?v=f0c5a19e63073ad292701fa005f54741"></script>
+					<script src="/core/js/files/fileinfo.js?v=f0c5a19e63073ad292701fa005f54741"></script>
+					<script src="/core/js/files/client.js?v=f0c5a19e63073ad292701fa005f54741"></script>
+					<script src="/apps/files_sharing/js/authenticate.js?v=f0c5a19e63073ad292701fa005f54741"></script>
+					</head>
+	<body id="body-login">
+		<noscript>
+	<div id="nojavascript">
+		<div>
+			This application requires JavaScript for correct operation. Please <a href="http://enable-javascript.com/" target="_blank" rel="noreferrer">enable JavaScript</a> and reload the page.		</div>
+	</div>
+</noscript>
+		<div class="wrapper">
+			<div class="v-align">
+									<header role="banner">
+						<div id="header">
+							<div class="logo">
+								<h1 class="hidden-visually">
+									polybox.ethz.ch								</h1>
+							</div>
+							<div id="logo-claim" style="display:none;"></div>
+						</div>
+					</header>
+								<form method="post" autocapitalize="none">
+	<fieldset id="password-protected-share">
+		<legend>
+							<div class="warning-info">This share is password-protected</></div>
+					</legend>
+		<p>
+			<label for="password"
+				   class="infield">Password</label>
+			<input type="hidden" name="requesttoken"
+				   value="KRsKHi8JQAUbQXgXUQc3IGcrH1spG3cOCQ8DOAwMSwY=:bOEkidkNj54/ciZiWEg5sZ38lMknd8xsBjlrGGUd8RA="/>
+			<input type="password" name="password" id="password"
+				   placeholder="Password" value=""
+				   autocomplete="off" autocorrect="off" autofocus/>
+		</p>
+	</fieldset>
+
+	<div class="submit-wrap">
+		
+		<button type="submit" id="password-submit">
+			<span>Proceed</span>
+			<div class="loading-spinner">
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+			</div>
+		</button>
+	</div>
+</form>
+				<div class="push"></div><!-- for sticky footer -->
+			<p class="info">
+				<a href="https://www.ethz.ch" target="_blank" rel="noreferrer">ETH Zürich</a> &ndash; <a href="https://polyboxdoc.ethz.ch/" target="_blank">polybox Help</a><br>Use it as a logical memory stick<br>Store your data on the ETH campus			</p>
+			</div>
+		</div>
+		<footer role="contentinfo">
+		</footer>
+	</body>
+</html>
