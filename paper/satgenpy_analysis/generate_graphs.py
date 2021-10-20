@@ -9,12 +9,10 @@ from datetime import datetime
 import csv
 import scipy
 
-def load_data():
-    file_name = 'system_eval/cpu_memory.csv'
-
+def load_data(algo, frequency, total_time):
     times = []
     middle_times = []
-    dir = "data/kuiper_630_isls_plus_grid_ground_stations_top_100_algorithm_free_one_only_over_isls/1000ms_for_200s/path/data/"
+    dir = "data/" + algo + "/" + frequency + "ms_for_" + total_time + "s/path/data/"
     for file in os.listdir(dir):
         if file.startswith("networkx_path_"):
             print(file)
@@ -47,7 +45,7 @@ if __name__ == '__main__':
     # matplotlib.rcParams['text.usetex'] = True
     # matplotlib.rcParams['pdf.fonttype'] = 42
     
-    times, middle_times = load_data()
+    times, middle_times = load_data(sys.argv[1], sys.argv[2], sys.argv[3])
 
     # print(times, middle_times)
        
@@ -68,63 +66,8 @@ if __name__ == '__main__':
     plt.plot(bins_count[1:], cdf_middle_times, label="middle times", color="red")
     # plt.legend()
 
-    plt.savefig("compare.png")
-    plt.savefig("compare.pdf")
-
-    # if flag:
-    #     plt.savefig("times.png")
-    #     plt.savefig("times.pdf")
-    # else:
-    #     plt.savefig("middle_times.png")
-    #     plt.savefig("middle_times.pdf")
-
-    # for pods in cpu:
-    #     if pods < 2 or pods == 5:
-    #         continue
-    #     cpuValues = np.array(cpu[pods])
-    #     cpu_means.append(np.mean(cpuValues))
-    #     cpu_std.append(np.std(cpuValues))
-    #     x_axis.append(pods)
-
-    # cpu_means = np.array(cpu_means)
-    # cpu_std = np.array(cpu_std)
-    # x_axis = np.array(x_axis)
-    # cpu_axis = np.array([1000, 1200, 1400, 1600, 1800, 2000, 2200])
-
-    # for pods in memory:
-    #     if pods < 2 or pods == 5:
-    #         continue
-    #     memoryValues = np.array(memory[pods])
-    #     memory_means.append(np.mean(memoryValues))
-    #     memory_std.append(np.std(memoryValues))
-
-    # memory_means = np.array(memory_means)
-    # memory_std = np.array(memory_std)
-    # memory_axis = np.array([4800, 5000, 5200, 5400, 5600, 5800, 6000, 6200, 6400, 6600, 6800])
-    # print(x_axis.shape, cpu_means.shape, cpu_std.shape, memory_means.shape, memory_std.shape)
-    # print(x_axis, cpu_means, cpu_std, memory_means, memory_std)
-
-    # fig, ax1 = plt.subplots()
-
-    # color = 'tab:red'
-    # ax1.set_xlabel('Number of pods')
-    # ax1.set_xticks(x_axis)
-    # ax1.set_xticklabels(x_axis, fontsize=16)
-    # ax1.set_yticks(cpu_axis)
-    # ax1.set_yticklabels(cpu_axis, fontsize=16)
-    # ax1.set_ylabel('Millicores consumed', color=color)
-    # # ax1.plot(t, data1, color=color)
-    # ax1.errorbar(x_axis, cpu_means, yerr=cpu_std, fmt='ro-')
-    # ax1.tick_params(axis='y', labelcolor=color)
-
-    # ax2 = ax1.twinx()  # instantiate a second axes that shares the same x-axis
-
-    # color = 'tab:blue'
-    # ax2.set_ylabel('Memory in Megabits', color=color)  # we already handled the x-label with ax1
-    # ax2.set_yticks(memory_axis)
-    # ax2.set_yticklabels(memory_axis, fontsize=16)
-    # ax2.errorbar(x_axis, memory_means, yerr=memory_std, fmt='bo:')
-    # ax2.tick_params(axis='y', labelcolor=color)
-
-    # fig.tight_layout()  # otherwise the right y-label is slightly clipped
-    # plt.show()
+    base_file = sys.argv[1] + "_" + sys.argv[2] + "ms_" + sys.argv[3] + "s"
+    png_file = base_file + ".png"
+    pdf_file = base_file + ".pdf"
+    plt.savefig(png_file)
+    plt.savefig(pdf_file)

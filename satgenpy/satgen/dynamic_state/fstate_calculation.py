@@ -62,6 +62,7 @@ def calculate_fstate_shortest_path_without_gs_relaying(
                     distance_to_ground_station_m = possibilities[0][0]
 
                     # If the current node is not that satellite, determine how to get to the satellite
+                    # This needs to be done since here it is assumed that a ground station can connect to only one satellite at a time
                     if curr != dst_sat:
 
                         # Among its neighbors, find the one which promises the
