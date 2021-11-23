@@ -63,11 +63,16 @@ BibTeX citation:
 1. System setup:
    - Python version 3.7+
    - Recent Linux operating system (e.g., Ubuntu 18+)
+   - It is strongly recommended to use a python environment(like conda or virtualenv) to manage the dependencies.
+     ```
+     conda create --name ai_env python=3.7 -y
+     ```
 
 2. Install dependencies:
    ```
    bash hypatia_install_dependencies.sh
    ```
+   Some of the dependencies may not get installed through the script directly. In such cases, download them separately.
    
 3. Build all four modules (as far as possible):
    ```
