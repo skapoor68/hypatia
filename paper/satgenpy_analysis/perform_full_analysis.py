@@ -33,9 +33,9 @@ if local_shell.count_screens() != 0:
     exit(1)
 
 # Re-create data directory
-local_shell.remove_force_recursive("data")
-local_shell.make_full_dir("data")
-local_shell.make_full_dir("data/command_logs")
+# local_shell.remove_force_recursive("data")
+# local_shell.make_full_dir("data")
+# local_shell.make_full_dir("data/command_logs")
 
 # Where to store all commands
 commands_to_run = []
@@ -43,11 +43,11 @@ commands_to_run = []
 # Manual
 print("Generating commands for manually selected endpoints pair (printing of routes and RTT over time)...")
 
-commands_to_run.append("cd ../../satgenpy; python -m satgen.post_analysis.main_print_all_routes_and_rtt "
-                       "../paper/satgenpy_analysis/all_paths ../paper/satellite_networks_state/gen_data/"
-                       "kuiper_630_isls_plus_grid_ground_stations_top_100_algorithm_free_one_only_over_isls "
-                       "1000 200 "
-                       "> ../paper/satgenpy_analysis/all_paths/command_logs/manual_kuiper_isls_1174_to_1229.log 2>&1")
+# commands_to_run.append("cd ../../satgenpy; python -m satgen.post_analysis.main_print_all_routes_and_rtt "
+#                        "../paper/satgenpy_analysis/all_paths ../paper/satellite_networks_state/gen_data/"
+#                        "kuiper_630_isls_plus_grid_ground_stations_top_100_algorithm_free_one_only_over_isls "
+#                        "1000 200 "
+#                        "> ../paper/satgenpy_analysis/all_paths/command_logs/manual_kuiper_isls_1174_to_1229.log 2>&1")
 
 # # Rio de Janeiro to St. Petersburg with only ISLs on Kuiper
 # commands_to_run.append("cd ../../satgenpy; python -m satgen.post_analysis.main_print_routes_and_rtt "
@@ -135,14 +135,26 @@ commands_to_run.append("cd ../../satgenpy; python -m satgen.post_analysis.main_p
 
 # Constellation comparison
 print("Generating commands for constellation comparison...")
-# for satgenpy_generated_constellation in [
-#     # "kuiper_630_isls_none_ground_stations_paris_moscow_grid_algorithm_free_one_only_gs_relays",
-#     "kuiper_630_isls_plus_grid_ground_stations_top_100_algorithm_free_one_only_over_isls"
-#     # "starlink_550_isls_plus_grid_ground_stations_top_100_algorithm_free_one_only_over_isls",
-#     # "telesat_1015_isls_plus_grid_ground_stations_top_100_algorithm_free_one_only_over_isls"
-# ]:
-    # for duration_s in [2000]:
-    #     list_update_interval_ms = [1000]
+for satgenpy_generated_constellation in [
+    "kuiper_630_isls_none_ground_stations_paris_moscow_grid_algorithm_free_one_only_gs_relays",
+    "kuiper_630_isls_plus_grid_ground_stations_top_100_algorithm_free_one_only_over_isls",
+    "starlink_550_isls_plus_grid_ground_stations_top_100_algorithm_free_one_only_over_isls",
+    "telesat_1015_isls_plus_grid_ground_stations_top_100_algorithm_free_one_only_over_isls"
+]:
+    for duration_s in [200]:
+        list_update_interval_ms = [1000]
+
+        for update_interval_ms in list_update_interval_ms:
+            commands_to_run.append(
+                "cd ../../satgenpy; "
+                "python -m satgen.post_analysis.main_print_modified_routes_and_rtt "
+                "../paper/satgenpy_analysis/data ../paper/satellite_networks_state/gen_data/%s ../paper/satgenpy_analysis/graphs/%s/%dms %d %d "
+                "> ../paper/satgenpy_analysis/data/command_logs/constellation_comp_modified_paths__%s_%dms_for_%ds.log "
+                "2>&1" % (
+                    satgenpy_generated_constellation, satgenpy_generated_constellation, update_interval_ms, update_interval_ms, duration_s,
+                    satgenpy_generated_constellation, update_interval_ms, duration_s
+                )
+            )
 
     #     # Path
     #     for update_interval_ms in list_update_interval_ms:

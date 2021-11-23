@@ -25,14 +25,30 @@ from satgen.isls import *
 from satgen.ground_stations import *
 from satgen.tles import *
 import exputil
-import networkx as nx
-import numpy as np
-import time
+import copy
 import tempfile
 
 
-def print_modified_routes_and_rtt(base_output_dir, satellite_network_dir, dynamic_state_update_interval_ms,
-                         simulation_end_time_s, src, dst, satgenpy_dir_with_ending_slash):
+def calculate_path_life(graphs, t, path, dynamic_state_update_interval_ns, simulation_start_time_ns, simulation_end_time_ns):
+    start = t
+
+    while(start >= simulation_start_time_ns + dynamic_state_update_interval_ns):
+        if not nx.is_simple_path(graphs[start - dynamic_state_update_interval_ns], path):
+            break
+        
+        start -= dynamic_state_update_interval_ns
+
+    end = t
+    while(end < simulation_end_time_ns - dynamic_state_update_interval_ns):
+        if not nx.is_simple_path(graphs[end + dynamic_state_update_interval_ns], path):
+            break
+
+        end += dynamic_state_update_interval_ns
+
+    return end - start + dynamic_state_update_interval_ns
+
+def print_modified_routes_and_rtt(base_output_dir, satellite_network_dir, graph_dir, dynamic_state_update_interval_ms,
+                         simulation_end_time_s, satgenpy_dir_with_ending_slash):
 
     # Local shell
     local_shell = exputil.LocalShell()
@@ -62,140 +78,113 @@ def print_modified_routes_and_rtt(base_output_dir, satellite_network_dir, dynami
     max_gsl_length_m = exputil.parse_positive_float(description.get_property_or_fail("max_gsl_length_m"))
     max_isl_length_m = exputil.parse_positive_float(description.get_property_or_fail("max_isl_length_m"))
 
-    # paths
-    # path_list_per_pair = []
-    # path_invalidation_ts = []
-    # for i in range(len(ground_stations)):
-    #     temp_list = []
-    #     ts = []
-    #     for j in range(len(ground_stations)):
-    #         temp_list.append([])
-    #         ts.append(0)
-    #     path_list_per_pair.append(temp_list)
-    #     path_invalidation_ts.append(ts)
-
     # Write data file
-
-    data_path_filename = data_dir + "/networkx_path_" + str(src) + "_to_" + str(dst) + ".txt"
-    # with open(data_path_filename, "w+") as data_path_file:
-
     # For each time moment
-    # fstate = {}
+    print("inside all_paths")
+
+    fstates = {}
     graphs = {}
-    current_path = []
-    rtt_ns_list = []
     for t in range(0, simulation_end_time_ns, dynamic_state_update_interval_ns):
-        tt = time.time()
-        print(tt)
-        # current_fstate = {}
-        # with open(satellite_network_dynamic_state_dir + "/fstate_" + str(t) + ".txt", "r") as f_in:
-        #     for line in f_in:
-        #         spl = line.split(",")
-        #         current = int(spl[0])
-        #         destination = int(spl[1])
-        #         next_hop = int(spl[2])
-        #         current_fstate[(current, destination)] = next_hop
-        # fstate[t] = current_fstate
-        graphs[t] = construct_graph_with_distances(epoch, t, satellites, ground_stations,
-                                                    list_isls, max_gsl_length_m, max_isl_length_m)
-        print(t, time.time() - tt)
+        num_path_changes = 0
+        num_fstate_updates = 0
+        current_fstate = {}
+        if t > 0:
+            current_fstate = copy.deepcopy(fstates[t - dynamic_state_update_interval_ns])
+
+        # Read in forwarding state
+        with open(satellite_network_dynamic_state_dir + "/fstate_" + str(t) + ".txt", "r") as f_in:
+            for line in f_in:
+                spl = line.split(",")
+                current = int(spl[0])
+                destination = int(spl[1])
+                next_hop = int(spl[2])
+                current_fstate[(current, destination)] = next_hop
+                num_fstate_updates += 1
+
+        fstates[t] = current_fstate
+
+        graph_path = graph_dir + "/graph_" + str(t) + ".txt"
+        graphs[t] = nx.read_gpickle(graph_path)
         
-    print("graph computation done")
-    t = 0
-    paths = []
-    invalidation_ts = 0
-    while(t < simulation_end_time_ns):
-        if t == invalidation_ts:
-            shortest_paths = k_shortest_paths(graphs[t], src, dst, 100, "weight")
-            print(len(shortest_paths))
-            validation_bools = np.full((100,), True)
-            path_lives = np.zeros(100)
-            valid_length = 1.5 * compute_path_length_with_graph(shortest_paths[0], graphs[t])
-            it = t + dynamic_state_update_interval_ns
-            # best_path = []
-            while it < simulation_end_time_ns:
-                flag = False
-                for i in range(100):
-                    if validation_bools[i]:
-                        if not nx.is_simple_path(graphs[it], shortest_paths[i]):
-                            validation_bools[i] = False
-                            continue
-                        else:
-                            length = compute_path_length_with_graph(shortest_paths[i], graphs[it])
-                            if length < valid_length:
-                                flag = True
-                                path_lives[i] = it
-                            else:
-                                validation_bools[i] = False
+        tt = t - simulation_end_time_ns
+        graph_path = graph_dir + "/graph_" + str(tt) + ".txt"
+        graphs[tt] = nx.read_gpickle(graph_path)
+
+        tt = t + simulation_end_time_ns
+        graph_path = graph_dir + "/graph_" + str(tt) + ".txt"
+        graphs[tt] = nx.read_gpickle(graph_path)
+
+
+    print("all graphs loaded", len(graphs), len(fstates))
+    threshold = 1.25
+    for s in range(len(ground_stations)):
+        if s == 73:
+            continue
+        src = s + len(satellites)
+        for d in range(s + 1, len(ground_stations)):
+            if d == 73:
+                continue                
+            dst = d + len(satellites)
+            print("src ", src, "dst ", dst)
+            current_path = []
+            rtt_ns_list = []
+            data_path_filename = data_dir + "/networkx_path_" + str(threshold * 100 - 100) + "_" + str(src) + "_to_" + str(dst) + ".txt"
+            with open(data_path_filename, "w+") as data_path_file:
+                for t in range(0, simulation_end_time_ns, dynamic_state_update_interval_ns):
+                    # Calculate path length
+                    # print(t)
+                    path_there = get_path(src, dst, fstates[t])
+                    path_back = get_path(dst, src, fstates[t])
+                    if path_there is not None and path_back is not None:
+                        length_src_to_dst_m = compute_path_length_with_graph(path_there, graphs[t])
+                        length_dst_to_src_m = compute_path_length_with_graph(path_back, graphs[t])
+                        rtt_ns = (length_src_to_dst_m + length_dst_to_src_m) * 1000000000.0 / 299792458.0
+                    else:
+                        length_src_to_dst_m = 0.0
+                        length_dst_to_src_m = 0.0
+                        rtt_ns = 0.0
+
+                    # TODO: Think about the case when there is no path
+                    lasting_rtt_ns = rtt_ns
+                    path_change = current_path is None or not nx.is_simple_path(graphs[t], current_path) or compute_path_length_with_graph(path_there, graphs[t]) * threshold < compute_path_length_with_graph(current_path, graphs[t])
+                    if not path_change:
+                        distance = compute_path_length_with_graph(current_path, graphs[t])
+                        lasting_rtt_ns = (2 * distance) * 1000000000.0 / 299792458.0
+                    else:
+                        # This is the new path
+                        current_path = path_there
+
+                        # Write change nicely to the console
+                        print("Change at t=" + str(t) + " ns (= " + str(t / 1e9) + " seconds)")
+                        print("  > Path..... " + (" -- ".join(list(map(lambda x: str(x), current_path)))
+                                                if current_path is not None else "Unreachable"))
+                        print("  > Length... " + str(length_src_to_dst_m + length_dst_to_src_m) + " m " + str(length_src_to_dst_m) + " " + str(length_dst_to_src_m))
+                        print("  > RTT...... %.2f ms" % (rtt_ns / 1e6))
+                        print("")
+
+                        # Write to path file
+                        data_path_file.write(str(t) + "," + ("-".join(list(map(lambda x: str(x), current_path)))
+                                                            if current_path is not None else "Unreachable") + "\n")
+
                     
-                if not flag:
-                    break
+                    # Add to RTT list
+                    rtt_ns_list.append((t, rtt_ns, lasting_rtt_ns))
 
-            longest_living_path = np.argmax(path_lives)
-            paths.append(shortest_paths[longest_living_paths])
-            invalidation_ts = path_lives[longest_living_path]
-        
-        curr_path = paths[-1]
-        shortest_path = k_shortest_paths(graphs[t], src, dst, 1, "weight")[0]
-        print(t, compute_path_length_with_graph(curr_path, graphs[t]), compute_path_length_with_graph(shortest_path, graphs[t]))
-        print(t, shortest_paths)
-        t = t + dynamic_state_update_interval_ns
-        
-            
+                # Write data file
+                data_filename = data_dir + "/networkx_rtt_" + str(threshold * 100 - 100) + "_" + str(src) + "_to_" + str(dst) + ".txt"
+                with open(data_filename, "w+") as data_file:
+                    for i in range(len(rtt_ns_list)):
+                        data_file.write("%d,%.10f,%.10f\n" % (rtt_ns_list[i][0], rtt_ns_list[i][1], rtt_ns_list[i][2]))
 
-        #         # Calculate path length
-        #         path_there = get_path(src, dst, fstate)
-        #         path_back = get_path(dst, src, fstate)
-        #         if path_there is not None and path_back is not None:
-        #             length_src_to_dst_m = compute_path_length_without_graph(path_there, epoch, t, satellites,
-        #                                                                     ground_stations, list_isls,
-        #                                                                     max_gsl_length_m, max_isl_length_m)
-        #             length_dst_to_src_m = compute_path_length_without_graph(path_back, epoch, t,
-        #                                                                     satellites, ground_stations, list_isls,
-        #                                                                     max_gsl_length_m, max_isl_length_m)
-        #             rtt_ns = (length_src_to_dst_m + length_dst_to_src_m) * 1000000000.0 / 299792458.0
-        #         else:
-        #             length_src_to_dst_m = 0.0
-        #             length_dst_to_src_m = 0.0
-        #             rtt_ns = 0.0
-
-        #         # Add to RTT list
-        #         rtt_ns_list.append((t, rtt_ns))
-
-        #         # Only if there is a new path, print new path
-        #         new_path = get_path(src, dst, fstate)
-        #         if current_path != new_path:
-
-        #             # This is the new path
-        #             current_path = new_path
-
-        #             # Write change nicely to the console
-        #             print("Change at t=" + str(t) + " ns (= " + str(t / 1e9) + " seconds)")
-        #             print("  > Path..... " + (" -- ".join(list(map(lambda x: str(x), current_path)))
-        #                                       if current_path is not None else "Unreachable"))
-        #             print("  > Length... " + str(length_src_to_dst_m + length_dst_to_src_m) + " m")
-        #             print("  > RTT...... %.2f ms" % (rtt_ns / 1e6))
-        #             print("")
-
-        #             # Write to path file
-        #             data_path_file.write(str(t) + "," + ("-".join(list(map(lambda x: str(x), current_path)))
-        #                                                  if current_path is not None else "Unreachable") + "\n")
-
-        # # Write data file
-        # data_filename = data_dir + "/networkx_rtt_" + str(src) + "_to_" + str(dst) + ".txt"
-        # with open(data_filename, "w+") as data_file:
-        #     for i in range(len(rtt_ns_list)):
-        #         data_file.write("%d,%.10f\n" % (rtt_ns_list[i][0], rtt_ns_list[i][1]))
-
-        # # Make plot
-        # pdf_filename = pdf_dir + "/time_vs_networkx_rtt_" + str(src) + "_to_" + str(dst) + ".pdf"
-        # tf = tempfile.NamedTemporaryFile(delete=False)
-        # tf.close()
-        # local_shell.copy_file(satgenpy_dir_with_ending_slash + "plot/plot_time_vs_networkx_rtt.plt", tf.name)
-        # local_shell.sed_replace_in_file_plain(tf.name, "[OUTPUT-FILE]", pdf_filename)
-        # local_shell.sed_replace_in_file_plain(tf.name, "[DATA-FILE]", data_filename)
-        # local_shell.perfect_exec("gnuplot " + tf.name)
-        # print("Produced plot: " + pdf_filename)
-        # local_shell.remove(tf.name)
+                # Make plot
+                pdf_filename = pdf_dir + "/time_vs_networkx_rtt_" + str(threshold * 100 - 100) + "_" + str(src) + "_to_" + str(dst) + ".pdf"
+                tf = tempfile.NamedTemporaryFile(delete=False)
+                tf.close()
+                local_shell.copy_file(satgenpy_dir_with_ending_slash + "plot/plot_time_vs_networkx_rtt.plt", tf.name)
+                local_shell.sed_replace_in_file_plain(tf.name, "[OUTPUT-FILE]", pdf_filename)
+                local_shell.sed_replace_in_file_plain(tf.name, "[DATA-FILE]", data_filename)
+                local_shell.perfect_exec("gnuplot " + tf.name)
+                print("Produced plot: " + pdf_filename)
+                local_shell.remove(tf.name)
 
 

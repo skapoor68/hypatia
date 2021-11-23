@@ -28,11 +28,14 @@ def algorithm_free_one_only_gs_relays(
         time_since_epoch_ns,
         satellites,
         ground_stations,
-        sat_net_graph_only_satellites_with_isls,
+        sat_net_graph_all_with_only_gsls,
         num_isls_per_sat,
         list_gsl_interfaces_info,
         prev_output,
-        enable_verbose_logs
+        enable_verbose_logs,
+        max_gsl_length_m,
+        max_isl_length_m,
+        prev_paths
 ):
     """
     FREE-ONE ONLY OVER GROUND STATION RELAYS ALGORITHM
@@ -63,11 +66,11 @@ def algorithm_free_one_only_gs_relays(
 
     # Check the graph
     for sid in range(len(satellites)):
-        for n in sat_net_graph_only_satellites_with_isls.neighbors(sid):
+        for n in sat_net_graph_all_with_only_gsls.neighbors(sid):
             if n < len(satellites):
                 raise ValueError("Graph cannot contain inter-satellite links")
     for gid in range(len(ground_stations)):
-        for n in sat_net_graph_only_satellites_with_isls.neighbors(len(satellites) + gid):
+        for n in sat_net_graph_all_with_only_gsls.neighbors(len(satellites) + gid):
             if n >= len(satellites):
                 raise ValueError("Graph cannot contain inter-ground-station links")
 
@@ -112,12 +115,15 @@ def algorithm_free_one_only_gs_relays(
         time_since_epoch_ns,
         len(satellites),
         len(ground_stations),
-        sat_net_graph_only_satellites_with_isls,
+        sat_net_graph_all_with_only_gsls,
         num_isls_per_sat,
         gid_to_sat_gsl_if_idx,
         {},
         prev_fstate,
-        enable_verbose_logs
+        enable_verbose_logs,
+        max_gsl_length_m,
+        max_isl_length_m,
+        prev_paths
     )
 
     if enable_verbose_logs:

@@ -7,3 +7,4 @@ temp/
 .coverage
 htmlcov/
 temp_*/
+*.txt

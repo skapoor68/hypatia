@@ -61,7 +61,7 @@ def print_routes_and_rtt(base_output_dir, satellite_network_dir, dynamic_state_u
 
     # Write data file
 
-    data_path_filename = data_dir + "/networkx_path_" + str(src) + "_to_" + str(dst) + ".txt"
+    data_path_filename = data_dir + "/networkx_path_1.2_" + str(src) + "_to_" + str(dst) + ".txt"
     with open(data_path_filename, "w+") as data_path_file:
 
         # For each time moment
@@ -69,8 +69,8 @@ def print_routes_and_rtt(base_output_dir, satellite_network_dir, dynamic_state_u
         current_path = []
         rtt_ns_list = []
         for t in range(0, simulation_end_time_ns, dynamic_state_update_interval_ns):
-
-            with open(satellite_network_dynamic_state_dir + "/fstate_" + str(t) + ".txt", "r") as f_in:
+            print(t)
+            with open(satellite_network_dynamic_state_dir + "/fstate_1.2_" + str(t) + ".txt", "r") as f_in:
                 for line in f_in:
                     spl = line.split(",")
                     current = int(spl[0])
@@ -81,6 +81,7 @@ def print_routes_and_rtt(base_output_dir, satellite_network_dir, dynamic_state_u
                 # Calculate path length
                 path_there = get_path(src, dst, fstate)
                 path_back = get_path(dst, src, fstate)
+                print(path_there, path_back)
                 if path_there is not None and path_back is not None:
                     length_src_to_dst_m = compute_path_length_without_graph(path_there, epoch, t, satellites,
                                                                             ground_stations, list_isls,

@@ -1,3 +1,5 @@
 gen_data
 *.pyc
 temp
+*.txt
+2000s_backup*

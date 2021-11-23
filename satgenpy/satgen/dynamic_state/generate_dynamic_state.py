@@ -54,6 +54,7 @@ def generate_dynamic_state(
     prev_output = None
     i = 0
     total_iterations = ((simulation_end_time_ns - offset_ns) / time_step_ns)
+    prev_paths = {}
     for time_since_epoch_ns in range(offset_ns, simulation_end_time_ns, time_step_ns):
         if not enable_verbose_logs:
             if i % int(math.floor(total_iterations) / 10.0) == 0:
@@ -73,7 +74,8 @@ def generate_dynamic_state(
             max_isl_length_m,
             dynamic_state_algorithm,
             prev_output,
-            enable_verbose_logs
+            enable_verbose_logs,
+            prev_paths
         )
 
 
@@ -89,7 +91,8 @@ def generate_dynamic_state_at(
         max_isl_length_m,
         dynamic_state_algorithm,
         prev_output,
-        enable_verbose_logs
+        enable_verbose_logs,
+        prev_paths
 ):
     if enable_verbose_logs:
         print("FORWARDING STATE AT T = " + (str(time_since_epoch_ns))
@@ -234,7 +237,10 @@ def generate_dynamic_state_at(
             sat_neighbor_to_if,
             list_gsl_interfaces_info,
             prev_output,
-            enable_verbose_logs
+            enable_verbose_logs,
+            max_gsl_length_m,
+            max_isl_length_m,
+            prev_paths
         )
 
     elif dynamic_state_algorithm == "algorithm_free_gs_one_sat_many_only_over_isls":
@@ -250,7 +256,10 @@ def generate_dynamic_state_at(
             sat_neighbor_to_if,
             list_gsl_interfaces_info,
             prev_output,
-            enable_verbose_logs
+            enable_verbose_logs,
+            max_gsl_length_m,
+            max_isl_length_m,
+            prev_paths
         )
 
     elif dynamic_state_algorithm == "algorithm_free_one_only_gs_relays":
@@ -264,7 +273,10 @@ def generate_dynamic_state_at(
             num_isls_per_sat,
             list_gsl_interfaces_info,
             prev_output,
-            enable_verbose_logs
+            enable_verbose_logs,
+            max_gsl_length_m,
+            max_isl_length_m,
+            prev_paths
         )
 
     elif dynamic_state_algorithm == "algorithm_paired_many_only_over_isls":
@@ -280,7 +292,10 @@ def generate_dynamic_state_at(
             sat_neighbor_to_if,
             list_gsl_interfaces_info,
             prev_output,
-            enable_verbose_logs
+            enable_verbose_logs,
+            max_gsl_length_m,
+            max_isl_length_m,
+            prev_paths
         )
 
     else:

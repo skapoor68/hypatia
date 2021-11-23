@@ -90,7 +90,7 @@ GEN_TIME=46800  #ms
 # City IDs are available in the city_detail_file.
 # If city ID is X (for Paris X = 24) and constellation is Starlink_550 (1584 satellites),
 # then offset ID is 1584 + 24 = 1608.
-path_file = "../../paper/satgenpy_analysis/data/starlink_550_isls_plus_grid_ground_stations_top_100_algorithm_free_one_only_over_isls/100ms_for_200s/manual/data/networkx_path_1608_to_1650.txt"
+path_file = "../../paper/satgenpy_analysis/data/starlink_550_isls_plus_grid_ground_stations_top_100_algorithm_free_one_only_over_isls/1000ms_for_200s/manual/data/networkx_path_1585_to_1588.txt"
 
 # Output directory for creating visualization html files
 OUT_DIR = "../viz_output/"
@@ -162,6 +162,7 @@ def generate_path_at_time():
     for p in range(len(SEL_PATH)):
         if p == 0:
             GS = int(SEL_PATH[p]) - NUM_ORBS*NUM_SATS_PER_ORB
+            print(p, GS)
             print(city_details[GS]["name"])
             OUT_HTML_FILE += "_"+city_details[GS]["name"] + "_" +str(SEL_PATH[p])
             viz_string += "var redSphere = viewer.entities.add({name : '', position: Cesium.Cartesian3.fromDegrees(" \
