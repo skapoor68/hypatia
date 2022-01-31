@@ -130,9 +130,14 @@ def generate_path(src, dst, isl_path):
 
 def generate_command(src, dst, viz_type, paths):
     command = "cd ../../satviz/scripts/; python visualize_learning_patterns.py " + str(src) + " " + str(dst) + " " + viz_type + " "
-    for path in paths:
-        path_string = json.dumps(path).replace(" ", "")
+
+    if viz_type == "path":
+        path_string = json.dumps(paths).replace(" ", "")
         command += path_string + " "
+
+    else:
+        for path in paths:
+            command += path_string + " "
 
     command += "2> ../viz_outputs/err" + str(src) + "_" + str(dst) + "_" + viz_type + ".txt "
     command += "> ../viz_outputs/" + str(src) + "_" + str(dst) + "_" + viz_type + ".txt"
@@ -154,8 +159,7 @@ def main():
     satellites, list_isls, epoch = generate_infra(satellite_network_dir)
     ground_stations = generate_groundstations()
     points = generate_points()
-    print("setup completed. Total points: ", len(points))
-    # print(ground_stations)
+    
     t = epoch
     sat_net_graph = nx.Graph()
     for i in range(len(satellites)):
@@ -213,15 +217,14 @@ def main():
         if distance_m <= MAX_GSL_LENGTH_M:
             sat_net_graph.add_edge(1586, sid, weight = distance_m)
 
-
     paths = k_shortest_paths(sat_net_graph, 1585, 1586, 8, weight = "weight")
-
     for path in paths:
-        path[0] = gs
-        path[-1] = point
+        path[0] = point
+        path[-1] = gs
+        
+        generate_command(gs, point, "path", path)
 
-    
-    generate_command(gs, point, "paths", paths)
+    print(paths)
 
     print("Running commands (at most %d in parallel)..." % max_num_processes)
     for i in range(len(commands_to_run)):

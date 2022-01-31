@@ -137,7 +137,7 @@ def generate_points():
 path_file = "../../paper/satgenpy_analysis/data/starlink_550_isls_plus_grid_ground_stations_top_100_algorithm_free_one_only_over_isls/1000ms_for_200s/manual/data/networkx_path_1585_to_1588.txt"
 
 # Output directory for creating visualization html files
-OUT_DIR = "../viz_output_patterns/"
+OUT_DIR = "../path_patterns/"
 OUT_HTML_FILE = OUT_DIR + NAME + "_path"
 
 sat_objs = []
@@ -155,27 +155,6 @@ def generate_paths(ground_stations, points, sat_objs, viz_type, src, dst, paths)
     global dst_GS
     global paths_over_time
     global OUT_HTML_FILE
-    # lines = [line.rstrip('\n') for line in open(path_file)]
-    # for i in range(len(lines)):
-    #     val = lines[i].split(",")
-    #     nodes = val[1].split("-")
-    #     paths_over_time.append((int(val[0]), nodes))
-    # paths_over_time.append((0, nodes))
-    # SEL_PATH_TIME = 0
-    # SEL_PATH = []
-    # for i in range(len(paths_over_time)):
-    #     start_ms = round((paths_over_time[i][0]) / 1000000)
-    #     start_next = 99999999999
-    #     try:
-    #         start_next = round((paths_over_time[i + 1][0]) / 1000000)
-    #     except:
-    #         None
-    #     print(start_ms, GEN_TIME)
-    #     if GEN_TIME >= start_ms and GEN_TIME < start_next:
-    #         SEL_PATH_TIME = paths_over_time[i][0]
-    #         SEL_PATH = paths_over_time[i][1]
-    #         break
-    # print(SEL_PATH_TIME, SEL_PATH)
 
     shifted_epoch = pd.to_datetime(EPOCH).strftime(format='%Y/%m/%d %H:%M:%S.%f')
     print(shifted_epoch)
@@ -206,6 +185,8 @@ def generate_paths(ground_stations, points, sat_objs, viz_type, src, dst, paths)
     path_colors = ["RED", "BROWN", "DARKORANGE", "FUCHSIA", "GOLD", "HOTPINK", "INDIGO", "SLATEGREY", "YELLOWGREEN"]
     for i, path in enumerate(paths):
         print(path)
+        
+        OUT_HTML_FILE += "_" + json.dumps(path).replace(" ", "")
         for p in range(len(path)):
             if p == 0:
                 GS = int(path[p])
