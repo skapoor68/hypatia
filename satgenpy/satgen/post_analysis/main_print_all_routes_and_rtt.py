@@ -27,7 +27,7 @@ from satgen.post_analysis.print_all_routes_and_rtt import print_all_routes_and_r
 def main():
     args = sys.argv[1:]
     if len(args) != 5:
-        print("Must supply exactly six arguments")
+        print("Must supply exactly five arguments")
         print("Usage: python -m satgen.post_analysis.main_print_modified_routes_and_rtt.py [data_dir] [satellite_network_dir] "
               "[dynamic_state_update_interval_ms] [end_time_s] [src] [dst]")
         exit(1)

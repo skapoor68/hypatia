@@ -2,6 +2,10 @@
 *.pyc
 dev_testing/
 paper/satellite_networks_state/good_paths_1/*
+paper/satellite_networks_state/good_paths_6000/*
+paper/satellite_networks_state/good_paths_2/*
+paper/satellite_networks_state/interesting/*
 satviz/viz_outputs/*
 satviz/viz_output_patterns/*
+paper/satgenpy_analysis/paper_data/*
 

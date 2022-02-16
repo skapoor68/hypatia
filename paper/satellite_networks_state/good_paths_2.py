@@ -24,11 +24,20 @@ import exputil
 import sys
 sys.path.append("../../satgenpy")
 import math
+from itertools import islice
 from satgen import *
 import networkx as nx
 import numpy as np
 import json
 import time
+import os, sys
+import matplotlib
+import matplotlib.pyplot as plt
+import matplotlib.ticker as tk
+from collections import OrderedDict
+from matplotlib.ticker import FormatStrFormatter
+import threading
+import copy
 
 local_shell = exputil.LocalShell()
 max_num_processes = 16
@@ -71,6 +80,8 @@ INCLINATION_DEGREE = 53
 ################################################################
 
 lat_values = [5, 20, 35, 55]
+dist_limits = [0, 500, 1000, 1500, 2500, 5000, 7500, 10000, 12500, 15000, 17500, 20000, 22500]
+total_time = 3000
 
 def generate_groundstations(lon = -80):
     ground_stations = []
@@ -95,7 +106,7 @@ def generate_groundstations(lon = -80):
 
 def generate_points():
     points = []
-    i = 4
+    i = 0
     for lat in range(-60, 60, 4):
         for lon in range(-180, 180, 4):
             point = {}
@@ -117,48 +128,120 @@ def generate_infra(satellite_network_dir):
     list_isls = read_isls(satellite_network_dir + "/isls.txt", len(satellites))
     
     epoch = tles["epoch"]
-    print(epoch)
     return satellites, list_isls, epoch
 
-def main():    
+def generate_command(src, dst, viz_type, paths):
+    command = "cd ../../satviz/scripts/; python visualize_learning_patterns.py " + str(src) + " " + str(dst) + " " + viz_type + " "
+
+    if viz_type == "path":
+        path_string = json.dumps(paths).replace(" ", "")
+        command += path_string + " "
+
+    else:
+        for path in paths:
+            command += path_string + " "
+
+    command += "2> ../viz_outputs/err" + str(src) + "_" + str(dst) + "_" + viz_type + ".txt "
+    command += "> ../viz_outputs/" + str(src) + "_" + str(dst) + "_" + viz_type + ".txt"
+    commands_to_run.append(command)
+
+def k_shortest_paths(G, source, target, k, weight=None):
+    return list(
+        islice(nx.shortest_simple_paths(G, source, target, weight=weight), k)
+    )
+
+def generate_graph(t, gs, point):
+    print(t)
     satellite_network_dir = "./gen_data/starlink_550_isls_plus_grid_ground_stations_top_100_algorithm_free_one_only_over_isls"
     satellites, list_isls, epoch = generate_infra(satellite_network_dir)
     ground_stations = generate_groundstations()
     points = generate_points()
     
-    for tt in range(0, 6000):
-        t = epoch + tt / 86400
-        data_path_filename = "./graphs/graph_" + str(tt) + ".txt"
-        sat_net_graph_only_satellites_with_isls = nx.Graph()
-        for i in range(len(satellites)):
-            sat_net_graph_only_satellites_with_isls.add_node(i)
+    
+    graph_path = "graphs/graph_" + str(t) + ".txt"
+    sat_net_graph = nx.read_gpickle(graph_path)
+    t = epoch + t / 86400
+   
+    for sid in range(len(satellites)):
+        distance_m = distance_m_ground_station_to_satellite(
+            points[point],
+            satellites[sid],
+            str(epoch),
+            str(t)
+        )
+        if distance_m <= MAX_GSL_LENGTH_M:
+            sat_net_graph.add_edge(1586, sid, weight = distance_m)
 
-        total_num_isls = 0
-        num_isls_per_sat = [0] * len(satellites)
-        sat_neighbor_to_if = {}
-        for (a, b) in list_isls:
+        distance_m = distance_m_ground_station_to_satellite(
+            ground_stations[gs],
+            satellites[sid],
+            str(epoch),
+            str(t)
+        )
+        if distance_m <= MAX_GSL_LENGTH_M:
+            sat_net_graph.add_edge(1585, sid, weight = distance_m)
 
-            # ISLs are not permitted to exceed their maximum distance
-            # TODO: Technically, they can (could just be ignored by forwarding state calculation),
-            # TODO: but practically, defining a permanent ISL between two satellites which
-            # TODO: can go out of distance is generally unwanted
-            sat_distance_m = distance_m_between_satellites(satellites[a], satellites[b], str(epoch), str(t))
-            if sat_distance_m > MAX_ISL_LENGTH_M:
-                raise ValueError(
-                    "The distance between two satellites (%d and %d) "
-                    "with an ISL exceeded the maximum ISL length (%.2fm > %.2fm at t=%dns)"
-                    % (a, b, sat_distance_m, MAX_ISL_LENGTH_M, time_since_epoch_ns)
-                )
+    return sat_net_graph
 
-            # Add to networkx graph
-            sat_net_graph_only_satellites_with_isls.add_edge(
-                a, b, weight=sat_distance_m
-            )
+def calculate_path_lengths(graphs, path):
+    lengths = [0] * total_time
 
-        for point in points:
-            pid = point["pid"] + 1584
+    for i in range(total_time):
+        if nx.is_simple_path(graphs[i], path):
+            lengths[i] = compute_path_length_with_graph(path, graphs[i])
 
-        nx.write_gpickle(sat_net_graph_only_satellites_with_isls, data_path_filename)
+    return lengths
+
+def main():
+    args = sys.argv[1:]
+    
+    gs = int(args[0])
+    point = int(args[1])
+    graphs = {}
+    t1 = time.time()
+    num_threads = 1
+    per_thread = total_time // num_threads
+    ths = []
+    for i in range(total_time):
+        graphs[i] = generate_graph(i, gs, point)
+
+    print(time.time() - t1)
+
+    paths_to_ids = {}
+    paths = []
+
+    for t in range(total_time):
+        pths = k_shortest_paths(graphs[t], 1585, 1586, 2, weight = "weight")
+        for path in pths:
+            new_path = copy.deepcopy(path)
+            new_path[0] = gs
+            new_path[-1] = point
+            if str(new_path) not in paths_to_ids:
+            
+                paths_to_ids[str(new_path)] = len(paths)
+                paths.append(calculate_path_lengths(graphs, path))
+
+    plt_colors = ["b-", "r-", "g-", "c-", "m-", "y-", "k-", "b--", "r--", "g--", "c--", "m--", "y--", "k--", "b:", "r:", "g:", "c:", "m:", "y:", "k:", "b-.", "r-.", "g-.", "c-.", "m-.", "y-.", "k-."]
+    i = 0
+    for path in paths_to_ids:
+        print(path, paths[paths_to_ids[path]])
+        x = np.arange(0, total_time)
+        y = np.array(paths[paths_to_ids[path]])
+        ids = np.nonzero(y)
+        plt.plot(x[ids], y[ids] / 1000, plt_colors[i % 28], label=path)
+
+        i = i + 1
+
+    plt.rcParams["figure.figsize"] = (20,20)
+    plt.legend(loc='upper center', bbox_to_anchor=(0.5, -0.05), fontsize=6, ncol=3)
+    plt.tight_layout()
+    base_file = args[0] + "_" + args[1]
+    png_file = "good_paths_2/pngs/" + base_file + ".png"
+    pdf_file = "good_paths_2/pdfs/" + base_file + ".pdf"
+    plt.savefig(png_file)
+    plt.savefig(pdf_file)
+    
 
 if __name__ == "__main__":
     main()
+    

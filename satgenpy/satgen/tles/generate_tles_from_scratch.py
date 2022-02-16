@@ -69,7 +69,7 @@ def generate_tles_from_scratch_with_sgp(
                 # Epoch is set to the year 2000
                 # This conveniently in TLE format gives 00001.00000000
                 # for the epoch year and Julian day fraction entry
-                jd, fr = jday(2000, 1, 1, 0, 0, 0)
+                jd, fr = jday(2022, 1, 1, 0, 0, 0)
 
                 # Use SGP-4 to generate TLE
                 sat_sgp4 = Satrec()

@@ -82,40 +82,15 @@ def print_all_routes_and_rtt(base_output_dir, satellite_network_dir, graph_dir, 
     # For each time moment
     print("inside all_paths")
 
-    fstates = {}
     graphs = {}
     for t in range(0, simulation_end_time_ns, dynamic_state_update_interval_ns):
         num_path_changes = 0
-        num_fstate_updates = 0
-        current_fstate = {}
-        if t > 0:
-            current_fstate = copy.deepcopy(fstates[t - dynamic_state_update_interval_ns])
-
-        # Read in forwarding state
-        with open(satellite_network_dynamic_state_dir + "/fstate_" + str(t) + ".txt", "r") as f_in:
-            for line in f_in:
-                spl = line.split(",")
-                current = int(spl[0])
-                destination = int(spl[1])
-                next_hop = int(spl[2])
-                current_fstate[(current, destination)] = next_hop
-                num_fstate_updates += 1
-
-        fstates[t] = current_fstate
 
         graph_path = graph_dir + "/graph_" + str(t) + ".txt"
+        print(graph_path)
         graphs[t] = nx.read_gpickle(graph_path)
-        
-        tt = t - simulation_end_time_ns
-        graph_path = graph_dir + "/graph_" + str(tt) + ".txt"
-        graphs[tt] = nx.read_gpickle(graph_path)
 
-        tt = t + simulation_end_time_ns
-        graph_path = graph_dir + "/graph_" + str(tt) + ".txt"
-        graphs[tt] = nx.read_gpickle(graph_path)
-
-
-    print("all graphs loaded", len(graphs), len(fstates))
+    print("all graphs loaded", len(graphs))
 
     for s in range(len(ground_stations)):
         src = s + len(satellites)
@@ -128,16 +103,15 @@ def print_all_routes_and_rtt(base_output_dir, satellite_network_dir, graph_dir, 
             with open(data_path_filename, "w+") as data_path_file:
                 for t in range(0, simulation_end_time_ns, dynamic_state_update_interval_ns):
                     # Calculate path length
-                    print(t)
-                    path_there = get_path(src, dst, fstates[t])
-                    path_back = get_path(dst, src, fstates[t])
+                    # print(t)
+                    if not graphs[t].has_node(src) or not graphs[t].has_node(dst) or not nx.has_path(graphs[t], src, dst):
+                        print("no computation from src {} to dst {} at timestep {}".format(src, dst, t))
+                        continue
+                    path_there = nx.shortest_path(graphs[t], src, dst, "weight")
+                    path_back = nx.shortest_path(graphs[t], dst, src, "weight")
                     if path_there is not None and path_back is not None:
-                        length_src_to_dst_m = compute_path_length_without_graph(path_there, epoch, t, satellites,
-                                                                                ground_stations, list_isls,
-                                                                                max_gsl_length_m, max_isl_length_m)
-                        length_dst_to_src_m = compute_path_length_without_graph(path_back, epoch, t,
-                                                                                satellites, ground_stations, list_isls,
-                                                                                max_gsl_length_m, max_isl_length_m)
+                        length_src_to_dst_m = compute_path_length_with_graph(path_there, graphs[t])
+                        length_dst_to_src_m = compute_path_length_with_graph(path_back, graphs[t])
                         rtt_ns = (length_src_to_dst_m + length_dst_to_src_m) * 1000000000.0 / 299792458.0
                     else:
                         length_src_to_dst_m = 0.0
@@ -148,16 +122,11 @@ def print_all_routes_and_rtt(base_output_dir, satellite_network_dir, graph_dir, 
                     rtt_ns_list.append((t, rtt_ns))
 
                     # Only if there is a new path, print new path
-                    new_path = get_path(src, dst, fstates[t])
+                    new_path = path_there
                     if current_path != new_path:
 
                         # This is the new path
                         current_path = new_path
-
-                        if current_path is not None:
-                            path_life = calculate_path_life(graphs, t, current_path, dynamic_state_update_interval_ns, 0 - simulation_end_time_ns, 2 * simulation_end_time_ns)
-                        else:
-                            path_life = -1
 
                         # Write change nicely to the console
                         print("Change at t=" + str(t) + " ns (= " + str(t / 1e9) + " seconds)")
@@ -165,11 +134,10 @@ def print_all_routes_and_rtt(base_output_dir, satellite_network_dir, graph_dir, 
                                                 if current_path is not None else "Unreachable"))
                         print("  > Length... " + str(length_src_to_dst_m + length_dst_to_src_m) + " m")
                         print("  > RTT...... %.2f ms" % (rtt_ns / 1e6))
-                        print("  > Path life " + str(path_life) + "sec")
                         print("")
 
                         # Write to path file
-                        data_path_file.write(str(t) + "," + str(path_life) + "," + ("-".join(list(map(lambda x: str(x), current_path)))
+                        data_path_file.write(str(t) + "," + ("-".join(list(map(lambda x: str(x), current_path)))
                                                             if current_path is not None else "Unreachable") + "\n")
 
                 # Write data file
@@ -179,14 +147,14 @@ def print_all_routes_and_rtt(base_output_dir, satellite_network_dir, graph_dir, 
                         data_file.write("%d,%.10f\n" % (rtt_ns_list[i][0], rtt_ns_list[i][1]))
 
                 # Make plot
-                pdf_filename = pdf_dir + "/time_vs_networkx_rtt_" + str(src) + "_to_" + str(dst) + ".pdf"
-                tf = tempfile.NamedTemporaryFile(delete=False)
-                tf.close()
-                local_shell.copy_file(satgenpy_dir_with_ending_slash + "plot/plot_time_vs_networkx_rtt.plt", tf.name)
-                local_shell.sed_replace_in_file_plain(tf.name, "[OUTPUT-FILE]", pdf_filename)
-                local_shell.sed_replace_in_file_plain(tf.name, "[DATA-FILE]", data_filename)
-                local_shell.perfect_exec("gnuplot " + tf.name)
-                print("Produced plot: " + pdf_filename)
-                local_shell.remove(tf.name)
+                # pdf_filename = pdf_dir + "/time_vs_networkx_rtt_" + str(src) + "_to_" + str(dst) + ".pdf"
+                # tf = tempfile.NamedTemporaryFile(delete=False)
+                # tf.close()
+                # local_shell.copy_file(satgenpy_dir_with_ending_slash + "plot/plot_time_vs_networkx_rtt.plt", tf.name)
+                # local_shell.sed_replace_in_file_plain(tf.name, "[OUTPUT-FILE]", pdf_filename)
+                # local_shell.sed_replace_in_file_plain(tf.name, "[DATA-FILE]", data_filename)
+                # local_shell.perfect_exec("gnuplot " + tf.name)
+                # print("Produced plot: " + pdf_filename)
+                # local_shell.remove(tf.name)
 
 

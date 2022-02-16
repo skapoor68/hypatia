@@ -22,7 +22,11 @@
 
 import math
 import ephem
+import numpy as np
 import pandas as pd
+import datetime
+import csv
+import sys
 
 try:
     from . import util
@@ -83,7 +87,7 @@ bottomFile = "../static_html/bottom.html"
 city_detail_file = "../../paper/satellite_networks_state/input_data/ground_stations_cities_sorted_by_estimated_2025_pop_top_1000.basic.txt"
 
 # Time in ms for which visualization will be generated
-GEN_TIME=46800  #ms
+GEN_TIME=46000  #ms
 
 # Input file; Generated during simulation
 # Note the file_name consists of the 2 city IDs being offset by the size of the constellation
@@ -94,92 +98,90 @@ path_file = "../../paper/satgenpy_analysis/data/starlink_550_isls_plus_grid_grou
 
 # Output directory for creating visualization html files
 OUT_DIR = "../viz_output/"
-OUT_HTML_FILE = OUT_DIR + NAME + "_path"
+OUT_HTML_FILE = OUT_DIR + NAME + "_"
 
-sat_objs = []
-city_details = {}
-paths_over_time = []
+lat_values = [5, 20, 35, 55]
 
-def geodetic2cartesian(lat_degrees, lon_degrees, ele_m):
-    """
-    Compute geodetic coordinates (latitude, longitude, elevation) to Cartesian coordinates.
+def generate_groundstations(lon = -80):
+    ground_stations = []
+    i = 0
 
-    :param lat_degrees: Latitude in degrees (float)
-    :param lon_degrees: Longitude in degrees (float)
-    :param ele_m:  Elevation in meters
+    for lat in lat_values:
+        ground_station = {}
+        ground_station['gid'] = i
+        ground_station['latitude_degrees_str'] = str(lat)
+        ground_station['longitude_degrees_str'] = str(lon)
+        ground_station['name'] = "gid" + str(i)
+        ground_station['elevation_m_float'] = 0
+        ground_stations.append(ground_station)
+        i = i + 1
 
-    :return: Cartesian coordinate as 3-tuple of (x, y, z)
-    """
+    ground_stations[0]["satellites"] = [66, 912, 88, 891]
+    ground_stations[1]["satellites"] = [955, 23, 977, 2]
+    ground_stations[2]["satellites"] = [998, 1564, 1020, 1543]
+    ground_stations[3]["satellites"] = [1325, 1238, 1259, 1303]
+    return ground_stations
 
-    #
-    # Adapted from: https://github.com/andykee/pygeodesy/blob/master/pygeodesy/transform.py
-    #
+def generate_points():
+    points = []
+    i = 0
+    for lat in range(-60, 60, 4):
+        for lon in range(-180, 180, 4):
+            point = {}
+            point['pid'] = i
+            point['latitude_degrees_str'] = str(lat)
+            point['longitude_degrees_str'] = str(lon)
+            point['name'] = "gid" + str(i)
+            point['elevation_m_float'] = 0
+            points.append(point)
+            i = i + 1
 
-    # WGS72 value,
-    # Source: https://geographiclib.sourceforge.io/html/NET/NETGeographicLib_8h_source.html
-    a = 6378135.0
-
-    # Ellipsoid flattening factor; WGS72 value
-    # Taken from https://geographiclib.sourceforge.io/html/NET/NETGeographicLib_8h_source.html
-    f = 1.0 / 298.26
-
-    # First numerical eccentricity of ellipsoid
-    e = math.sqrt(2.0 * f - f * f)
-    lat = lat_degrees * (math.pi / 180.0)
-    lon = lon_degrees * (math.pi / 180.0)
-
-    # Radius of curvature in the prime vertical of the surface of the geodetic ellipsoid
-    v = a / math.sqrt(1.0 - e * e * math.sin(lat) * math.sin(lat))
-
-    x = (v + ele_m) * math.cos(lat) * math.cos(lon)
-    y = (v + ele_m) * math.cos(lat) * math.sin(lon)
-    z = (v * (1.0 - e * e) + ele_m) * math.sin(lat)
-
-    return np.array(x / 1000, y / 1000, z / 1000)
-
-def calculate_distance(point1, point2):
-    return math.sqrt((point2[0] - point1[0]) * (point2[0] - point1[0]) 
-        + (point2[1] - point1[1]) * (point2[1] - point1[1])
-     + (point2[2] - point1[2]) * (point2[2] - point1[2]))
-     
-earth_radius = 6378.135
-altitude = 550
-theta = math.acos(earth_radius / (earth_radius + altitude))
-
-latency = 15
-
-def get_class_id(distance):
-	if distance < 2 * (earth_radius + altitude) * math.sin(theta / 2):
-		return 0
-	elif distance < 2 * (earth_radius + altitude) * math.sin((2 * theta) / 2):
-		return 1
-	elif distance < 2 * (earth_radius + altitude) * math.sin((3 * theta) / 2):
-		return 2
-	elif distance < 2 * (earth_radius + altitude) * math.sin((4 * theta) / 2):
-		return 3
-	elif distance < 2 * (earth_radius + altitude) * math.sin((5 * theta) / 2):
-		return 4
-	elif distance < 2 * (earth_radius + altitude) * math.sin((6 * theta) / 2):
-		return 5
-	elif distance < 2 * (earth_radius + altitude) * math.sin((7 * theta) / 2):
-		return 6
-	else:
-		return 7
-
-sat_mapping = {}
-
-def generate_satellite_eq_classes_mapping(satellites, t):
-    for i, sat in enumerate(satellites):
-        sat_objs[i]["sat_obj"].compute(shifted_epoch)
-        sat_coords = geodetic2cartesian(sat_objs[i]["sat_obj"].sublat, sat_objs[i]["sat_obj"].sublong, 550000)
-        city_coords = geodetic2cartesian(city["long_deg"], city["long_deg"], 550000)
-
-        dist = calculate_distance(sat_coords, city_coords)
-        sat_mapping[i] = get_class_id(dist)
+    return points
 
 colors = ["RED", "BROWN", "DARKORANGE", "FUCHSIA", "GOLD", "HOTPINK", "INDIGO", "SLATEGREY", "YELLOWGREEN", "BLACK", "YELLOW"]
 
-def generate_eq_classes_visualization():
+def load_data(source):
+    point_intensity = {}
+    f = "../../paper/satellite_networks_state/shortest_paths_analysis.txt"
+
+    with open(f) as csvfile:
+        spamreader = csv.reader(csvfile, delimiter=',',quotechar='"',quoting=csv.QUOTE_ALL, skipinitialspace=True)
+        for row in spamreader:
+            if row[0] == "max ratio" and int(row[1]) == source:
+                dest = int(row[2])
+                ratio = float(row[3])
+                point_intensity[dest] = ratio
+            else:
+                continue
+
+    print(point_intensity)
+    print(max(point_intensity.keys()))
+    return point_intensity
+
+def get_color_and_opacity(ratio, min, max):
+    diff = max - min
+    if ratio < min + 0.1 * diff:
+        return "INDIGO", 0.3
+    elif ratio < min + 0.2 * diff:
+        return "INDIGO", 0.6
+    elif ratio < min + 0.3 * diff:
+        return "BEIGE", 1
+    elif ratio < min + 0.4 * diff:
+        return "YELLOW", 1
+    elif ratio < min + 0.5 * diff:
+        return "BURLYWOOD ", 1
+    elif ratio < min + 0.6 * diff:
+        return "ORANGE", 1
+    elif ratio < min + 0.7 * diff:
+        return "DARKORANGE", 1
+    elif ratio < min + 0.8 * diff:
+        return "BROWN", 1
+    elif ratio < min + 0.9 * diff:
+        return "RED", 0.3
+    else:
+        return "RED", 1
+
+def generate_path_variations(source, sat_objs):
     """
     Generates end-to-end path at specified time
     :return: HTML formatted string for visualization
@@ -190,17 +192,20 @@ def generate_eq_classes_visualization():
     global paths_over_time
     global OUT_HTML_FILE
     
-
+    points = generate_points()
+    ground_stations = generate_groundstations()
+    point_intensity = load_data(source)
+    min_intensity = min(point_intensity.values())
+    max_intensity = max(point_intensity.values())
     shifted_epoch = (pd.to_datetime(EPOCH) + pd.to_timedelta(GEN_TIME, unit='ms')).strftime(format='%Y/%m/%d %H:%M:%S.%f')
-    print(shifted_epoch)
-    generate_satellite_eq_classes_mapping(sat_objs, shifted_epoch)
+    print(shifted_epoch, type(sat_objs))
     for i in range(len(sat_objs)):
-        sat_objs[i]["sat_obj"].compute(shifted_epoch)
+        sat_objs[i]["sat_obj"].compute(shifted_epoch)        
         viz_string += "var redSphere = viewer.entities.add({name : '', position: Cesium.Cartesian3.fromDegrees(" \
                      + str(math.degrees(sat_objs[i]["sat_obj"].sublong)) + ", " \
                      + str(math.degrees(sat_objs[i]["sat_obj"].sublat)) + ", "+str(sat_objs[i]["alt_km"]*1000)+"), "\
                      + "ellipsoid : {radii : new Cesium.Cartesian3(20000.0, 20000.0, 20000.0), "\
-                     + "material : Cesium.Color." + colors[sat_mapping[i]] + ".withAlpha(1),}});\n"
+                     + "material : Cesium.Color.GREY.withAlpha(0.3),}});\n"
 
     orbit_links = util.find_orbit_links(sat_objs, NUM_ORBS, NUM_SATS_PER_ORB)
     for key in orbit_links:
@@ -213,40 +218,52 @@ def generate_eq_classes_visualization():
                       + str(math.degrees(sat_objs[sat2]["sat_obj"].sublong)) + "," \
                       + str(math.degrees(sat_objs[sat2]["sat_obj"].sublat)) + "," \
                       + str(sat_objs[sat2]["alt_km"] * 1000) + "]), " \
-                      + "width: 0.5, arcType: Cesium.ArcType.NONE, " \
+                      + "width: 1, arcType: Cesium.ArcType.NONE, " \
                       + "material: new Cesium.PolylineOutlineMaterialProperty({ " \
                       + "color: Cesium.Color.GREY.withAlpha(0.3), outlineWidth: 0, outlineColor: Cesium.Color.BLACK})}});"
 
-    OUT_HTML_FILE += "_"+city["name"] + "_" +str(SEL_PATH[p])
+    gs = ground_stations[source]
+    print(gs["name"])
+    OUT_HTML_FILE += "_"+gs["name"]
     viz_string += "var redSphere = viewer.entities.add({name : '', position: Cesium.Cartesian3.fromDegrees(" \
-                    + str(city["long_deg"]) + ", " \
-                    + str(city["lat_deg"]) + ", " \
-                    + str(city["alt_km"] * 1000) + "), " \
+                + str(gs["longitude_degrees_str"]) + ", " \
+                + str(gs["latitude_degrees_str"]) + ", " \
+                + str(gs["elevation_m_float"] * 1000) + "), " \
+                + "ellipsoid : {radii : new Cesium.Cartesian3(50000.0, 50000.0, 50000.0), " \
+                + "material : Cesium.Color.GREEN.withAlpha(1),}});\n"
+    for point in points:
+        color, opacity = get_color_and_opacity(point_intensity[point["pid"]], min_intensity, max_intensity)
+        print(point_intensity[point["pid"]], color, opacity, min_intensity, max_intensity)
+        viz_string += "var redSphere = viewer.entities.add({name : 'Atlanta', position: Cesium.Cartesian3.fromDegrees(" \
+                    + point["longitude_degrees_str"] + ", " \
+                    + point["latitude_degrees_str"] + ", " \
+                    + str(point["elevation_m_float"] * 1000) + "), " \
                     + "ellipsoid : {radii : new Cesium.Cartesian3(50000.0, 50000.0, 50000.0), " \
-                    + "material : Cesium.Color.GREEN.withAlpha(1),}});\n"
-
+                    + "material : Cesium.Color." + color + ".withAlpha(" + str(opacity) +"),}});\n"
     
-
     OUT_HTML_FILE += "_" + str(GEN_TIME) + ".html"
+    print(OUT_HTML_FILE)
     return viz_string
 
+def main():
+    args = sys.argv[1:]
+    src = int(args[0])
+    
+    sat_objs = util.generate_sat_obj_list(
+        NUM_ORBS,
+        NUM_SATS_PER_ORB,
+        EPOCH,
+        PHASE_DIFF,
+        INCLINATION_DEGREE,
+        ECCENTRICITY,
+        ARG_OF_PERIGEE_DEGREE,
+        MEAN_MOTION_REV_PER_DAY,
+        ALTITUDE_M
+    )
 
-city = {
-            "name": "Atlanta",
-            "lat_deg": 33.76,
-            "long_deg": -84.4,
-            "alt_km": 0
-        }
-sat_objs = util.generate_sat_obj_list(
-    NUM_ORBS,
-    NUM_SATS_PER_ORB,
-    EPOCH,
-    PHASE_DIFF,
-    INCLINATION_DEGREE,
-    ECCENTRICITY,
-    ARG_OF_PERIGEE_DEGREE,
-    MEAN_MOTION_REV_PER_DAY,
-    ALTITUDE_M
-)
-viz_string = generate_eq_classes_visualization()
-util.write_viz_files(viz_string, topFile, bottomFile, OUT_HTML_FILE)
+    viz_string = generate_path_variations(src, sat_objs)
+    util.write_viz_files(viz_string, topFile, bottomFile, OUT_HTML_FILE)
+
+
+if __name__ == "__main__":
+    main()

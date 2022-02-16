@@ -93,11 +93,6 @@ class MainHelper:
                 "input_data/ground_stations_paris_moscow_grid.basic.txt",
                 output_generated_data_dir + "/" + name + "/ground_stations.txt"
             )
-        elif gs_selection == "ground_stations_world_grid":
-            satgen.extend_ground_stations(
-                "input_data/ground_stations_world_grid.basic.txt",
-                output_generated_data_dir + "/" + name + "/ground_stations.txt"
-            )
         else:
             raise ValueError("Unknown ground station selection: " + gs_selection)
 
@@ -141,38 +136,38 @@ class MainHelper:
         )
 
         # GSL interfaces
-        # ground_stations = satgen.read_ground_stations_extended(
-        #     output_generated_data_dir + "/" + name + "/ground_stations.txt"
-        # )
-        # if dynamic_state_algorithm == "algorithm_free_one_only_gs_relays" \
-        #         or dynamic_state_algorithm == "algorithm_free_one_only_over_isls":
-        #     gsl_interfaces_per_satellite = 1
-        # elif dynamic_state_algorithm == "algorithm_paired_many_only_over_isls":
-        #     gsl_interfaces_per_satellite = len(ground_stations)
-        # else:
-        #     raise ValueError("Unknown dynamic state algorithm: " + dynamic_state_algorithm)
+        ground_stations = satgen.read_ground_stations_extended(
+            output_generated_data_dir + "/" + name + "/ground_stations.txt"
+        )
+        if dynamic_state_algorithm == "algorithm_free_one_only_gs_relays" \
+                or dynamic_state_algorithm == "algorithm_free_one_only_over_isls":
+            gsl_interfaces_per_satellite = 1
+        elif dynamic_state_algorithm == "algorithm_paired_many_only_over_isls":
+            gsl_interfaces_per_satellite = len(ground_stations)
+        else:
+            raise ValueError("Unknown dynamic state algorithm: " + dynamic_state_algorithm)
 
-        # print("Generating GSL interfaces info..")
-        # satgen.generate_simple_gsl_interfaces_info(
-        #     output_generated_data_dir + "/" + name + "/gsl_interfaces_info.txt",
-        #     self.NUM_ORBS * self.NUM_SATS_PER_ORB,
-        #     len(ground_stations),
-        #     gsl_interfaces_per_satellite,  # GSL interfaces per satellite
-        #     1,  # (GSL) Interfaces per ground station
-        #     1,  # Aggregate max. bandwidth satellite (unit unspecified)
-        #     1   # Aggregate max. bandwidth ground station (same unspecified unit)
-        # )
+        print("Generating GSL interfaces info..")
+        satgen.generate_simple_gsl_interfaces_info(
+            output_generated_data_dir + "/" + name + "/gsl_interfaces_info.txt",
+            self.NUM_ORBS * self.NUM_SATS_PER_ORB,
+            len(ground_stations),
+            gsl_interfaces_per_satellite,  # GSL interfaces per satellite
+            1,  # (GSL) Interfaces per ground station
+            1,  # Aggregate max. bandwidth satellite (unit unspecified)
+            1   # Aggregate max. bandwidth ground station (same unspecified unit)
+        )
 
-        # # Forwarding state
-        # print("Generating forwarding state...")
-        # satgen.help_dynamic_state(
-        #     output_generated_data_dir,
-        #     num_threads,  # Number of threads
-        #     name,
-        #     time_step_ms,
-        #     duration_s,
-        #     self.MAX_GSL_LENGTH_M,
-        #     self.MAX_ISL_LENGTH_M,
-        #     dynamic_state_algorithm,
-        #     True
-        # )
+        # Forwarding state
+        print("Generating forwarding state...")
+        satgen.help_dynamic_state(
+            output_generated_data_dir,
+            num_threads,  # Number of threads
+            name,
+            time_step_ms,
+            duration_s,
+            self.MAX_GSL_LENGTH_M,
+            self.MAX_ISL_LENGTH_M,
+            dynamic_state_algorithm,
+            True
+        )

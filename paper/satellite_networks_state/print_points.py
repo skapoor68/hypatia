@@ -126,39 +126,12 @@ def main():
     ground_stations = generate_groundstations()
     points = generate_points()
     
-    for tt in range(0, 6000):
-        t = epoch + tt / 86400
-        data_path_filename = "./graphs/graph_" + str(tt) + ".txt"
-        sat_net_graph_only_satellites_with_isls = nx.Graph()
-        for i in range(len(satellites)):
-            sat_net_graph_only_satellites_with_isls.add_node(i)
+    for gs in ground_stations:
+        print(gs["gid"], gs["name"], gs["latitude_degrees_str"], gs["longitude_degrees_str"], gs["elevation_m_float"], sep=",")
 
-        total_num_isls = 0
-        num_isls_per_sat = [0] * len(satellites)
-        sat_neighbor_to_if = {}
-        for (a, b) in list_isls:
+    for point in points:
+        print(point["pid"], point["name"], point["latitude_degrees_str"], point["longitude_degrees_str"], point["elevation_m_float"], sep=",")
 
-            # ISLs are not permitted to exceed their maximum distance
-            # TODO: Technically, they can (could just be ignored by forwarding state calculation),
-            # TODO: but practically, defining a permanent ISL between two satellites which
-            # TODO: can go out of distance is generally unwanted
-            sat_distance_m = distance_m_between_satellites(satellites[a], satellites[b], str(epoch), str(t))
-            if sat_distance_m > MAX_ISL_LENGTH_M:
-                raise ValueError(
-                    "The distance between two satellites (%d and %d) "
-                    "with an ISL exceeded the maximum ISL length (%.2fm > %.2fm at t=%dns)"
-                    % (a, b, sat_distance_m, MAX_ISL_LENGTH_M, time_since_epoch_ns)
-                )
-
-            # Add to networkx graph
-            sat_net_graph_only_satellites_with_isls.add_edge(
-                a, b, weight=sat_distance_m
-            )
-
-        for point in points:
-            pid = point["pid"] + 1584
-
-        nx.write_gpickle(sat_net_graph_only_satellites_with_isls, data_path_filename)
 
 if __name__ == "__main__":
     main()

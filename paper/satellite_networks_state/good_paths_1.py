@@ -81,7 +81,7 @@ INCLINATION_DEGREE = 53
 
 lat_values = [5, 20, 35, 55]
 dist_limits = [0, 500, 1000, 1500, 2500, 5000, 7500, 10000, 12500, 15000, 17500, 20000, 22500]
-total_time = 200
+total_time = 6000
 
 def generate_groundstations(lon = -80):
     ground_stations = []
@@ -130,21 +130,6 @@ def generate_infra(satellite_network_dir):
     epoch = tles["epoch"]
     return satellites, list_isls, epoch
 
-def generate_command(src, dst, viz_type, paths):
-    command = "cd ../../satviz/scripts/; python visualize_learning_patterns.py " + str(src) + " " + str(dst) + " " + viz_type + " "
-
-    if viz_type == "path":
-        path_string = json.dumps(paths).replace(" ", "")
-        command += path_string + " "
-
-    else:
-        for path in paths:
-            command += path_string + " "
-
-    command += "2> ../viz_outputs/err" + str(src) + "_" + str(dst) + "_" + viz_type + ".txt "
-    command += "> ../viz_outputs/" + str(src) + "_" + str(dst) + "_" + viz_type + ".txt"
-    commands_to_run.append(command)
-
 def k_shortest_paths(G, source, target, k, weight=None):
     return list(
         islice(nx.shortest_simple_paths(G, source, target, weight=weight), k)
@@ -157,41 +142,10 @@ def generate_graph(t, gs, point):
     ground_stations = generate_groundstations()
     points = generate_points()
     
+    graph_path = "graphs/graph_" + str(t) + ".txt"
+    sat_net_graph = nx.read_gpickle(graph_path)
     t = epoch + t / 86400
-    sat_net_graph = nx.Graph()
-    for i in range(len(satellites)):
-        sat_net_graph.add_node(i)
 
-    total_num_isls = 0
-    num_isls_per_sat = [0] * len(satellites)
-    sat_neighbor_to_if = {}
-    for (a, b) in list_isls:
-
-        # ISLs are not permitted to exceed their maximum distance
-        # TODO: Technically, they can (could just be ignored by forwarding state calculation),
-        # TODO: but practically, defining a permanent ISL between two satellites which
-        # TODO: can go out of distance is generally unwanted
-        sat_distance_m = distance_m_between_satellites(satellites[a], satellites[b], str(epoch), str(t))
-        if sat_distance_m > MAX_ISL_LENGTH_M:
-            raise ValueError(
-                "The distance between two satellites (%d and %d) "
-                "with an ISL exceeded the maximum ISL length (%.2fm > %.2fm at t=%dns)"
-                % (a, b, sat_distance_m, MAX_ISL_LENGTH_M, time_since_epoch_ns)
-            )
-
-        # Add to networkx graph
-        sat_net_graph.add_edge(
-            a, b, weight=sat_distance_m
-        )
-
-        # Interface mapping of ISLs
-        sat_neighbor_to_if[(a, b)] = num_isls_per_sat[a]
-        sat_neighbor_to_if[(b, a)] = num_isls_per_sat[b]
-        num_isls_per_sat[a] += 1
-        num_isls_per_sat[b] += 1
-        total_num_isls += 1
-
-   
     for sid in range(len(satellites)):
         distance_m = distance_m_ground_station_to_satellite(
             points[point],
@@ -265,8 +219,8 @@ def main():
     plt.legend(bbox_to_anchor=(1.0, 1.05), loc='lower right', fontsize=4)
     plt.tight_layout()
     base_file = args[0] + "_" + args[1]
-    png_file = "good_paths_1/pngs/" + base_file + ".png"
-    pdf_file = "good_paths_1/pdfs/" + base_file + ".pdf"
+    png_file = "good_paths_6000/pngs/" + base_file + ".png"
+    pdf_file = "good_paths_6000/pdfs/" + base_file + ".pdf"
     plt.savefig(png_file)
     plt.savefig(pdf_file)
     

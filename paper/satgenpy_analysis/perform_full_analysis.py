@@ -136,12 +136,12 @@ print("Generating commands for manually selected endpoints pair (printing of rou
 # Constellation comparison
 print("Generating commands for constellation comparison...")
 for satgenpy_generated_constellation in [
-    "kuiper_630_isls_none_ground_stations_paris_moscow_grid_algorithm_free_one_only_gs_relays",
+    # "kuiper_630_isls_none_ground_stations_paris_moscow_grid_algorithm_free_one_only_gs_relays",
     "kuiper_630_isls_plus_grid_ground_stations_top_100_algorithm_free_one_only_over_isls",
     "starlink_550_isls_plus_grid_ground_stations_top_100_algorithm_free_one_only_over_isls",
     "telesat_1015_isls_plus_grid_ground_stations_top_100_algorithm_free_one_only_over_isls"
 ]:
-    for duration_s in [200]:
+    for duration_s in [6000]:
         list_update_interval_ms = [1000]
 
         for update_interval_ms in list_update_interval_ms:
