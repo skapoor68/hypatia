@@ -167,9 +167,9 @@ def generate_tles_from_scratch_manual(
             for n_sat in range(0, num_sats_per_orbit):
                 mean_anomaly_degree = orbit_wise_shift + (n_sat * 360 / num_sats_per_orbit)
 
-                # Epoch is 2000-01-01 00:00:00, which is 00001 in ddyyy format
+                # Epoch is 2022-01-01 00:00:00, which is 22001 in ddyyy format
                 # See also: https://www.celestrak.com/columns/v04n03/#FAQ04
-                tle_line1 = "1 %05dU 00000ABC 00001.00000000  .00000000  00000-0  00000+0 0    0" % (
+                tle_line1 = "1 %05dU 00000ABC 22001.00000000  .00000000  00000-0  00000+0 0    0" % (
                     satellite_counter + 1
                 )
 
@@ -194,6 +194,76 @@ def generate_tles_from_scratch_manual(
 
                 # One more satellite there
                 satellite_counter += 1
+
+def generate_tles_from_scratch_manual_shells(
+        filename_out,
+        constellation_name,
+        num_shells,
+        num_orbits,
+        num_sats_per_orbit,
+        phase_diff,
+        inclination_degree,
+        eccentricity,
+        arg_of_perigee_degree,
+        mean_motion_rev_per_day
+):
+
+    with open(filename_out, "w+") as f_out:
+
+        # First line:
+        #
+        # <number of orbits> <number of satellites per orbit>
+        #
+        f_out.write("%d %d\n" % (num_orbits[0], num_sats_per_orbit[0]))
+
+        # Each of the subsequent (number of orbits * number of satellites per orbit) blocks
+        # define a satellite as follows:
+        #
+        # <constellation_name> <global satellite id>
+        # <TLE line 1>
+        # <TLE line 2>
+        satellite_counter = 0
+        for i in range(num_shells):
+            for orbit in range(0, num_orbits[i]):
+
+                # Orbit-dependent
+                raan_degree = orbit * 360.0 / num_orbits[i]
+                orbit_wise_shift = 0
+                if orbit % 2 == 1:
+                    if phase_diff:
+                        orbit_wise_shift = 360.0 / (num_sats_per_orbit[i] * 2.0)
+
+                # For each satellite in the orbit
+                for n_sat in range(0, num_sats_per_orbit[i]):
+                    mean_anomaly_degree = orbit_wise_shift + (n_sat * 360 / num_sats_per_orbit[i])
+
+                    # Epoch is 2022-01-01 00:00:00, which is 22001 in ddyyy format
+                    # See also: https://www.celestrak.com/columns/v04n03/#FAQ04
+                    tle_line1 = "1 %05dU 00000ABC 22001.00000000  .00000000  00000-0  00000+0 0    0" % (
+                        satellite_counter + 1
+                    )
+
+                    tle_line2 = "2 %05d %s %s %s %s %s %s    0" % (
+                        satellite_counter + 1,
+                        ("%3.4f" % inclination_degree[i]).rjust(8),
+                        ("%3.4f" % raan_degree).rjust(8),
+                        ("%0.7f" % eccentricity)[2:],
+                        ("%3.4f" % arg_of_perigee_degree).rjust(8),
+                        ("%3.4f" % mean_anomaly_degree).rjust(8),
+                        ("%2.8f" % mean_motion_rev_per_day[i]).rjust(11),
+                    )
+
+                    # Append checksums
+                    tle_line1 = tle_line1 + str(calculate_tle_line_checksum(tle_line1))
+                    tle_line2 = tle_line2 + str(calculate_tle_line_checksum(tle_line2))
+
+                    # Write TLE to file
+                    f_out.write(constellation_name + " " + str(satellite_counter) + "\n")
+                    f_out.write(tle_line1 + "\n")
+                    f_out.write(tle_line2 + "\n")
+
+                    # One more satellite there
+                    satellite_counter += 1
 
 
 def calculate_tle_line_checksum(tle_line_without_checksum):

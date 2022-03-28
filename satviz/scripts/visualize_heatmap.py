@@ -154,8 +154,8 @@ def load_data(source):
             else:
                 continue
 
-    print(point_intensity)
-    print(max(point_intensity.keys()))
+    # print(point_intensity)
+    # print(max(point_intensity.keys()))
     return point_intensity
 
 def get_color_and_opacity(ratio, min, max):
@@ -192,6 +192,7 @@ def generate_path_variations(source, sat_objs):
     global paths_over_time
     global OUT_HTML_FILE
     
+    viz_string += "let bounds = {west: -120, east: 40, south: -60, north: 60 }; \n let heatMap = CesiumHeatmap.create(viewer, bounds, {radius: 0.5});\n"
     points = generate_points()
     ground_stations = generate_groundstations()
     point_intensity = load_data(source)
@@ -231,16 +232,21 @@ def generate_path_variations(source, sat_objs):
                 + str(gs["elevation_m_float"] * 1000) + "), " \
                 + "ellipsoid : {radii : new Cesium.Cartesian3(50000.0, 50000.0, 50000.0), " \
                 + "material : Cesium.Color.GREEN.withAlpha(1),}});\n"
+    viz_string += "let data =["
     for point in points:
-        color, opacity = get_color_and_opacity(point_intensity[point["pid"]], min_intensity, max_intensity)
-        print(point_intensity[point["pid"]], color, opacity, min_intensity, max_intensity)
-        viz_string += "var redSphere = viewer.entities.add({name : 'Atlanta', position: Cesium.Cartesian3.fromDegrees(" \
-                    + point["longitude_degrees_str"] + ", " \
-                    + point["latitude_degrees_str"] + ", " \
-                    + str(point["elevation_m_float"] * 1000) + "), " \
-                    + "ellipsoid : {radii : new Cesium.Cartesian3(50000.0, 50000.0, 50000.0), " \
-                    + "material : Cesium.Color." + color + ".withAlpha(" + str(opacity) +"),}});\n"
+        viz_string += "{'x':"+point["longitude_degrees_str"] + ",'y':" + point["latitude_degrees_str"] + ",'value':" + str(point_intensity[point["pid"]]) +"},"
+
+        # color, opacity = get_color_and_opacity(point_intensity[point["pid"]], min_intensity, max_intensity)
+        # print(point_intensity[point["pid"]], color, opacity, min_intensity, max_intensity)
+        # viz_string += "var redSphere = viewer.entities.add({name : 'Atlanta', position: Cesium.Cartesian3.fromDegrees(" \
+        #             + point["longitude_degrees_str"] + ", " \
+        #             + point["latitude_degrees_str"] + ", " \
+        #             + str(point["elevation_m_float"] * 1000) + "), " \
+        #             + "ellipsoid : {radii : new Cesium.Cartesian3(50000.0, 50000.0, 50000.0), " \
+        #             + "material : Cesium.Color." + color + ".withAlpha(" + str(opacity) +"),}});\n"
     
+    viz_string += "];\n"
+    viz_string += "heatMap.setWGS84Data(" + str(min_intensity) + "," +  str(max_intensity) + ", data);"
     OUT_HTML_FILE += "_" + str(GEN_TIME) + ".html"
     print(OUT_HTML_FILE)
     return viz_string

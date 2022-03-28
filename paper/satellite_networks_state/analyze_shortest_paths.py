@@ -43,6 +43,7 @@ def load_data():
                 cmd = "python good_paths_1.py " +  str(paths[0][0]) + " " + str(paths[0][-1]) + " > good_paths_2/outs/" + str(paths[0][0]) + "_" + str(paths[0][-1]) + ".txt"
                 print(cmd)
 
+            # print(f, np.amin(updated_distances, axis=0))
             shortest_lengths = np.amin(updated_distances, axis=0) / np.amin(updated_distances)
             ratios = np.append(ratios, shortest_lengths)
             means = np.append(means, np.mean(shortest_lengths))

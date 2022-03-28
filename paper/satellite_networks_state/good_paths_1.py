@@ -142,28 +142,8 @@ def generate_graph(t, gs, point):
     ground_stations = generate_groundstations()
     points = generate_points()
     
-    graph_path = "graphs/graph_" + str(t) + ".txt"
+    graph_path = "../satgenpy_analysis/graphs/starlink_550_isls_plus_grid_ground_stations_world_grid_algorithm_free_one_only_over_isls/1000ms/graph_" + str(t*1000*1000*1000) + ".txt"
     sat_net_graph = nx.read_gpickle(graph_path)
-    t = epoch + t / 86400
-
-    for sid in range(len(satellites)):
-        distance_m = distance_m_ground_station_to_satellite(
-            points[point],
-            satellites[sid],
-            str(epoch),
-            str(t)
-        )
-        if distance_m <= MAX_GSL_LENGTH_M:
-            sat_net_graph.add_edge(1586, sid, weight = distance_m)
-
-        distance_m = distance_m_ground_station_to_satellite(
-            ground_stations[gs],
-            satellites[sid],
-            str(epoch),
-            str(t)
-        )
-        if distance_m <= MAX_GSL_LENGTH_M:
-            sat_net_graph.add_edge(1585, sid, weight = distance_m)
 
     return sat_net_graph
 
@@ -219,8 +199,8 @@ def main():
     plt.legend(bbox_to_anchor=(1.0, 1.05), loc='lower right', fontsize=4)
     plt.tight_layout()
     base_file = args[0] + "_" + args[1]
-    png_file = "good_paths_6000/pngs/" + base_file + ".png"
-    pdf_file = "good_paths_6000/pdfs/" + base_file + ".pdf"
+    png_file = base_file + ".png"
+    pdf_file = base_file + ".pdf"
     plt.savefig(png_file)
     plt.savefig(pdf_file)
     

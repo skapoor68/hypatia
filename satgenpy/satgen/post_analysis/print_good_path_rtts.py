@@ -22,10 +22,11 @@
 
 import exputil
 import sys
-sys.path.append("../../satgenpy")
 import math
 from itertools import islice
-from satgen import *
+from satgen.isls import *
+from satgen.ground_stations import *
+from satgen.distance_tools import *
 import networkx as nx
 import numpy as np
 import json
@@ -81,28 +82,18 @@ INCLINATION_DEGREE = 53
 
 lat_values = [5, 20, 35, 55]
 dist_limits = [0, 500, 1000, 1500, 2500, 5000, 7500, 10000, 12500, 15000, 17500, 20000, 22500]
-total_time = 3000
+total_time = 6000
 
-def generate_groundstations(lon = -80):
-    ground_stations = []
-    i = 0
+def generate_denver_groundstation():
+    ground_station = {}
+    ground_station['gid'] = 0
+    ground_station['latitude_degrees_str'] = str(39.7392)
+    ground_station['longitude_degrees_str'] = str(-104.9903)
+    ground_station['name'] = "Denver"
+    ground_station['elevation_m_float'] = 0
+    ground_station['cartesian_x'], ground_station['cartesian_x'], ground_station['cartesian_x'] = geodetic2cartesian(39.7392, -104.9903, 0)
 
-    for lat in lat_values:
-        ground_station = {}
-        ground_station['gid'] = i
-        ground_station['latitude_degrees_str'] = str(lat)
-        ground_station['longitude_degrees_str'] = str(lon)
-        ground_station['name'] = "gid" + str(i)
-        ground_station['elevation_m_float'] = 0
-        ground_station['cartesian_x'], ground_station['cartesian_x'], ground_station['cartesian_x'] = geodetic2cartesian(lat, lon, 0)
-        ground_stations.append(ground_station)
-        i = i + 1
-
-    ground_stations[0]["satellites"] = [66, 912, 88, 891]
-    ground_stations[1]["satellites"] = [955, 23, 977, 2]
-    ground_stations[2]["satellites"] = [998, 1564, 1020, 1543]
-    ground_stations[3]["satellites"] = [1325, 1238, 1259, 1303]
-    return ground_stations
+    return ground_station
 
 def generate_points():
     points = []
@@ -130,58 +121,10 @@ def generate_infra(satellite_network_dir):
     epoch = tles["epoch"]
     return satellites, list_isls, epoch
 
-def generate_command(src, dst, viz_type, paths):
-    command = "cd ../../satviz/scripts/; python visualize_learning_patterns.py " + str(src) + " " + str(dst) + " " + viz_type + " "
-
-    if viz_type == "path":
-        path_string = json.dumps(paths).replace(" ", "")
-        command += path_string + " "
-
-    else:
-        for path in paths:
-            command += path_string + " "
-
-    command += "2> ../viz_outputs/err" + str(src) + "_" + str(dst) + "_" + viz_type + ".txt "
-    command += "> ../viz_outputs/" + str(src) + "_" + str(dst) + "_" + viz_type + ".txt"
-    commands_to_run.append(command)
-
 def k_shortest_paths(G, source, target, k, weight=None):
     return list(
         islice(nx.shortest_simple_paths(G, source, target, weight=weight), k)
     )
-
-def generate_graph(t, gs, point):
-    print(t)
-    satellite_network_dir = "./gen_data/starlink_550_isls_plus_grid_ground_stations_top_100_algorithm_free_one_only_over_isls"
-    satellites, list_isls, epoch = generate_infra(satellite_network_dir)
-    ground_stations = generate_groundstations()
-    points = generate_points()
-    
-    
-    graph_path = "graphs/graph_" + str(t) + ".txt"
-    sat_net_graph = nx.read_gpickle(graph_path)
-    t = epoch + t / 86400
-   
-    for sid in range(len(satellites)):
-        distance_m = distance_m_ground_station_to_satellite(
-            points[point],
-            satellites[sid],
-            str(epoch),
-            str(t)
-        )
-        if distance_m <= MAX_GSL_LENGTH_M:
-            sat_net_graph.add_edge(1586, sid, weight = distance_m)
-
-        distance_m = distance_m_ground_station_to_satellite(
-            ground_stations[gs],
-            satellites[sid],
-            str(epoch),
-            str(t)
-        )
-        if distance_m <= MAX_GSL_LENGTH_M:
-            sat_net_graph.add_edge(1585, sid, weight = distance_m)
-
-    return sat_net_graph
 
 def calculate_path_lengths(graphs, path):
     lengths = [0] * total_time
@@ -192,55 +135,33 @@ def calculate_path_lengths(graphs, path):
 
     return lengths
 
-def main():
-    print(MAX_GSL_LENGTH_M, MAX_ISL_LENGTH_M)
-    args = sys.argv[1:]
+def main():    
+    gs = generate_denver_groundstation()
+    points = generate_points()
+
+    shortest_path_length = np.empty([len(points), total_time])
     
-    gs = int(args[0])
-    point = int(args[1])
-    graphs = {}
-    t1 = time.time()
-    num_threads = 1
-    per_thread = total_time // num_threads
-    ths = []
-    for i in range(total_time):
-        graphs[i] = generate_graph(i, gs, point)
-
-    print(time.time() - t1)
-
-    paths_to_ids = {}
-    paths = []
-
     for t in range(total_time):
-        pths = k_shortest_paths(graphs[t], 1585, 1586, 2, weight = "weight")
-        for path in pths:
-            new_path = copy.deepcopy(path)
-            new_path[0] = gs
-            new_path[-1] = point
-            if str(new_path) not in paths_to_ids:
+        # print(t)
+        graph_path = "../paper/satgenpy_analysis/graphs/starlink_550_isls_plus_grid_ground_stations_world_grid_algorithm_free_one_only_over_isls/1000ms/graph_" + str(t*1000*1000*1000) + ".txt"
+        graph = nx.read_gpickle(graph_path)
+        shortest_path_lengths_all = nx.shortest_path_length(graph, 1584, weight="weight")
+        
+        for point in points:
+            dst = point["pid"] + 1584 + 4
+            if shortest_path_lengths_all[dst] != nx.shortest_path_length(graph, 1584, dst, weight="weight"):
+                print(dst, "unequal")
+            print(shortest_path_lengths_all[dst], nx.shortest_path_length(graph, 1584, dst, weight="weight"))
+            shortest_path_length[point["pid"]][t] = shortest_path_lengths_all[dst]
+            break
             
-                paths_to_ids[str(new_path)] = len(paths)
-                paths.append(calculate_path_lengths(graphs, path))
+    print(shortest_path_length[0].tolist())
+    for j in range(len(points)):
+        lengths = shortest_path_length[j]
+        print(j, np.max(lengths) / np.min(lengths), sep=",")
+        break
+            
 
-    plt_colors = ["b-", "r-", "g-", "c-", "m-", "y-", "k-", "b--", "r--", "g--", "c--", "m--", "y--", "k--", "b:", "r:", "g:", "c:", "m:", "y:", "k:", "b-.", "r-.", "g-.", "c-.", "m-.", "y-.", "k-."]
-    i = 0
-    for path in paths_to_ids:
-        print(path, paths[paths_to_ids[path]])
-        x = np.arange(0, total_time)
-        y = np.array(paths[paths_to_ids[path]])
-        ids = np.nonzero(y)
-        plt.plot(x[ids], y[ids] / 1000, plt_colors[i % 28], label=path)
-
-        i = i + 1
-
-    plt.rcParams["figure.figsize"] = (20,20)
-    plt.legend(loc='upper center', bbox_to_anchor=(0.5, -0.05), fontsize=6, ncol=3)
-    plt.tight_layout()
-    base_file = args[0] + "_" + args[1]
-    png_file = base_file + ".png"
-    pdf_file = base_file + ".pdf"
-    plt.savefig(png_file)
-    plt.savefig(pdf_file)
     
 
 if __name__ == "__main__":

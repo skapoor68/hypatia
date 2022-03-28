@@ -15,20 +15,17 @@ commands_to_run = []
 
 print("Generating commands for constellation comparison...")
 for satgenpy_generated_constellation in [
-    "kuiper_630_isls_none_ground_stations_paris_moscow_grid_algorithm_free_one_only_gs_relays",
     "kuiper_630_isls_plus_grid_ground_stations_top_100_algorithm_free_one_only_over_isls",
     "starlink_550_isls_plus_grid_ground_stations_top_100_algorithm_free_one_only_over_isls",
     "telesat_1015_isls_plus_grid_ground_stations_top_100_algorithm_free_one_only_over_isls"
 ]:
-    for duration_s in [200]:
+    for duration_s in [6000]:
         list_update_interval_ms = [1000]
 
         # Path
         for update_interval_ms in list_update_interval_ms:
 
-            command = "python generate_path_plots.py " + satgenpy_generated_constellation + " " + str(update_interval_ms) + " " + str(duration_s) + " > " + satgenpy_generated_constellation + ".txt 2> err_" + satgenpy_generated_constellation + ".txt"
-            commands_to_run.append(command)
-            command = "python generate_rtt_plots.py " + satgenpy_generated_constellation + " " + str(update_interval_ms) + " " + str(duration_s) + " > " + satgenpy_generated_constellation + "_rtt.txt 2> err_rtt_" + satgenpy_generated_constellation + ".txt"
+            command = "python generate_path_life_plots.py " + satgenpy_generated_constellation + " " + str(update_interval_ms) + " " + str(duration_s) 
             commands_to_run.append(command)
 
 print("Running commands (at most %d in parallel)..." % max_num_processes)

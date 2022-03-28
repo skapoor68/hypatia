@@ -37,32 +37,40 @@ max_num_processes = 16
 
 # Where to store all commands
 commands_to_run = []
-
+num_shells = 1
+idx = 0
 # Manual
 print("printing all different graphs")
 for satgenpy_generated_constellation in [
     # "kuiper_630_isls_none_ground_stations_paris_moscow_grid_algorithm_free_one_only_gs_relays",
     # "kuiper_630_isls_plus_grid_ground_stations_top_100_algorithm_free_one_only_over_isls"
     # "starlink_550_72_66_isls_plus_grid_ground_stations_top_100_algorithm_free_one_only_over_isls"
-    "starlink_550_isls_plus_grid_ground_stations_world_grid_algorithm_free_one_only_over_isls"
-    # "telesat_1015_isls_plus_grid_ground_stations_top_100_algorithm_free_one_only_over_isls"
+    # "starlink_550_isls_plus_grid_ground_stations_world_grid_algorithm_free_one_only_over_isls"
+    # "starlink_550_isls_plus_grid_ground_stations_world_grid_denver_algorithm_free_one_only_over_isls"
+    # "starlink_550_different_8shells_isls_plus_grid_ground_stations_top_100_algorithm_free_one_only_over_isls"
+    # "starlink_550_different_4shells_isls_plus_grid_ground_stations_top_100_algorithm_free_one_only_over_isls",
+    # "starlink_550_different_2shells_isls_plus_grid_ground_stations_top_100_algorithm_free_one_only_over_isls",
+    "telesat_1015_isls_plus_grid_ground_stations_top_100_algorithm_free_one_only_over_isls"
 ]:
     update_interval_ms = 1000
     duration_s = 6000
     print(satgenpy_generated_constellation)
 
-    interval = duration_s // max_num_processes
+    interval = duration_s // num_shells
     for start_time in range(0, duration_s, interval):
         commands_to_run.append(
             "cd ../../satgenpy; "
             "python -m satgen.post_analysis.main_generate_graphs "
-            "../paper/satgenpy_analysis/graphs ../paper/satellite_networks_state/gen_data/%s %d %d %d"
+            "../paper/satgenpy_analysis/graphs ../paper/satellite_networks_state/gen_data/%s %d %d %d %d"
             " > ../paper/satgenpy_analysis/graphs/command_logs/constellation_comp_path_%s_%dms_for_%ds_%d.log "
             "2>&1" % (
-                satgenpy_generated_constellation, update_interval_ms, start_time, start_time + interval,
+                # satgenpy_generated_constellation, update_interval_ms, start_time, start_time + interval, 1,
+                satgenpy_generated_constellation, update_interval_ms, 3521, 3522, 1,
                 satgenpy_generated_constellation, update_interval_ms, duration_s, start_time
             )
         )
+
+    idx += 1
 
 # Run the commands
 print("Running commands (at most %d in parallel)..." % max_num_processes)

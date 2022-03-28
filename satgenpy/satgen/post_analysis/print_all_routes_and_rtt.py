@@ -27,6 +27,9 @@ from satgen.tles import *
 import exputil
 import copy
 import tempfile
+from multiprocessing.pool import ThreadPool
+import threading
+
 
 
 def calculate_path_life(graphs, t, path, dynamic_state_update_interval_ns, simulation_start_time_ns, simulation_end_time_ns):
@@ -47,8 +50,63 @@ def calculate_path_life(graphs, t, path, dynamic_state_update_interval_ns, simul
 
     return end - start + dynamic_state_update_interval_ns
 
+def print_routes_and_rtt_for_src(s, graphs, satellites, ground_stations, data_dir, dynamic_state_update_interval_ns, simulation_end_time_ns):
+    src = s + len(satellites)
+    for d in range(s + 1, len(ground_stations)):                
+        dst = d + len(satellites)
+        print("src ", src, "dst ", dst)
+        current_path = []
+        rtt_ns_list = []
+        data_path_filename = data_dir + "/networkx_path_" + str(src) + "_to_" + str(dst) + ".txt"
+        with open(data_path_filename, "w+") as data_path_file:
+            for t in range(0, simulation_end_time_ns, dynamic_state_update_interval_ns):
+                # Calculate path length
+                # print(t)
+                if not graphs[t].has_node(src) or not graphs[t].has_node(dst) or not nx.has_path(graphs[t], src, dst):
+                    print("no computation from src {} to dst {} at timestep {}".format(src, dst, t))
+                    continue
+                path_there = nx.shortest_path(graphs[t], src, dst, "weight")
+                path_back = nx.shortest_path(graphs[t], dst, src, "weight")
+                if path_there is not None and path_back is not None:
+                    length_src_to_dst_m = compute_path_length_with_graph(path_there, graphs[t])
+                    length_dst_to_src_m = compute_path_length_with_graph(path_back, graphs[t])
+                    rtt_ns = (length_src_to_dst_m + length_dst_to_src_m) * 1000000000.0 / 299792458.0
+                else:
+                    length_src_to_dst_m = 0.0
+                    length_dst_to_src_m = 0.0
+                    rtt_ns = 0.0
+
+                # Add to RTT list
+                rtt_ns_list.append((t, rtt_ns))
+
+                # Only if there is a new path, print new path
+                new_path = path_there
+                if current_path != new_path:
+
+                    # This is the new path
+                    current_path = new_path
+
+                    # Write change nicely to the console
+                    print("Change at t=" + str(t) + " ns (= " + str(t / 1e9) + " seconds)")
+                    print("  > Path..... " + (" -- ".join(list(map(lambda x: str(x), current_path)))
+                                            if current_path is not None else "Unreachable"))
+                    print("  > Length... " + str(length_src_to_dst_m + length_dst_to_src_m) + " m")
+                    print("  > RTT...... %.2f ms" % (rtt_ns / 1e6))
+                    print("")
+
+                    # Write to path file
+                    data_path_file.write(str(t) + "," + ("-".join(list(map(lambda x: str(x), current_path)))
+                                                        if current_path is not None else "Unreachable") + "\n")
+
+            # Write data file
+            data_filename = data_dir + "/networkx_rtt_" + str(src) + "_to_" + str(dst) + ".txt"
+            with open(data_filename, "w+") as data_file:
+                for i in range(len(rtt_ns_list)):
+                    data_file.write("%d,%.10f\n" % (rtt_ns_list[i][0], rtt_ns_list[i][1]))
+
+
 def print_all_routes_and_rtt(base_output_dir, satellite_network_dir, graph_dir, dynamic_state_update_interval_ms,
-                         simulation_end_time_s, satgenpy_dir_with_ending_slash):
+                         simulation_end_time_s, num_threads, satgenpy_dir_with_ending_slash):
 
     # Local shell
     local_shell = exputil.LocalShell()
@@ -75,86 +133,39 @@ def print_all_routes_and_rtt(base_output_dir, satellite_network_dir, graph_dir, 
     # Derivatives
     simulation_end_time_ns = simulation_end_time_s * 1000 * 1000 * 1000
     dynamic_state_update_interval_ns = dynamic_state_update_interval_ms * 1000 * 1000
-    max_gsl_length_m = exputil.parse_positive_float(description.get_property_or_fail("max_gsl_length_m"))
-    max_isl_length_m = exputil.parse_positive_float(description.get_property_or_fail("max_isl_length_m"))
+    # max_gsl_length_m = exputil.parse_positive_float(description.get_property_or_fail("max_gsl_length_m"))
+    # max_isl_length_m = exputil.parse_positive_float(description.get_property_or_fail("max_isl_length_m"))
 
     # Write data file
     # For each time moment
     print("inside all_paths")
 
     graphs = {}
+    distances = {}
+    shortest_paths = {}
     for t in range(0, simulation_end_time_ns, dynamic_state_update_interval_ns):
+        print(t)
         num_path_changes = 0
 
         graph_path = graph_dir + "/graph_" + str(t) + ".txt"
-        print(graph_path)
+        # print(graph_path)
         graphs[t] = nx.read_gpickle(graph_path)
+        # distances[t] = nx.floyd_warshall_numpy(graphs[t])
+        # shortest_paths[t] = dict(nx.all_pairs_shortest_path(graphs[t]))
 
-    print("all graphs loaded", len(graphs))
+    print("all graphs loaded", num_threads)
+    # pool = ThreadPool(processes=num_threads)
+    for s in range(82, 83):
+        # if s < 35 or s >= 49:
+        #     continue
+        # if s >= 49 and s < 54:
+        #     continue
+        print_routes_and_rtt_for_src(s, graphs, satellites, ground_stations, data_dir, dynamic_state_update_interval_ns, simulation_end_time_ns)
+    #     pool.apply_async(print_routes_and_rtt_for_src, (s, graphs, satellites, ground_stations, data_dir, dynamic_state_update_interval_ns, simulation_end_time_ns))
 
-    for s in range(len(ground_stations)):
-        src = s + len(satellites)
-        for d in range(s + 1, len(ground_stations)):                
-            dst = d + len(satellites)
-            print("src ", src, "dst ", dst)
-            current_path = []
-            rtt_ns_list = []
-            data_path_filename = data_dir + "/networkx_path_" + str(src) + "_to_" + str(dst) + ".txt"
-            with open(data_path_filename, "w+") as data_path_file:
-                for t in range(0, simulation_end_time_ns, dynamic_state_update_interval_ns):
-                    # Calculate path length
-                    # print(t)
-                    if not graphs[t].has_node(src) or not graphs[t].has_node(dst) or not nx.has_path(graphs[t], src, dst):
-                        print("no computation from src {} to dst {} at timestep {}".format(src, dst, t))
-                        continue
-                    path_there = nx.shortest_path(graphs[t], src, dst, "weight")
-                    path_back = nx.shortest_path(graphs[t], dst, src, "weight")
-                    if path_there is not None and path_back is not None:
-                        length_src_to_dst_m = compute_path_length_with_graph(path_there, graphs[t])
-                        length_dst_to_src_m = compute_path_length_with_graph(path_back, graphs[t])
-                        rtt_ns = (length_src_to_dst_m + length_dst_to_src_m) * 1000000000.0 / 299792458.0
-                    else:
-                        length_src_to_dst_m = 0.0
-                        length_dst_to_src_m = 0.0
-                        rtt_ns = 0.0
+    # pool.close()
+    # pool.join()
 
-                    # Add to RTT list
-                    rtt_ns_list.append((t, rtt_ns))
-
-                    # Only if there is a new path, print new path
-                    new_path = path_there
-                    if current_path != new_path:
-
-                        # This is the new path
-                        current_path = new_path
-
-                        # Write change nicely to the console
-                        print("Change at t=" + str(t) + " ns (= " + str(t / 1e9) + " seconds)")
-                        print("  > Path..... " + (" -- ".join(list(map(lambda x: str(x), current_path)))
-                                                if current_path is not None else "Unreachable"))
-                        print("  > Length... " + str(length_src_to_dst_m + length_dst_to_src_m) + " m")
-                        print("  > RTT...... %.2f ms" % (rtt_ns / 1e6))
-                        print("")
-
-                        # Write to path file
-                        data_path_file.write(str(t) + "," + ("-".join(list(map(lambda x: str(x), current_path)))
-                                                            if current_path is not None else "Unreachable") + "\n")
-
-                # Write data file
-                data_filename = data_dir + "/networkx_rtt_" + str(src) + "_to_" + str(dst) + ".txt"
-                with open(data_filename, "w+") as data_file:
-                    for i in range(len(rtt_ns_list)):
-                        data_file.write("%d,%.10f\n" % (rtt_ns_list[i][0], rtt_ns_list[i][1]))
-
-                # Make plot
-                # pdf_filename = pdf_dir + "/time_vs_networkx_rtt_" + str(src) + "_to_" + str(dst) + ".pdf"
-                # tf = tempfile.NamedTemporaryFile(delete=False)
-                # tf.close()
-                # local_shell.copy_file(satgenpy_dir_with_ending_slash + "plot/plot_time_vs_networkx_rtt.plt", tf.name)
-                # local_shell.sed_replace_in_file_plain(tf.name, "[OUTPUT-FILE]", pdf_filename)
-                # local_shell.sed_replace_in_file_plain(tf.name, "[DATA-FILE]", data_filename)
-                # local_shell.perfect_exec("gnuplot " + tf.name)
-                # print("Produced plot: " + pdf_filename)
-                # local_shell.remove(tf.name)
+    
 
 

@@ -24,13 +24,13 @@ import exputil
 import time
 
 local_shell = exputil.LocalShell()
-max_num_processes = 6
+max_num_processes = 16
 
 # Check that no screen is running
-if local_shell.count_screens() != 0:
-    print("There is a screen already running. "
-          "Please kill all screens before running this analysis script (killall screen).")
-    exit(1)
+# if local_shell.count_screens() != 0:
+#     print("There is a screen already running. "
+#           "Please kill all screens before running this analysis script (killall screen).")
+#     exit(1)
 
 # Re-create data directory
 # local_shell.remove_force_recursive("data")
@@ -134,27 +134,39 @@ print("Generating commands for manually selected endpoints pair (printing of rou
 
 
 # Constellation comparison
+eight_threads = [[0,14], [14, 29], [29,49], [49,100]]
+# eight_threads = [[3,4], [49,53], [53, 58], [58,65]]
+# eight_threads = [[7,14], [21, 29], [29,38], [65,100]]
+eight_threads = [[0, 25], [25, 60], [60, 100] ]
+eight_threads = [[73,74]]
 print("Generating commands for constellation comparison...")
 for satgenpy_generated_constellation in [
     # "kuiper_630_isls_none_ground_stations_paris_moscow_grid_algorithm_free_one_only_gs_relays",
-    "kuiper_630_isls_plus_grid_ground_stations_top_100_algorithm_free_one_only_over_isls",
-    "starlink_550_isls_plus_grid_ground_stations_top_100_algorithm_free_one_only_over_isls",
-    "telesat_1015_isls_plus_grid_ground_stations_top_100_algorithm_free_one_only_over_isls"
+    "kuiper_630_isls_plus_grid_ground_stations_top_100_algorithm_free_one_only_over_isls"
+    # "starlink_550_isls_plus_grid_ground_stations_top_100_algorithm_free_one_only_over_isls"
+    # "telesat_1015_isls_plus_grid_ground_stations_top_100_algorithm_free_one_only_over_isls"
+    # "starlink_550_different_2shells_isls_plus_grid_ground_stations_top_100_algorithm_free_one_only_over_isls",
+    # "starlink_550_different_4shells_isls_plus_grid_ground_stations_top_100_algorithm_free_one_only_over_isls",
+    # "starlink_550_different_8shells_isls_plus_grid_ground_stations_top_100_algorithm_free_one_only_over_isls",
+    # "starlink_550_72_66_isls_plus_grid_ground_stations_top_100_algorithm_free_one_only_over_isls"
 ]:
     for duration_s in [6000]:
         list_update_interval_ms = [1000]
 
         for update_interval_ms in list_update_interval_ms:
-            commands_to_run.append(
-                "cd ../../satgenpy; "
-                "python -m satgen.post_analysis.main_print_modified_routes_and_rtt "
-                "../paper/satgenpy_analysis/data ../paper/satellite_networks_state/gen_data/%s ../paper/satgenpy_analysis/graphs/%s/%dms %d %d "
-                "> ../paper/satgenpy_analysis/data/command_logs/constellation_comp_modified_paths__%s_%dms_for_%ds.log "
-                "2>&1" % (
-                    satgenpy_generated_constellation, satgenpy_generated_constellation, update_interval_ms, update_interval_ms, duration_s,
-                    satgenpy_generated_constellation, update_interval_ms, duration_s
+            for thread in eight_threads:
+                start = thread[0]
+                end = thread[1]
+                commands_to_run.append(
+                    "cd ../../satgenpy; "
+                    "python -m satgen.post_analysis.main_print_path_life "
+                    "../paper/satgenpy_analysis/paper_data ../paper/satellite_networks_state/gen_data/%s ../paper/satgenpy_analysis/graphs/%s/%dms %d %d %d %d "
+                    "> ../paper/satgenpy_analysis/paper_data/command_logs/path_life_%s_%dms_for_%ds_%d_to_%d.log "
+                    "2>&1" % (
+                        satgenpy_generated_constellation, satgenpy_generated_constellation, update_interval_ms, update_interval_ms, duration_s, start, end,
+                        satgenpy_generated_constellation, update_interval_ms, duration_s, start, end
+                    )
                 )
-            )
 
     #     # Path
     #     for update_interval_ms in list_update_interval_ms:

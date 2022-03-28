@@ -1,1 +1,1 @@
-from .generate_description import generate_description
+from .generate_description import generate_description, generate_description_shells
