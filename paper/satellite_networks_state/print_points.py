@@ -96,8 +96,8 @@ def generate_groundstations(lon = -80):
 def generate_points():
     points = []
     i = 4
-    for lat in range(-60, 60, 4):
-        for lon in range(-180, 180, 4):
+    for lat in range(41.8771, 41.8791, 0.0001):
+        for lon in range(-87.6288, -87.6308, 0.0001):
             point = {}
             point['pid'] = i
             point['latitude_degrees_str'] = str(lat)

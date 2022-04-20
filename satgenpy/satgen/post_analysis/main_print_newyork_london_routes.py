@@ -21,7 +21,7 @@
 # SOFTWARE.
 
 import sys
-from satgen.post_analysis.print_all_routes_and_rtt import print_all_routes_and_rtt
+from satgen.post_analysis.print_newyork_london_routes import print_all_routes_and_rtt
 
 
 def main():

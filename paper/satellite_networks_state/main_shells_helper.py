@@ -95,6 +95,11 @@ class MainShellsHelper:
                 "input_data/ground_stations_paris_moscow_grid.basic.txt",
                 output_generated_data_dir + "/" + name + "/ground_stations.txt"
             )
+        elif gs_selection == "ground_stations_newyork_london":
+            satgen.extend_ground_stations(
+                "input_data/ground_stations_newyork_london.basic.txt",
+                output_generated_data_dir + "/" + name + "/ground_stations.txt"
+            )
         else:
             raise ValueError("Unknown ground station selection: " + gs_selection)
 
