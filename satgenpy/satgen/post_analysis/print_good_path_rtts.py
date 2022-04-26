@@ -39,6 +39,7 @@ from collections import OrderedDict
 from matplotlib.ticker import FormatStrFormatter
 import threading
 import copy
+from satgen import *
 
 local_shell = exputil.LocalShell()
 max_num_processes = 16
@@ -80,20 +81,7 @@ INCLINATION_DEGREE = 53
 
 ################################################################
 
-lat_values = [5, 20, 35, 55]
-dist_limits = [0, 500, 1000, 1500, 2500, 5000, 7500, 10000, 12500, 15000, 17500, 20000, 22500]
-total_time = 600
-
-def generate_denver_groundstation():
-    ground_station = {}
-    ground_station['gid'] = 0
-    ground_station['latitude_degrees_str'] = str(39.7392)
-    ground_station['longitude_degrees_str'] = str(-104.9903)
-    ground_station['name'] = "Denver"
-    ground_station['elevation_m_float'] = 0
-    ground_station['cartesian_x'], ground_station['cartesian_x'], ground_station['cartesian_x'] = geodetic2cartesian(39.7392, -104.9903, 0)
-
-    return ground_station
+total_time = 6000
 
 def generate_points():
     points = []
@@ -136,32 +124,44 @@ def calculate_path_lengths(graphs, path):
     return lengths
 
 def main():    
-    gs = generate_denver_groundstation()
+    # gs = generate_denver_groundstation()
+    satellite_network_dir = "../paper/satellite_networks_state/gen_data/starlink_550_isls_plus_grid_ground_stations_world_grid_paper_algorithm_free_one_only_over_isls"
+    satellites, list_isls, epoch = generate_infra(satellite_network_dir)
     points = generate_points()
-
-    shortest_path_length = np.empty([len(points), total_time])
+    src_points = [0,1,2,3,1399]
+    shortest_path_length = np.empty((len(src_points), len(points), total_time))
+    
     
     for t in range(total_time):
-        print(t)
         graph_path = "../paper/satgenpy_analysis/graphs/starlink_550_isls_plus_grid_ground_stations_world_grid_paper_algorithm_free_one_only_over_isls/1000ms/graph_" + str(t*1000*1000*1000) + ".txt"
         graph = nx.read_gpickle(graph_path)
-        shortest_path_lengths_all = nx.shortest_path_length(graph, 1584, weight="weight")
-        
-        for pt in range(len(points)):
-            dst = pt + 1584 + 4
-            # print(dst)
-            if shortest_path_lengths_all[dst] != nx.shortest_path_length(graph, 1584, dst, weight="weight"):
-                print(dst, "unequal")
-            # print(shortest_path_lengths_all[dst], nx.shortest_path_length(graph, 1584, dst, weight="weight"))
-            shortest_path_length[pt][t] = shortest_path_lengths_all[dst]
-            # break
+        sat_net_graph_only_satellites_with_isls = graph.subgraph(list(range(len(satellites))))
+        dist_sat_net_without_gs = nx.floyd_warshall_numpy(sat_net_graph_only_satellites_with_isls)
+        idx = 0
+        for src_pt in src_points:
+            src = len(satellites) + src_pt
+            src_sats = graph[src]
+            for pt in range(len(points)):
+                dst = pt + 1584 + 4
+                dst_sats = graph[dst]
+                dst_sats = graph[dst]
+                shortest_dist = math.inf
+                for src_sat in src_sats.keys():
+                    for dst_sat in dst_sats.keys():
+                        if not math.isinf(dist_sat_net_without_gs[src_sat][dst_sat]):
+                            shortest_dist = min(shortest_dist, src_sats[src_sat]['weight'] + dst_sats[dst_sat]['weight'] + dist_sat_net_without_gs[(src_sat, dst_sat)])
             
-    # print(shortest_path_length[0].tolist())
-    for j in range(len(points)):
-        lengths = shortest_path_length[j]
-        print(lengths.shape)
-        print(j, np.max(lengths) / np.min(lengths))
-        # break
+                shortest_path_length[idx][pt][t] = shortest_dist
+                # print(shortest_dist)
+            idx += 1
+
+    for i in range(len(src_points)):
+        print("src point", i)
+        for j in range(len(points)):
+            lengths = shortest_path_length[i][j]
+            # print(lengths)
+            print(j, np.max(lengths) / np.min(lengths))
+            # break
             
 
     

@@ -146,28 +146,36 @@ colors = ["RED", "BROWN", "DARKORANGE", "FUCHSIA", "GOLD", "HOTPINK", "INDIGO", 
 
 def load_data(source):
     point_intensity = [None] * 2700
-    f = "../../paper/satellite_networks_state/shortest_paths_analysis.txt"
+    f = "src_point_" + str(source) + ".txt"
 
     with open(f) as csvfile:
         spamreader = csv.reader(csvfile, delimiter=',',quotechar='"',quoting=csv.QUOTE_ALL, skipinitialspace=True)
         for row in spamreader:
-            if row[0] == "max ratio" and int(row[1]) == source:
-                dest = int(row[2])
-                ratio = float(row[3])
-                point_intensity[dest] = ratio
-            else:
-                continue
-
-    # print(point_intensity)
-    # print(max(point_intensity.keys()))
+            dest = int(row[0])
+            ratio = float(row[1])
+            
+            point_intensity[dest] = ratio
+            
     return np.array(point_intensity)
     
 def main():
     args = sys.argv[1:]
     source = int(args[0])
 
-    points = generate_points()
-    ground_stations = generate_groundstations()
+    f = "../../paper/satellite_networks_state/input_data/ground_stations_world_grid_paper.basic.txt"
+    points = []
+    with open(f) as csvfile:
+        spamreader = csv.reader(csvfile, delimiter=',',quotechar='"',quoting=csv.QUOTE_ALL, skipinitialspace=True)
+        for row in spamreader:
+            point = {}
+            point['pid'] = int(row[0])
+            point['name'] = row[1]
+            point['latitude_degrees_str'] = float(row[2])
+            point['longitude_degrees_str'] = float(row[3])
+            point['elevation_m_float'] = float(row[4])
+            points.append(point)
+    
+    print(points[source])
     point_intensity = load_data(source)
     print(np.std(point_intensity), np.max(point_intensity), np.min(point_intensity), np.mean(point_intensity))
     # point_intensity = (point_intensity - np.mean(point_intensity))  * (10 / np.std(point_intensity))
@@ -176,30 +184,22 @@ def main():
     # point_intensity = point_intensity - 1
     
     data = []
-    for point in points:
-        # if point_intensity[point["pid"]] < 1.1:
-        #     continue
+    
+    for i in range(4, len(points)):
+        point = points[i]
         lat = int(point["latitude_degrees_str"])
         lon = int(point["longitude_degrees_str"])
         
-        data.append([lat, lon, point_intensity[point["pid"]]])
-        # data.append([lat+1.5, lon, point_intensity[point["pid"]]])
-        # data.append([lat-1.5, lon, point_intensity[point["pid"]]])
-        # data.append([lat, lon+1.5, point_intensity[point["pid"]]])
-        # data.append([lat, lon-1.5, point_intensity[point["pid"]]])        
-        # data.append([lat+1.5, lon+1.5, point_intensity[point["pid"]]])
-        # data.append([lat-1.5, lon-1.5, point_intensity[point["pid"]]])
-        # data.append([lat-1.5, lon+1.5, point_intensity[point["pid"]]])
-        # data.append([lat+1.5, lon-1.5, point_intensity[point["pid"]]])
+        data.append([lat, lon, point_intensity[i - 4]])
 
-    # print(data[-1])
-    m = folium.Map([5, -80],  zoom_start=3)
-    folium.Marker([5, -80]).add_to(m)
+    # print(data)
+    m = folium.Map([points[source]["latitude_degrees_str"], points[source]["longitude_degrees_str"]],  zoom_start=3)
+    folium.Marker([points[source]["latitude_degrees_str"], points[source]["longitude_degrees_str"]]).add_to(m)
     radius = 16
     HeatMap(data,radius=radius,blur=20, gradient={.4:"white",1:"red"}).add_to(folium.FeatureGroup(name='Heat Map').add_to(m))
     folium.LayerControl().add_to(m)
     # f_name = "heatmap_" + str(radius) + "_" + str(blur) + ".html"
-    f_name = "heatmap.html"
+    f_name = "heatmap_" + str(source) + ".html"
     m.save(f_name)
 
 

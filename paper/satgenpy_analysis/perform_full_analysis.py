@@ -134,7 +134,7 @@ print("Generating commands for manually selected endpoints pair (printing of rou
 
 
 # Constellation comparison
-eight_threads = [[0,14], [14, 29], [29,49], [49,100]]
+eight_threads = [[0,1]]
 # eight_threads = [[3,4], [49,53], [53, 58], [58,65]]
 # eight_threads = [[7,14], [21, 29], [29,38], [65,100]]
 # eight_threads = [[0, 25], [25, 60], [60, 100] ]
@@ -161,7 +161,7 @@ for satgenpy_generated_constellation in [
         list_update_interval_ms = [1000]
 
         for update_interval_ms in list_update_interval_ms:
-            for thread in sixteen_threads:
+            for thread in eight_threads:
                 start = thread[0]
                 end = thread[1]
                 commands_to_run.append(

@@ -96,6 +96,12 @@ def print_routes_and_rtt_for_src(s, graphs, satellites, ground_stations, data_di
                 data_path_file.write(str(t) + "," + ("-".join(list(map(lambda x: str(x), current_path[1:-1])))
                                                     if current_path is not None else "Unreachable") + "\n")
 
+            # Write data file
+            data_filename = data_dir + "/networkx_rtt_" + str(src) + "_to_" + str(dst) + ".txt"
+            with open(data_filename, "w+") as data_file:
+                for i in range(len(rtt_ns_list)):
+                    data_file.write("%d,%.10f\n" % (rtt_ns_list[i][0], rtt_ns_list[i][1]))
+
 
 def print_all_routes_and_rtt(base_output_dir, satellite_network_dir, graph_dir, dynamic_state_update_interval_ms,
                          simulation_end_time_s, src_start, src_end, satgenpy_dir_with_ending_slash):
