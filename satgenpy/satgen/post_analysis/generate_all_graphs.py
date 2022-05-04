@@ -48,9 +48,6 @@ def generate_satellite_shell_index(num_satellites, num_orbits, num_sats_per_orbi
 def generate_all_graphs(base_output_dir, satellite_network_dir, dynamic_state_update_interval_ms,
                          simulation_start_time_s, simulation_end_time_s, n_shells = 1):
 
-    # Local shell
-    local_shell = exputil.LocalShell()
-
     print(simulation_start_time_s, simulation_end_time_s)
 
     # Dynamic state dir can be inferred
@@ -83,7 +80,7 @@ def generate_all_graphs(base_output_dir, satellite_network_dir, dynamic_state_up
 
     for t in range(simulation_start_time_ns, simulation_end_time_ns, dynamic_state_update_interval_ns):
         print(t)
-        data_path_filename = base_output_dir + "/graph_" + str(t) + ".txt"
+        graph_path_filename = base_output_dir + "/graph_" + str(t) + ".txt"
         # Time
         time = epoch + t * u.ns
 
@@ -117,5 +114,4 @@ def generate_all_graphs(base_output_dir, satellite_network_dir, dynamic_state_up
                 if distance_m <= max_length:
                     sat_net_graph_with_gs.add_edge(len(satellites) + ground_station["gid"], sid, weight=distance_m)
 
-        nx.write_gpickle(sat_net_graph_with_gs, data_path_filename)
-        
+        nx.write_gpickle(sat_net_graph_with_gs, graph_path_filename)

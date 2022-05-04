@@ -29,22 +29,24 @@ EARTH_RADIUS = 6378135.0
 
 # GENERATION CONSTANTS
 
-BASE_NAME = "starlink_550_different"
-NICE_NAME = "Starlink-550-Different"
+BASE_NAME = "starlink_current"
+NICE_NAME = "Starlink-Current"
 
 # STARLINK 550
 
 ECCENTRICITY = 0.0000001  # Circular orbits are zero, but pyephem does not permit 0, so lowest possible value
 ARG_OF_PERIGEE_DEGREE = 0.0
 PHASE_DIFF = True
-NUM_SHELLS = 8
+NUM_SHELLS = 5
 
 ################################################################
 # The below constants are taken from Starlink's FCC filing as below:
 # [1]: https://fcc.report/IBFS/SAT-MOD-20190830-00087
 ################################################################
 # From https://fcc.report/IBFS/SAT-MOD-20181108-00083/1569860.pdf (minimum angle of elevation: 25 deg)
-ALTITUDES_M = [550000, 560000, 540000, 570000, 530000, 580000, 520000, 590000]  # Altitude ~550 km
+# ALTITUDES_M = [550000, 560000, 540000, 570000, 530000, 580000, 520000, 590000]  # Altitude ~550 km
+# ALTITUDES_M = [550000, 1110000, 1130000, 1275000, 1325000]  # older starlink
+ALTITUDES_M = [550000, 540000, 570000, 560000, 560000]  # current starlink
 theta = math.radians(25)
 
 def generate_constants():
@@ -61,10 +63,18 @@ def generate_constants():
 MEAN_MOTION_REV_PER_DAY, MAX_GSL_LENGTH_M, MAX_ISL_LENGTH_M = generate_constants()
 print(MEAN_MOTION_REV_PER_DAY, MAX_GSL_LENGTH_M, MAX_ISL_LENGTH_M)
 
-NUM_ORBS = [72,72,72,72,72,72,72,72]
-NUM_SATS_PER_ORB = [22,22,22,22,22,22,22,22]
-# INCLINATION_DEGREE = [53,53,53,53,53,53,53,53]
-INCLINATION_DEGREE = [53,27,72,13,40,62,82,53]
+# NUM_ORBS = [72,72,72,72,72,72,72,72]
+# NUM_ORBS = [72,32,8,5,6] # older starlink
+NUM_ORBS = [72,72,36,6,4] # current starlink
+
+# NUM_SATS_PER_ORB = [22,22,22,22,22,22,22,22]
+# NUM_SATS_PER_ORB = [22,50,50,75,75] # older starlink
+NUM_SATS_PER_ORB = [22,22,20,58,43] # current starlink
+
+# INCLINATION_DEGREE = [53,53,53,53,53,53,53,53] # same
+# INCLINATION_DEGREE = [53,27,72,13,40,62,82,53] # different
+# INCLINATION_DEGREE = [53,53.8,74,81,70] # older starlink
+INCLINATION_DEGREE = [53,53.2,70,97.6,97.6] # current starlink
 
 ################################################################
 

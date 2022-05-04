@@ -20,11 +20,14 @@ def load_data(algo, frequency, total_time):
     middle_times_20 = []
     times_25 = []
     middle_times_25 = []
-    dir = "data/" + algo + "/" + frequency + "ms_for_" + total_time + "s/manual/data/"
+    max_changes = 0
+    max_file = None
+    dir = "paper_data/" + algo + "/" + frequency + "ms_for_" + total_time + "s/manual/data/"
     for file in os.listdir(dir):
         if file.startswith("networkx_path_"):
             # print(file)
             if file.startswith("networkx_path_dumb_"):
+                continue
                 f = dir + file
                 with open(f) as csvfile:
                     spamreader = csv.reader(csvfile, delimiter=',',quotechar='"',quoting=csv.QUOTE_ALL, skipinitialspace=True)
@@ -48,6 +51,7 @@ def load_data(algo, frequency, total_time):
 
                     updated_times.append(200 - prev_time)
             elif file.startswith("networkx_path_20_"):
+                continue
                 f = dir + file
                 with open(f) as csvfile:
                     spamreader = csv.reader(csvfile, delimiter=',',quotechar='"',quoting=csv.QUOTE_ALL, skipinitialspace=True)
@@ -71,6 +75,7 @@ def load_data(algo, frequency, total_time):
 
                     times_20.append(200 - prev_time)
             elif file.startswith("networkx_path_25.0_"):
+                continue
                 f = dir + file
                 with open(f) as csvfile:
                     spamreader = csv.reader(csvfile, delimiter=',',quotechar='"',quoting=csv.QUOTE_ALL, skipinitialspace=True)
@@ -100,28 +105,37 @@ def load_data(algo, frequency, total_time):
 
                     id = 0
                     prev_time = -1
+                    changes = 0
                     for row in spamreader:
                         # print(row)
                         if prev_time == -1:
                             prev_time = int(row[0]) / 1000000000
-                            life = int(row[1]) / 1000000000
-                            route_life.append(life)
+                            # life = int(row[1]) / 1000000000
+                            # route_life.append(life)
                             continue
                         
                         t = int(row[0]) / 1000000000
-                        life = int(row[1]) / 1000000000
+                        # life = int(row[1]) / 1000000000
                         path_time = t - prev_time
                         times.append(path_time)
-                        route_life.append(life)
-                        middle_route_life.append(life)
+                        changes += 1
+                        # route_life.append(life)
+                        # middle_route_life.append(life)
                         if id > 0:
                             middle_times.append(path_time)
 
                         prev_time = t
                         id = id + 1
+                        if t > 200:
+                            break
 
-                    times.append(200 - prev_time)
+                    # times.append(200 - prev_time)
+                    if changes > max_changes:
+                        max_changes = changes
+                        max_file = file
 
+    print(max_changes, max_file)
+    exit(0)
     return np.array(times), np.array(middle_times), np.array(route_life) + 1, np.array(middle_route_life) + 1, np.array(updated_times), np.array(updated_middle_times), np.array(times_20), np.array(times_25)
 
 def load_fwd_state_data(algo, frequency, total_time):

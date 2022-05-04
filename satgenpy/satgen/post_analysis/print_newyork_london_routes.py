@@ -51,13 +51,14 @@ def calculate_path_life(graphs, t, path, dynamic_state_update_interval_ns, simul
 def print_routes_and_rtt_for_src(s, graphs, satellites, ground_stations, data_dir, dynamic_state_update_interval_ns, simulation_end_time_ns):
     src = s + len(satellites)
               
-    dst = src + 1600
+    dst = src + 2001
     print("src ", src, "dst ", dst)
     current_path = []
     rtt_ns_list = []
     data_path_filename = data_dir + "/networkx_path_" + str(src) + "_to_" + str(dst) + ".txt"
+    start_time = 1200 * 1000 * 1000 * 1000
     with open(data_path_filename, "w+") as data_path_file:
-        for t in range(0, simulation_end_time_ns, dynamic_state_update_interval_ns):
+        for t in range(start_time, start_time + simulation_end_time_ns, dynamic_state_update_interval_ns):
             # Calculate path length
             # print(t)
             if not graphs[t].has_node(src) or not graphs[t].has_node(dst) or not nx.has_path(graphs[t], src, dst):
@@ -141,7 +142,8 @@ def print_all_routes_and_rtt(base_output_dir, satellite_network_dir, graph_dir, 
     graphs = {}
     distances = {}
     shortest_paths = {}
-    for t in range(0, simulation_end_time_ns, dynamic_state_update_interval_ns):
+    start_time = 1200 * 1000 * 1000 * 1000
+    for t in range(start_time, start_time + simulation_end_time_ns, dynamic_state_update_interval_ns):
         print(t)
         num_path_changes = 0
 

@@ -137,9 +137,11 @@ def print_path_life(base_output_dir, satellite_network_dir, graph_dir, dynamic_s
                         else:
                             path_active_times[current_path] = (current_end - current_start)
                     current_start = int(row[0]) / 1000000000
-                    path = list(row[1].split("-"))
-                    path = [int(i) for i in path]
-                    latencies[row[1]] = calculate_path_latencies(graphs, path, dynamic_state_update_interval_ns, simulation_end_time_ns)
+                    if row[1] != "Unreachable":
+                        path = list(row[1].split("-"))
+                        path = [int(i) for i in path]
+                        latencies[row[1]] = calculate_path_latencies(graphs, path, dynamic_state_update_interval_ns, simulation_end_time_ns)
+                    
                     current_path = row[1]
 
                 if current_path in path_active_times:
@@ -152,6 +154,8 @@ def print_path_life(base_output_dir, satellite_network_dir, graph_dir, dynamic_s
             print()
             with open(data_path_filename, "w+") as data_path_file:
                 for path in path_active_times.keys():
+                    if path == "Unreachable":
+                        continue
                     active_time = path_active_times[path]
                     latency = latencies[path]
                     path_life = calculate_path_life(latency)

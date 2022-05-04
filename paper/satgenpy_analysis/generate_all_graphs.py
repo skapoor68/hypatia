@@ -24,7 +24,7 @@ import exputil
 import time
 
 local_shell = exputil.LocalShell()
-max_num_processes = 40
+max_num_processes = 41
 
 # Check that no screen is running
 # if local_shell.count_screens() != 0:
@@ -37,21 +37,28 @@ max_num_processes = 40
 
 # Where to store all commands
 commands_to_run = []
-num_shells = 40
+num_shells = 20
 idx = 0
 # Manual
 print("printing all different graphs")
 for satgenpy_generated_constellation in [
     # "kuiper_630_isls_none_ground_stations_paris_moscow_grid_algorithm_free_one_only_gs_relays",
     # "kuiper_630_isls_plus_grid_ground_stations_top_100_algorithm_free_one_only_over_isls"
-    # "starlink_550_72_66_isls_plus_grid_ground_stations_top_100_algorithm_free_one_only_over_isls"
+    # "starlink_current_5shells_isls_plus_grid_ground_stations_top_100_algorithm_free_one_only_over_isls",
+    # "starlink_older_5shells_isls_plus_grid_ground_stations_top_100_algorithm_free_one_only_over_isls",
+    # "starlink_550_72_66_isls_plus_grid_ground_stations_top_100_algorithm_free_one_only_over_isls",
+    # "starlink_different_8shells_isls_plus_grid_ground_stations_top_100_algorithm_free_one_only_over_isls", #run this later from 600
+    # "starlink_different_4shells_isls_plus_grid_ground_stations_top_100_algorithm_free_one_only_over_isls",
+    # "starlink_different_2shells_isls_plus_grid_ground_stations_top_100_algorithm_free_one_only_over_isls",
+    # "starlink_8shells_isls_plus_grid_ground_stations_top_100_algorithm_free_one_only_over_isls",
+    # "starlink_4shells_isls_plus_grid_ground_stations_top_100_algorithm_free_one_only_over_isls",
+    # "starlink_2shells_isls_plus_grid_ground_stations_top_100_algorithm_free_one_only_over_isls"
     # "starlink_550_isls_plus_grid_ground_stations_world_grid_algorithm_free_one_only_over_isls"
     # "starlink_550_isls_plus_grid_ground_stations_world_grid_paper_algorithm_free_one_only_over_isls"
-    # "starlink_550_isls_plus_grid_ground_stations_newyork_london_algorithm_free_one_only_over_isls"
-    "starlink_550_isls_plus_grid_ground_stations_newyork_london_1600_algorithm_free_one_only_over_isls"
-    # "starlink_550_different_8shells_isls_plus_grid_ground_stations_top_100_algorithm_free_one_only_over_isls"
-    # "starlink_550_different_4shells_isls_plus_grid_ground_stations_top_100_algorithm_free_one_only_over_isls",
-    # "starlink_550_different_2shells_isls_plus_grid_ground_stations_top_100_algorithm_free_one_only_over_isls",
+    # "starlink_550_isls_plus_grid_ground_stations_newyork_london_circular_algorithm_free_one_only_over_isls"
+    "starlink_550_isls_plus_grid_ground_stations_kyiv_algorithm_free_one_only_over_isls"
+    # "starlink_550_isls_plus_grid_ground_stations_newyork_london_1600_algorithm_free_one_only_over_isls"
+    # "starlink_550_isls_plus_grid_ground_stations_top_100_algorithm_free_one_only_over_isls"
     # "telesat_1015_isls_plus_grid_ground_stations_top_100_algorithm_free_one_only_over_isls"
 ]:
     update_interval_ms = 1000

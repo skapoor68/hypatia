@@ -29,6 +29,7 @@ import copy
 import tempfile
 from multiprocessing.pool import ThreadPool
 import threading
+import math
 
 
 
@@ -50,6 +51,17 @@ def calculate_path_life(graphs, t, path, dynamic_state_update_interval_ns, simul
 
     return end - start + dynamic_state_update_interval_ns
 
+def get_shortest_path(src, dst, graph, satellites):
+    src_sats = graph[src]
+    dst_sats = graph[dst]
+    nodes = list(range(len(satellites)))
+    nodes.append(src)
+    nodes.append(dst)
+    sat_only_graph = graph.subgraph(nodes)
+    shortest_path = nx.shortest_path(sat_only_graph, source=src, target=dst, weight='weight')
+    shortest_dist = nx.shortest_path_length(sat_only_graph, src, dst, weight='weight')
+    return shortest_path, shortest_dist
+
 def print_routes_and_rtt_for_src(s, graphs, satellites, ground_stations, data_dir, dynamic_state_update_interval_ns, simulation_end_time_ns):
     src = s + len(satellites)
     for d in range(s + 1, len(ground_stations)):                
@@ -64,16 +76,16 @@ def print_routes_and_rtt_for_src(s, graphs, satellites, ground_stations, data_di
                 # print(t)
                 if not graphs[t].has_node(src) or not graphs[t].has_node(dst) or not nx.has_path(graphs[t], src, dst):
                     print("no computation from src {} to dst {} at timestep {}".format(src, dst, t))
-                    continue
-                path_there = nx.shortest_path(graphs[t], src, dst, "weight")
-                path_back = nx.shortest_path(graphs[t], dst, src, "weight")
-                if path_there is not None and path_back is not None:
-                    length_src_to_dst_m = compute_path_length_with_graph(path_there, graphs[t])
-                    length_dst_to_src_m = compute_path_length_with_graph(path_back, graphs[t])
-                    rtt_ns = (length_src_to_dst_m + length_dst_to_src_m) * 1000000000.0 / 299792458.0
+                    # print(graphs[t].has_node(src), graphs[t].has_node(dst), nx.has_path(graphs[t], src, dst))
+                    path_there = None
+                else:
+                    path_there, length_src_to_dst_m = get_shortest_path(src, dst, graphs[t], satellites)
+                # path_back, length_dst_to_src_m = get_shortest_path(dst, src, graphs[t], satellites)
+                if path_there is not None:
+                    rtt_ns = (length_src_to_dst_m * 2) * 1000000000.0 / 299792458.0
                 else:
                     length_src_to_dst_m = 0.0
-                    length_dst_to_src_m = 0.0
+                    # length_dst_to_src_m = 0.0
                     rtt_ns = 0.0
 
                 # Add to RTT list
@@ -90,7 +102,7 @@ def print_routes_and_rtt_for_src(s, graphs, satellites, ground_stations, data_di
                     print("Change at t=" + str(t) + " ns (= " + str(t / 1e9) + " seconds)")
                     print("  > Path..... " + (" -- ".join(list(map(lambda x: str(x), current_path)))
                                             if current_path is not None else "Unreachable"))
-                    print("  > Length... " + str(length_src_to_dst_m + length_dst_to_src_m) + " m")
+                    print("  > Length... " + str(length_src_to_dst_m * 2 ) + " m")
                     print("  > RTT...... %.2f ms" % (rtt_ns / 1e6))
                     print("")
 
@@ -106,7 +118,7 @@ def print_routes_and_rtt_for_src(s, graphs, satellites, ground_stations, data_di
 
 
 def print_all_routes_and_rtt(base_output_dir, satellite_network_dir, graph_dir, dynamic_state_update_interval_ms,
-                         simulation_end_time_s, src_start, src_end, satgenpy_dir_with_ending_slash):
+                         simulation_end_time_s, start, end, satgenpy_dir_with_ending_slash):
 
     # Local shell
     local_shell = exputil.LocalShell()
@@ -143,6 +155,7 @@ def print_all_routes_and_rtt(base_output_dir, satellite_network_dir, graph_dir, 
     graphs = {}
     distances = {}
     shortest_paths = {}
+    sat_only_graphs = {}
     for t in range(0, simulation_end_time_ns, dynamic_state_update_interval_ns):
         print(t)
         num_path_changes = 0
@@ -150,11 +163,12 @@ def print_all_routes_and_rtt(base_output_dir, satellite_network_dir, graph_dir, 
         graph_path = graph_dir + "/graph_" + str(t) + ".txt"
         # print(graph_path)
         graphs[t] = nx.read_gpickle(graph_path)
-        # distances[t] = nx.floyd_warshall_numpy(graphs[t])
+        # sat_only_graphs[t] = graphs[t].subgraph(list(range(len(satellites))))
+        # distances[t] = nx.floyd_warshall_numpy(sat_only_graphs[t])
         # shortest_paths[t] = dict(nx.all_pairs_shortest_path(graphs[t]))
 
     print("all graphs loaded")
-    for s in range(src_start, src_end):
+    for s in range(start, end):
         # if s < 35 or s >= 49:
         #     continue
         # if s >= 49 and s < 54:

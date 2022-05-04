@@ -9,9 +9,9 @@ from datetime import datetime
 import csv
 import scipy
 
-def load_data(constellation):
+def load_data(constellation, total_time):
     ratio = []
-    dir = "paper_data/" + constellation + "/1000ms_for_6000s/manual/data/"
+    dir = "paper_data/" + constellation + "/1000ms_for_" + str(total_time) + "s/manual/data/"
     for file in os.listdir(dir):
         if file.startswith("networkx_path_"):
             f = dir + file
@@ -24,17 +24,21 @@ def load_data(constellation):
                 for row in spamreader:
                     # print(row)
                     if prev_path == "":
-                        prev_path = list(row[1].split("-"))
-                        prev_path = [int(i) for i in prev_path]
-                        prev_links = [str(prev_path[i]) + "_" +  str(prev_path[i + 1]) for i in range(len(prev_path) - 1)]
+                        if row[1] != "Unreachable":
+                            prev_path = list(row[1].split("-"))
+                            prev_path = [int(i) for i in prev_path]
+                            prev_links = [str(prev_path[i]) + "_" +  str(prev_path[i + 1]) for i in range(len(prev_path) - 1)]
                         continue
                     
-                    path = list(row[1].split("-"))
-                    path = [int(i) for i in path]
-                    current_links = [str(path[i]) + "_" +  str(path[i + 1]) for i in range(len(path) - 1)]
-                    intersection = list(set(current_links).intersection(prev_links))
+                    
+                    if row[1] != "Unreachable" and prev_path != "Unreachable":
+                        path = list(row[1].split("-"))
+                        # print(path, prev_path)
+                        path = [int(i) for i in path]
+                        current_links = [str(path[i]) + "_" +  str(path[i + 1]) for i in range(len(path) - 1)]
+                        intersection = list(set(current_links).intersection(prev_links))
 
-                    ratio.append((len(prev_links) - len(intersection)) / len(prev_links))
+                        ratio.append((len(prev_links) - len(intersection)) / len(prev_links))
 
                     prev_links = current_links
                     id = id + 1
@@ -62,22 +66,31 @@ if __name__ == '__main__':
     "starlink_550_isls_plus_grid_ground_stations_top_100_algorithm_free_one_only_over_isls" : "b-",
     "telesat_1015_isls_plus_grid_ground_stations_top_100_algorithm_free_one_only_over_isls": "g-."
     }
+
+    total_time = {"kuiper_630_isls_plus_grid_ground_stations_top_100_algorithm_free_one_only_over_isls" : 6000,
+    "starlink_550_isls_plus_grid_ground_stations_top_100_algorithm_free_one_only_over_isls" : 6000,
+    "telesat_1015_isls_plus_grid_ground_stations_top_100_algorithm_free_one_only_over_isls": 6600
+    }
     
     for constellation in constellations:
-        ratio = load_data(constellation)
+        ratio = load_data(constellation, total_time[constellation])
         
         print("Mean, 25th Percentile, Median, 75th Percentile, 90th Percentile, Max, Min, Std")
         print(np.mean(ratio), np.percentile(ratio, 25), np.median(ratio), np.percentile(ratio, 75), np.percentile(ratio, 90),  np.max(ratio), np.min(ratio), np.std(ratio), sep=',')
-        count, bins_count = np.histogram(ratio, bins=np.linspace(0,1,51))
+        count, bins_count = np.histogram(ratio, bins=np.linspace(0,1.01,1000))
         pdf_ratio = count / sum(count)
         cdf_ratio = np.cumsum(pdf_ratio)
-
-        plt.xlabel("Path Variation Ratio", fontsize=18)
-        plt.ylabel("Probability", fontsize=18)
-        plt.yticks([0.1, 0.2, 0.3,0.4,0.5,0.6,0.7,0.8,0.9,1], fontsize=14)
-        plt.xticks(fontsize=14)
         
-        plt.plot(bins_count[1:], cdf_ratio, patterns[constellation], label=nice_name[constellation] + "\nVariation in Composition")
+        idxs = np.nonzero(cdf_ratio < 1.0000000001)
+        plt.plot(bins_count[idxs], cdf_ratio[idxs], patterns[constellation], label=nice_name[constellation])
+
+    plt.title("Variation in Composition", fontsize=18)
+    plt.xlabel("Path Variation Ratio", fontsize=18)
+    plt.ylabel("CDF", fontsize=18)
+    plt.yticks([0.1, 0.2, 0.3,0.4,0.5,0.6,0.7,0.8,0.9,1], fontsize=14)
+    plt.xticks(fontsize=14)
+    plt.grid(linewidth=0.5, linestyle=':')
+    plt.tight_layout()
     
     base_file = "paper_plots/pathVariations"
     png_file = base_file + ".png"

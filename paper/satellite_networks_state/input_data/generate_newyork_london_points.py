@@ -74,8 +74,21 @@ INCLINATION_DEGREE = 53
 def generate_newyork_points():
     points = []
     i = 0
-    for lat in list(np.linspace(40.6928, 40.7328, 40)):
-        for lon in list(np.linspace(-74.0260, -73.9840, 40)):
+    latitude = 40.717042
+    longitude = -74.003663
+    point = {}
+    point['pid'] = i
+    point['latitude_degrees_str'] = str(latitude)
+    point['longitude_degrees_str'] = str(longitude)
+    point['name'] = "nyid" + str(i)
+    point['elevation_m_float'] = 0
+    point['cartesian_x'], point['cartesian_x'], point['cartesian_x'] = geodetic2cartesian(latitude, longitude, 0)
+    points.append(point)
+    i = i + 1
+    for r in list(np.linspace(0.001, 0.021, 20)):
+        for theta in list(np.linspace(0, 2*np.pi, 100)):
+            lat = latitude + r * np.cos(theta)
+            lon = longitude + r * np.sin(theta)
             point = {}
             point['pid'] = i
             point['latitude_degrees_str'] = str(lat)
@@ -90,9 +103,24 @@ def generate_newyork_points():
 
 def generate_london_points():
     points = []
-    i = 1600
-    for lat in list(np.linspace(51.4872, 51.5272, 40)):
-        for lon in list(np.linspace(-0.1476, -0.1076, 40)):
+    i = 2001
+
+    latitude = 51.50853
+    longitude = -0.12574
+    point = {}
+    point['pid'] = i
+    point['latitude_degrees_str'] = str(latitude)
+    point['longitude_degrees_str'] = str(longitude)
+    point['name'] = "lid" + str(i)
+    point['elevation_m_float'] = 0
+    point['cartesian_x'], point['cartesian_x'], point['cartesian_x'] = geodetic2cartesian(latitude, longitude, 0)
+    points.append(point)
+    i = i + 1
+
+    for r in list(np.linspace(0.001, 0.021, 20)):
+        for theta in list(np.linspace(0, 2*np.pi, 100)):
+            lat = latitude + r * np.cos(theta)
+            lon = longitude + r * np.sin(theta)
             point = {}
             point['pid'] = i
             point['latitude_degrees_str'] = str(lat)
