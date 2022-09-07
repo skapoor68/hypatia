@@ -27,10 +27,12 @@ import pandas as pd
 import datetime
 import csv
 import sys
+from collections import defaultdict
 
 import folium
 from folium import plugins
 from folium.plugins import HeatMap
+import branca.colormap
 
 try:
     from . import util
@@ -140,12 +142,33 @@ def generate_points():
             points.append(point)
             i = i + 1
 
+    lat = 85
+    lon = -170
+    point = {}
+    point['pid'] = i
+    point['latitude_degrees_str'] = str(lat)
+    point['longitude_degrees_str'] = str(lon)
+    point['name'] = "gid" + str(i)
+    point['elevation_m_float'] = 0
+    points.append(point)
+    i = i + 1
+
+    lat = -85
+    lon = -170
+    point = {}
+    point['pid'] = i
+    point['latitude_degrees_str'] = str(lat)
+    point['longitude_degrees_str'] = str(lon)
+    point['name'] = "gid" + str(i)
+    point['elevation_m_float'] = 0
+    points.append(point)
+
     return points
 
 colors = ["RED", "BROWN", "DARKORANGE", "FUCHSIA", "GOLD", "HOTPINK", "INDIGO", "SLATEGREY", "YELLOWGREEN", "BLACK", "YELLOW"]
 
 def load_data(source):
-    point_intensity = [None] * 2700
+    point_intensity = [None] * 2702
     f = "src_point_" + str(source) + ".txt"
 
     with open(f) as csvfile:
@@ -174,10 +197,32 @@ def main():
             point['longitude_degrees_str'] = float(row[3])
             point['elevation_m_float'] = float(row[4])
             points.append(point)
+
+    lat = 85
+    lon = -170
+    point = {}
+    i = 2700
+    point['pid'] = i
+    point['latitude_degrees_str'] = str(lat)
+    point['longitude_degrees_str'] = str(lon)
+    point['name'] = "gid" + str(i)
+    point['elevation_m_float'] = 0
+    points.append(point)
+    i = i + 1
+
+    lat = -85
+    lon = -170
+    point = {}
+    point['pid'] = i
+    point['latitude_degrees_str'] = str(lat)
+    point['longitude_degrees_str'] = str(lon)
+    point['name'] = "gid" + str(i)
+    point['elevation_m_float'] = 0
+    points.append(point)
     
     print(points[source])
     point_intensity = load_data(source)
-    print(np.std(point_intensity), np.max(point_intensity), np.min(point_intensity), np.mean(point_intensity))
+    # print(np.std(point_intensity), np.max(point_intensity), np.min(point_intensity), np.mean(point_intensity))
     # point_intensity = (point_intensity - np.mean(point_intensity))  * (10 / np.std(point_intensity))
 
     print(np.std(point_intensity), np.max(point_intensity), np.min(point_intensity))
@@ -193,10 +238,20 @@ def main():
         data.append([lat, lon, point_intensity[i - 4]])
 
     # print(data)
+    steps=20
     m = folium.Map([points[source]["latitude_degrees_str"], points[source]["longitude_degrees_str"]],  zoom_start=3)
+    # colormap = branca.colormap.linear.Reds_09.scale(1, 2.71).to_step(steps)
+    colormap = branca.colormap.LinearColormap(["white", "red"], [0.4,1]).scale(1, 2.71).to_step(steps)
+    gradient_map=defaultdict(dict)
+    for i in range(steps):
+        gradient_map[1/steps*i] = colormap.rgb_hex_str(1 + 1.7/steps*i)
+
+    print(gradient_map)
+    # colormap.add_to(m) #add color bar at the top of the map
+    # m.add_child(colormap, location=[75, 0])
     folium.Marker([points[source]["latitude_degrees_str"], points[source]["longitude_degrees_str"]]).add_to(m)
     radius = 16
-    HeatMap(data,radius=radius,blur=20, gradient={.4:"white",1:"red"}).add_to(folium.FeatureGroup(name='Heat Map').add_to(m))
+    HeatMap(data,radius=radius,blur=20, gradient=gradient_map).add_to(folium.FeatureGroup(name='Heat Map').add_to(m))
     folium.LayerControl().add_to(m)
     # f_name = "heatmap_" + str(radius) + "_" + str(blur) + ".html"
     f_name = "heatmap_" + str(source) + ".html"

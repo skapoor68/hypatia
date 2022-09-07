@@ -24,7 +24,7 @@ import exputil
 import time
 
 local_shell = exputil.LocalShell()
-max_num_processes = 41
+max_num_processes = 42
 
 # Check that no screen is running
 # if local_shell.count_screens() != 0:
@@ -37,7 +37,7 @@ max_num_processes = 41
 
 # Where to store all commands
 commands_to_run = []
-num_shells = 20
+num_shells = 40
 idx = 0
 # Manual
 print("printing all different graphs")
@@ -56,18 +56,19 @@ for satgenpy_generated_constellation in [
     # "starlink_550_isls_plus_grid_ground_stations_world_grid_algorithm_free_one_only_over_isls"
     # "starlink_550_isls_plus_grid_ground_stations_world_grid_paper_algorithm_free_one_only_over_isls"
     # "starlink_550_isls_plus_grid_ground_stations_newyork_london_circular_algorithm_free_one_only_over_isls"
-    "starlink_550_isls_plus_grid_ground_stations_kyiv_algorithm_free_one_only_over_isls"
+    # "starlink_550_isls_plus_grid_ground_stations_newyork_london_circular_bigger_algorithm_free_one_only_over_isls"
+    "starlink_550_isls_plus_grid_ground_stations_darfur_algorithm_free_one_only_over_isls"
     # "starlink_550_isls_plus_grid_ground_stations_newyork_london_1600_algorithm_free_one_only_over_isls"
     # "starlink_550_isls_plus_grid_ground_stations_top_100_algorithm_free_one_only_over_isls"
     # "telesat_1015_isls_plus_grid_ground_stations_top_100_algorithm_free_one_only_over_isls"
 ]:
     update_interval_ms = 1000
-    duration_s = 200
+    duration_s = 600
     print(satgenpy_generated_constellation)
 
     interval = duration_s // num_shells
     # interval = 2
-    for start_time in range(0, duration_s, interval):
+    for start_time in range(0, 0 + duration_s, interval):
         commands_to_run.append(
             "cd ../../satgenpy; "
             "python -m satgen.post_analysis.main_generate_graphs "

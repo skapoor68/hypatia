@@ -38,8 +38,8 @@ EARTH_RADIUS = 6378135.0 # WGS72 value; taken from https://geographiclib.sourcef
 # CONSTELLATION GENERATION GENERAL CONSTANTS
 ECCENTRICITY = 0.0000001  # Circular orbits are zero, but pyephem does not permit 0, so lowest possible value
 ARG_OF_PERIGEE_DEGREE = 0.0
-PHASE_DIFF = True
-EPOCH = "2000-01-01 00:00:00"
+PHASE_DIFF = False
+EPOCH = "2000-01-01 00:03:00"
 
 # Shell wise color codes
 # COLOR = [[255, 0, 0, 200], [32, 128, 46, 200], [0, 0, 255, 200], [245, 66, 242, 200], [245, 126, 66, 200]]
@@ -50,7 +50,7 @@ COLOR = ['CRIMSON', 'FORESTGREEN', 'DODGERBLUE', 'PERU', 'BLUEVIOLET', 'DARKMAGE
 # STARLINK
 NAME = "Starlink"
 
-SHELL_CNTR = 5
+SHELL_CNTR = 1
 
 MEAN_MOTION_REV_PER_DAY = [None]*SHELL_CNTR
 ALTITUDE_M = [None]*SHELL_CNTR
@@ -68,37 +68,37 @@ INCLINATION_DEGREE[0] = 53
 BASE_ID[0] = 0
 ORB_WISE_IDS[0] = []
 
-MEAN_MOTION_REV_PER_DAY[1] = 13.4  # Altitude ~1110 km
-ALTITUDE_M[1] = 1110000  # Altitude ~1110 km
-NUM_ORBS[1] = 32
-NUM_SATS_PER_ORB[1] = 50
-INCLINATION_DEGREE[1] = 53.8
-BASE_ID[1] = 1584
-ORB_WISE_IDS[1] = []
+# MEAN_MOTION_REV_PER_DAY[1] = 13.4  # Altitude ~1110 km
+# ALTITUDE_M[1] = 1110000  # Altitude ~1110 km
+# NUM_ORBS[1] = 32
+# NUM_SATS_PER_ORB[1] = 50
+# INCLINATION_DEGREE[1] = 53.8
+# BASE_ID[1] = 1584
+# ORB_WISE_IDS[1] = []
 
-MEAN_MOTION_REV_PER_DAY[2] = 13.35  # Altitude ~1130 km
-ALTITUDE_M[2] = 1130000  # Altitude ~1130 km
-NUM_ORBS[2] = 8
-NUM_SATS_PER_ORB[2] = 50
-INCLINATION_DEGREE[2] = 74
-BASE_ID[2] = 3184
-ORB_WISE_IDS[2] = []
+# MEAN_MOTION_REV_PER_DAY[2] = 13.35  # Altitude ~1130 km
+# ALTITUDE_M[2] = 1130000  # Altitude ~1130 km
+# NUM_ORBS[2] = 8
+# NUM_SATS_PER_ORB[2] = 50
+# INCLINATION_DEGREE[2] = 74
+# BASE_ID[2] = 3184
+# ORB_WISE_IDS[2] = []
 
-MEAN_MOTION_REV_PER_DAY[3] = 12.97  # Altitude ~1275 km
-ALTITUDE_M[3] = 1275000  # Altitude ~1275 km
-NUM_ORBS[3] = 5
-NUM_SATS_PER_ORB[3] = 75
-INCLINATION_DEGREE[3] = 81
-BASE_ID[3] = 3584
-ORB_WISE_IDS[3] = []
+# MEAN_MOTION_REV_PER_DAY[3] = 12.97  # Altitude ~1275 km
+# ALTITUDE_M[3] = 1275000  # Altitude ~1275 km
+# NUM_ORBS[3] = 5
+# NUM_SATS_PER_ORB[3] = 75
+# INCLINATION_DEGREE[3] = 81
+# BASE_ID[3] = 3584
+# ORB_WISE_IDS[3] = []
 
-MEAN_MOTION_REV_PER_DAY[4] = 12.84  # Altitude ~1325 km
-ALTITUDE_M[4] = 1325000  # Altitude ~1325 km
-NUM_ORBS[4] = 6
-NUM_SATS_PER_ORB[4] = 75
-INCLINATION_DEGREE[4] = 70
-BASE_ID[4] = 3959
-ORB_WISE_IDS[4] = []
+# MEAN_MOTION_REV_PER_DAY[4] = 12.84  # Altitude ~1325 km
+# ALTITUDE_M[4] = 1325000  # Altitude ~1325 km
+# NUM_ORBS[4] = 6
+# NUM_SATS_PER_ORB[4] = 75
+# INCLINATION_DEGREE[4] = 70
+# BASE_ID[4] = 3959
+# ORB_WISE_IDS[4] = []
 
 
 """
@@ -183,7 +183,7 @@ bottomFile = "../static_html/bottom.html"
 OUT_DIR = "../viz_output/"
 # JSON_NAME  = NAME+"_5shell.json"
 # OUT_JSON_FILE = OUT_DIR + JSON_NAME
-OUT_HTML_FILE = OUT_DIR + NAME + ".html"
+OUT_HTML_FILE = OUT_DIR + NAME + "_no_phase.html"
 
 # START = Time(EPOCH, scale="tdb")
 # END = START + (10*60) * u.second

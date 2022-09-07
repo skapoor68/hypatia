@@ -85,8 +85,13 @@ def generate_newyork_points():
     point['cartesian_x'], point['cartesian_x'], point['cartesian_x'] = geodetic2cartesian(latitude, longitude, 0)
     points.append(point)
     i = i + 1
-    for r in list(np.linspace(0.001, 0.021, 20)):
-        for theta in list(np.linspace(0, 2*np.pi, 100)):
+
+    num_points = [10,20,30,40,50,60,70,80,90,100,110,120,130,140,150,160,170,180,190,200]
+    radii = [0.01,0.02,0.03,0.04,0.05,0.06,0.07,0.08,0.09,0.1,0.11,0.12,0.13,0.14,0.15,0.16,0.17,0.18,0.19,0.2]
+    # print(len(num_points), len(radii))
+    j = 0
+    for r in radii:
+        for theta in list(np.linspace(0, 2*np.pi, num=int(num_points[j]), endpoint=False)):
             lat = latitude + r * np.cos(theta)
             lon = longitude + r * np.sin(theta)
             point = {}
@@ -98,12 +103,14 @@ def generate_newyork_points():
             point['cartesian_x'], point['cartesian_x'], point['cartesian_x'] = geodetic2cartesian(lat, lon, 0)
             points.append(point)
             i = i + 1
+        j += 1
 
+    # print(i)
     return points
 
 def generate_london_points():
     points = []
-    i = 2001
+    i = 2101
 
     latitude = 51.50853
     longitude = -0.12574
@@ -117,8 +124,12 @@ def generate_london_points():
     points.append(point)
     i = i + 1
 
-    for r in list(np.linspace(0.001, 0.021, 20)):
-        for theta in list(np.linspace(0, 2*np.pi, 100)):
+    num_points = [10,20,30,40,50,60,70,80,90,100,110,120,130,140,150,160,170,180,190,200]
+    radii = [0.01,0.02,0.03,0.04,0.05,0.06,0.07,0.08,0.09,0.1,0.11,0.12,0.13,0.14,0.15,0.16,0.17,0.18,0.19,0.2]
+    j = 0
+
+    for r in radii:
+        for theta in list(np.linspace(0, 2*np.pi, num=int(num_points[j]), endpoint=False)):
             lat = latitude + r * np.cos(theta)
             lon = longitude + r * np.sin(theta)
             point = {}
@@ -130,6 +141,8 @@ def generate_london_points():
             point['cartesian_x'], point['cartesian_x'], point['cartesian_x'] = geodetic2cartesian(lat, lon, 0)
             points.append(point)
             i = i + 1
+        
+        j += 1
 
     return points
 

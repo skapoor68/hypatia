@@ -31,7 +31,7 @@ def load_data(constellation, total_time):
 
                 rtts = np.array(rtts)
                 rtts = rtts[np.nonzero(rtts)]
-                ratio.append(np.amax(rtts) / np.amin(rtts))
+                ratio.append(np.amin(rtts) / np.amax(rtts))
                 if ratio[-1] > max_ratio:
                     max_ratio = ratio[-1]
                     max_file = file
@@ -47,6 +47,11 @@ if __name__ == '__main__':
         "starlink_550_isls_plus_grid_ground_stations_top_100_algorithm_free_one_only_over_isls",
         "telesat_1015_isls_plus_grid_ground_stations_top_100_algorithm_free_one_only_over_isls"
     ]
+
+    constellation_line_numbers = {"kuiper_630_isls_plus_grid_ground_stations_top_100_algorithm_free_one_only_over_isls" : 0,
+    "starlink_550_isls_plus_grid_ground_stations_top_100_algorithm_free_one_only_over_isls" : 1,
+    "telesat_1015_isls_plus_grid_ground_stations_top_100_algorithm_free_one_only_over_isls": 2
+    }
 
     nice_name = {"kuiper_630_isls_plus_grid_ground_stations_top_100_algorithm_free_one_only_over_isls" : "Kuiper 630",
     "starlink_550_isls_plus_grid_ground_stations_top_100_algorithm_free_one_only_over_isls" : "Starlink 550",
@@ -68,25 +73,35 @@ if __name__ == '__main__':
     "telesat_1015_isls_plus_grid_ground_stations_top_100_algorithm_free_one_only_over_isls": 6600
     }
 
-    for constellation in constellations:
-        ratio = load_data(constellation, total_time[constellation])
+    # for constellation in constellations:
+    #     ratio = load_data(constellation, total_time[constellation])
         
-        print("Mean, 25th Percentile, Median, 75th Percentile, 90th Percentile, Max, Min, Std")
-        print(np.mean(ratio), np.percentile(ratio, 25), np.median(ratio), np.percentile(ratio, 75), np.percentile(ratio, 90),  np.max(ratio), np.min(ratio), np.std(ratio), sep=',')
-        count, bins_count = np.histogram(ratio, bins=np.linspace(1,3,1000))
-        pdf_ratio = count / sum(count)
-        cdf_ratio = np.cumsum(pdf_ratio)
+    #     # print("Mean, 25th Percentile, Median, 75th Percentile, 90th Percentile, Max, Min, Std")
+    #     # print(np.mean(ratio), np.percentile(ratio, 25), np.median(ratio), np.percentile(ratio, 75), np.percentile(ratio, 90),  np.max(ratio), np.min(ratio), np.std(ratio), sep=',')
+    #     count, bins_count = np.histogram(ratio, bins=np.linspace(0,1,1000))
+    #     pdf_ratio = count / sum(count)
+    #     cdf_ratio = np.cumsum(pdf_ratio)
+    #     print(list(cdf_ratio))
+    #     idxs = np.nonzero(cdf_ratio > 0.00001)
+    #     plt.plot(bins_count[idxs], cdf_ratio[idxs], patterns[constellation], label=nice_name[constellation])
 
-        idxs = np.nonzero(cdf_ratio < 0.99999)
-        plt.plot(bins_count[idxs], cdf_ratio[idxs], patterns[constellation], label=nice_name[constellation])
+    data = np.genfromtxt("rtt_variations.txt", delimiter=",")
+    bins=np.linspace(0,1,1000)
+    plt.figure(figsize=(6.4,3.2))
+    for constellation in constellations:
+        cdf_ratio = data[constellation_line_numbers[constellation]]
+        # print(list(cdf_ratio))
+        idxs = np.nonzero(cdf_ratio > 0.00001)
+        plt.plot(bins[idxs], cdf_ratio[idxs], patterns[constellation], label=nice_name[constellation])
         
-    plt.xlabel("Max RTT / Min RTT", fontsize=18)
+    
+    plt.xlabel("Min RTT / Max RTT", fontsize=18)
     plt.ylabel("CDF", fontsize=18)
-    plt.legend(fontsize=14, loc="lower right")
-    plt.yticks([0,0.1, 0.2, 0.3,0.4,0.5,0.6,0.7,0.8,0.9,1], fontsize=14)
+    plt.legend(fontsize=14, loc="upper left", frameon=False)
+    plt.yticks([0, 0.2,0.4,0.6,0.8,1], fontsize=14)
     plt.xticks(fontsize=14)
     plt.grid(linewidth=0.5, linestyle=':')
-    plt.title("Variation in RTT", fontsize=18)
+    # plt.title("Variation in RTT", fontsize=18)
     plt.tight_layout()
     
 
@@ -95,4 +110,3 @@ if __name__ == '__main__':
     pdf_file = base_file + ".pdf"
     plt.savefig(png_file)
     plt.savefig(pdf_file)
-    print("done")

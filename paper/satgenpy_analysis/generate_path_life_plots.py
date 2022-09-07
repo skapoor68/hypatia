@@ -97,21 +97,29 @@ if __name__ == '__main__':
     pdf_life_times = count / sum(count)
     cdf_life_times = np.cumsum(pdf_life_times)
 
+    plt.figure(figsize=(6.4,3.2))
     plt.xlabel("Path Life (seconds)", fontsize=18)
     plt.ylabel("CDF", fontsize=18)
-    plt.yticks([0,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1], fontsize=14)
-    plt.xticks(fontsize=14)
+    plt.yticks([0,0.2,0.4,0.6,0.8,1], fontsize=14)
+    plt.xscale("log")
+    xticks = [1,2,5]
+    while True:
+        xticks.append(xticks[-1] * 2)
+        if xticks[-1] > max_time:
+            break
+
+    print(xticks)
+    plt.xticks(xticks, labels=xticks, fontsize=14)
     
-    plt.title(nice_name[args[0]], fontsize=18)
     plt.tight_layout()
-    idxs = np.nonzero(cdf_usable_times < 0.99999)
-    plt.plot(bins_count[idxs], cdf_usable_times[idxs], "r-", label="Usage time of Paths")
-    idxs = np.nonzero(cdf_life_times < 0.99999)
-    plt.plot(bins_count[idxs], cdf_life_times[idxs], "g-.", label="Life time of Paths")
+    idxs = np.nonzero((cdf_usable_times < 0.99999) & (cdf_usable_times > 0))
+    plt.plot(bins[idxs], cdf_usable_times[idxs], "r-", label="Usage time of Paths")
+    idxs = np.nonzero((cdf_life_times < 0.99999) & (cdf_life_times > 0))
+    plt.plot(bins[idxs], cdf_life_times[idxs], "g-.", label="Life time of Paths")
     base_file = "paper_plots/" + file_name[args[0]] + "PathLife"
     png_file = base_file + ".png"
     pdf_file = base_file + ".pdf"
-    plt.legend(fontsize=14, loc="lower right")
+    plt.legend(fontsize=14, loc="upper left", frameon=False)
     plt.grid(linewidth=0.5, linestyle=':')
     plt.savefig(png_file)
     plt.savefig(pdf_file)

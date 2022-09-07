@@ -33,10 +33,10 @@ def load_data(graphs):
     path_lengths = []
     latencies = []
 
-    dir = "paper_data/starlink_550_isls_plus_grid_ground_stations_newyork_london_circular_algorithm_free_one_only_over_isls/1000ms_for_200s/manual/data/"
-    for i in range(2001):
+    dir = "paper_data/starlink_550_isls_plus_grid_ground_stations_newyork_london_circular_bigger_algorithm_free_one_only_over_isls/1000ms_for_200s/manual/data/"
+    for i in range(2101):
         src = 1584 + i
-        dst = 1584 + i + 2001
+        dst = 1584 + i + 2101
         file = "networkx_path_" + str(src) + "_to_" + str(dst) + ".txt"
         f = dir + file
         with open(f) as csvfile:
@@ -131,7 +131,7 @@ if __name__ == '__main__':
     end_time = 1400*1000*1000*1000
     for i in range(start_time, end_time, 1000*1000*1000):
         # idx = start_time + i*1000*1000*1000
-        graph_path = "graphs/starlink_550_isls_plus_grid_ground_stations_newyork_london_circular_algorithm_free_one_only_over_isls/1000ms/graph_" + str(i) + ".txt"
+        graph_path = "graphs/starlink_550_isls_plus_grid_ground_stations_newyork_london_circular_bigger_algorithm_free_one_only_over_isls/1000ms/graph_" + str(i) + ".txt"
         graphs[i] = nx.read_gpickle(graph_path)
 
     path_dictionary, path_utilization, path_lengths, latencies = load_data(graphs)
@@ -145,7 +145,7 @@ if __name__ == '__main__':
     i = 0
     print(path_dictionary, path_utilization.shape)
     x = np.arange(0, total_time)
-    deviations = np.linspace(-0.2,0.2,2001)
+    deviations = np.linspace(-0.2,0.2,2101)
     for latency in latencies:
         plt.plot(x, latency + deviations[i], "grey", linewidth=3, alpha=0.5)
         i += 1
@@ -178,7 +178,7 @@ if __name__ == '__main__':
         i += 1
 
     
-    plt.title("Utilization for the New York-London Route", fontsize=18)
+    # plt.title("Utilization for the New York-London Route", fontsize=18)
     plt.xlabel("Time (seconds)", fontsize=18)
     plt.ylabel("RTT (ms)", fontsize=18)
     plt.yticks(fontsize=14)

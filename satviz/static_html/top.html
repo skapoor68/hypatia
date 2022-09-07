@@ -37,13 +37,16 @@ canvas.onclick = function() {
 };
 var ellipsoid = scene.globe.ellipsoid;
 var globe = viewer.scene.globe;
-globe.imageryLayers.removeAll();
-globe.baseColor = Cesium.Color.fromCssColorString('#f7fbff');
+// globe.imageryLayers.removeAll();
+// globe.baseColor = Cesium.Color.fromCssColorString('#f7fbff');
 
 var tonerLayer = globe.imageryLayers.addImageryProvider(
-    Cesium.createOpenStreetMapImageryProvider({
-        url : 'https://stamen-tiles.a.ssl.fastly.net/toner-background/',
-        credit : 'Map tiles by Stamen Design, under CC BY 3.0. Data by OpenStreetMap, under CC BY SA.'
+    // Cesium.createOpenStreetMapImageryProvider({
+    //     url : 'https://stamen-tiles.a.ssl.fastly.net/toner-background/',
+    //     credit : 'Map tiles by Stamen Design, under CC BY 3.0. Data by OpenStreetMap, under CC BY SA.'
+    // })
+    Cesium.createWorldImagery({
+        style : Cesium.IonWorldImageryStyle.AERIAL
     })
 );
 tonerLayer.alpha = 0.3;

@@ -22,6 +22,7 @@ def load_data(src=1584):
     for tt in range(total_time):
         graph_path = dir + "graph_" + str(tt * 1000*1000*1000) + ".txt"
         graph = nx.read_gpickle(graph_path).subgraph(nodes)
+        print(len(list(graph[src].keys())))
         for nbr in graph[src].keys():
             if nbr in gsl_times:
                 gsl_times[nbr].append(tt)
@@ -49,16 +50,16 @@ if __name__ == '__main__':
     pdf_lifetimes = count / sum(count)
     cdf_lifetimes = np.cumsum(pdf_lifetimes)
 
+    plt.figure(figsize=(6.4,3.2))
     idxs = np.nonzero(cdf_lifetimes < 0.99999)
     plt.plot(bins_count[idxs], cdf_lifetimes[idxs], "b-")
         
-    plt.xlabel("Lifetime (seconds)", fontsize=18)
+    plt.xlabel("GSL Lifetime (seconds)", fontsize=18)
     plt.ylabel("CDF", fontsize=18)
     # plt.legend(fontsize=14, loc="lower right")
-    plt.yticks([0,0.1, 0.2, 0.3,0.4,0.5,0.6,0.7,0.8,0.9,1], fontsize=14)
+    plt.yticks([0, 0.2,0.4,0.6,0.8,1], fontsize=14)
     plt.xticks(fontsize=14)
     plt.xticks(fontsize=14)
-    plt.title("Ground-Satellite Link Lifetimes", fontsize=18)
     plt.grid(linewidth=0.5, linestyle=':')
     plt.tight_layout()
 

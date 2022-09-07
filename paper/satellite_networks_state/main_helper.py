@@ -93,9 +93,9 @@ class MainHelper:
                 "input_data/ground_stations_paris_moscow_grid.basic.txt",
                 output_generated_data_dir + "/" + name + "/ground_stations.txt"
             )
-        elif gs_selection == "ground_stations_kyiv":
+        elif gs_selection == "ground_stations_darfur":
             satgen.extend_ground_stations(
-                "input_data/ground_stations_kyiv.basic.txt",
+                "input_data/ground_stations_darfur.basic.txt",
                 output_generated_data_dir + "/" + name + "/ground_stations.txt"
             )
         elif gs_selection == "ground_stations_world_grid_paper":
@@ -121,6 +121,11 @@ class MainHelper:
         elif gs_selection == "ground_stations_newyork_london_circular":
             satgen.extend_ground_stations(
                 "input_data/ground_stations_newyork_london_circular.basic.txt",
+                output_generated_data_dir + "/" + name + "/ground_stations.txt"
+            )
+        elif gs_selection == "ground_stations_newyork_london_circular_bigger":
+            satgen.extend_ground_stations(
+                "input_data/ground_stations_newyork_london_circular_bigger.basic.txt",
                 output_generated_data_dir + "/" + name + "/ground_stations.txt"
             )
         else:

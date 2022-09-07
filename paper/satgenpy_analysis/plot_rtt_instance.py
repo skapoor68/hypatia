@@ -24,7 +24,6 @@ def calculate_path_lengths(graphs, path):
     return lengths
 
 def load_data(src, dst):
-    times = []
     paths = []
     rtts = {}
     latencies = []
@@ -39,7 +38,6 @@ def load_data(src, dst):
             t = int(int(row[0]) / 1000000000)
             if t >= 200:
                 break
-            times.append(t)
             paths.append(row[1])
             
     file = "networkx_life_of_path_" + str(src) + "_to_" + str(dst) + ".txt"
@@ -66,41 +64,45 @@ def load_data(src, dst):
             latency = float(row[1]) / 1000000
             latencies.append(latency)
 
-    return times, paths, rtts, latencies
+    return paths, rtts, latencies
 
 def get_linewidth(utilization):
     return 1
 
 
 if __name__ == '__main__':
-    times, paths, rtts, latencies = load_data(1610,1616)
-    times.append(200)
-    # plt.plot(bins_count[1:], pdf, color="red", label="PDF")
-    plt.ylabel("RTT (ms)")
-    plt.xlabel("Time (seconds)")
+    
+    plt.ylabel("RTT (ms)", fontsize=18)
+    plt.xlabel("Time (seconds)", fontsize=18)
     
     plt_colors = ["b-", "r-", "g-", "m-", "y-",  "c-", "b-", "r-", "g-", "m-", "y-", "c-","b-"]
     path_colors = ["b--", "r--", "g--", "m--", "y--",  "c--", "b--", "r--", "g--", "m--", "y--", "c--", "b--"]
     x = np.arange(0, total_time)
-    
-    for i in range(len(paths)):
-        rtt = rtts[paths[i]]
+
+    # paths, rtts, latencies = load_data(1610,1616)
+    # for i in range(len(paths)):
+    #     rtt = rtts[paths[i]]
+    #     print(list(rtts[paths[i]]))
+    #     idxs = np.argwhere(rtt > 0)
+    #     plt.plot(x[idxs], rtt[idxs], path_colors[i])
+
+    # print(list(latencies))
+    # plt.plot(x[:200], latencies, "k-", linewidth=3, alpha=0.5)
+
+    data = np.genfromtxt("rtt_instance.txt", delimiter=",")
+    for i in range(data.shape[0] - 1):
+        rtt = data[i]
         idxs = np.argwhere(rtt > 0)
         plt.plot(x[idxs], rtt[idxs], path_colors[i])
 
-        # idxs = np.arange(times[i], times[i + 1])
-        # print(idxs)
-        
-        # plt.plot(x[idxs], rtt[idxs], plt_colors[i], linewidth=3)
-    plt.plot(x[:200], latencies, "k-", linewidth=3, alpha=0.5)
+    latencies = data[-1]
+    plt.plot(x[:200], latencies[:200], "k-", linewidth=3, alpha=0.5)
 
-    plt.xlabel("Ratio", fontsize=18)
-    plt.ylabel("CDF", fontsize=18)
     # plt.legend(fontsize=14, loc="lower right")
     plt.yticks(fontsize=14)
     plt.xticks([0,25,50,75,100,125,150,175,200], fontsize=14)
     plt.xticks(fontsize=14)
-    plt.title("Frequent path switching for Jakarta to Bogotá", fontsize=18)
+    # plt.title("Frequent path switching for Jakarta to Bogotá", fontsize=18)
     plt.grid(linewidth=0.5, linestyle=':')
     plt.tight_layout()
 

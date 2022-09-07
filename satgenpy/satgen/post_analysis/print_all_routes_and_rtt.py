@@ -59,7 +59,7 @@ def get_shortest_path(src, dst, graph, satellites):
     nodes.append(dst)
     sat_only_graph = graph.subgraph(nodes)
     shortest_path = nx.shortest_path(sat_only_graph, source=src, target=dst, weight='weight')
-    shortest_dist = nx.shortest_path_length(sat_only_graph, src, dst, weight='weight')
+    shortest_dist = compute_path_length_with_graph(shortest_path, graph)
     return shortest_path, shortest_dist
 
 def print_routes_and_rtt_for_src(s, graphs, satellites, ground_stations, data_dir, dynamic_state_update_interval_ns, simulation_end_time_ns):

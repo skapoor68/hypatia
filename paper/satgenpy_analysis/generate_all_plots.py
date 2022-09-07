@@ -19,6 +19,12 @@ total_time = {"kuiper_630_isls_plus_grid_ground_stations_top_100_algorithm_free_
     }
 
 print("Generating commands for constellation comparison...")
+for config in range(3):
+    command = "python generate_shell_path_plot.py " + str(config)
+    commands_to_run.append(command)
+    command = "python generate_shell_rtt_plot.py " + str(config)
+    commands_to_run.append(command)
+
 for satgenpy_generated_constellation in [
     "kuiper_630_isls_plus_grid_ground_stations_top_100_algorithm_free_one_only_over_isls",
     "starlink_550_isls_plus_grid_ground_stations_top_100_algorithm_free_one_only_over_isls",
@@ -33,11 +39,15 @@ for satgenpy_generated_constellation in [
             command = "python generate_path_life_plots.py " + satgenpy_generated_constellation + " " + str(update_interval_ms) + " " + str(duration_s) 
             commands_to_run.append(command)
 
-commands_to_run.append("python generate_path_length_ratio_plots.py")
+commands_to_run.append("python generate_path_life_ratio_plot.py")
+commands_to_run.append("python generate_longest_path_life_time_ratio.py")
 commands_to_run.append("python generate_rtt_ratio_plots.py")
-commands_to_run.append("python generate_path_variation_plots.py")
-commands_to_run.append("python plot_instance.py")
-commands_to_run.append("python plot_path_utilization.py")
+commands_to_run.append("python generate_gsl_length_plot.py")
+commands_to_run.append("python generate_gsl_lifetime_plot.py")
+commands_to_run.append("python generate_greedy_path_life_time_ratio.py")
+commands_to_run.append("python generate_greedy_path_plots.py")
+commands_to_run.append("python plot_first_hop_variation.py distance")
+
 
 print("Running commands (at most %d in parallel)..." % max_num_processes)
 for i in range(len(commands_to_run)):

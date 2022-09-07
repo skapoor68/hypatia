@@ -41,7 +41,7 @@ EARTH_RADIUS = 6378135.0 # WGS72 value; taken from https://geographiclib.sourcef
 ECCENTRICITY = 0.0000001  # Circular orbits are zero, but pyephem does not permit 0, so lowest possible value
 ARG_OF_PERIGEE_DEGREE = 0.0
 PHASE_DIFF = True
-EPOCH = "2021-01-01 00:00:00"
+EPOCH = "2022-01-01 00:00:00"
 
 # CONSTELLATION SPECIFIC PARAMETERS
 # STARLINK 550
@@ -84,7 +84,7 @@ INCLINATION_DEGREE = 51.9
 # General files needed to generate visualizations; Do not change for different simulations
 topFile = "../static_html/top.html"
 bottomFile = "../static_html/bottom.html"
-city_detail_file = "../../paper/satellite_networks_state/input_data/ground_stations_kyiv.basic.txt"
+city_detail_file = "../../paper/satellite_networks_state/input_data/ground_stations_cities_sorted_by_estimated_2025_pop_top_1000.basic.txt"
 
 # Time in ms for which visualization will be generated
 # GEN_TIME=46800  #ms
@@ -146,18 +146,19 @@ def generate_paths(cities, sat_objs, tt, paths):
     for i, path in enumerate(paths):
         print(path)
         
-        OUT_HTML_FILE += "_" + json.dumps(path).replace(" ", "")
+        # OUT_HTML_FILE += "_" + json.dumps(path).replace(" ", "")
         for p in range(len(path)):
             if p == 0:
                 GS = int(path[p]) - NUM_ORBS*NUM_SATS_PER_ORB
                 print(cities[GS]["name"])
                 OUT_HTML_FILE += "_"+cities[GS]["name"] + "_" +str(path[p])
-                viz_string += "var redSphere = viewer.entities.add({name : '', position: Cesium.Cartesian3.fromDegrees(" \
+                viz_string += "var redSphere = viewer.entities.add({name :  '" + cities[GS]['name'] + "', position: Cesium.Cartesian3.fromDegrees(" \
                             + str(cities[GS]["long_deg"]) + ", " \
                             + str(cities[GS]["lat_deg"]) + ", " \
                             + str(cities[GS]["alt_km"] * 1000) + "), " \
                             + "ellipsoid : {radii : new Cesium.Cartesian3(50000.0, 50000.0, 50000.0), " \
                             + "material : Cesium.Color.GREEN.withAlpha(1),}});\n"
+                print(path[p+1])
                 dst = int(path[p + 1])
                 viz_string += "viewer.entities.add({name : '', polyline: { positions: Cesium.Cartesian3.fromDegreesArrayHeights([" \
                             + str(cities[GS]["long_deg"]) + "," \

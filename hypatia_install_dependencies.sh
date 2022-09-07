@@ -11,7 +11,7 @@ sudo apt-get update || exit 1
 # satgenpy
 echo "Installing dependencies for satgenpy..."
 pip install numpy astropy ephem networkx sgp4 geopy matplotlib statsmodels folium || exit 1
-sudo apt-get install libproj-dev proj-data proj-bin libgeos-dev || exit 1
+sudo apt-get -y install libproj-dev proj-data proj-bin libgeos-dev || exit 1
 # Mac alternatives (to be able to pip install cartopy)
 # brew install proj geos
 # export CFLAGS=-stdlib=libc++
@@ -34,7 +34,7 @@ echo "Installing dependencies for paper..."
 pip install numpy || exit 1
 pip install git+https://github.com/snkas/exputilpy.git@v1.6 || exit 1
 pip install git+https://github.com/snkas/networkload.git@v1.3 || exit 1
-sudo apt-get install gnuplot
+sudo apt-get -y install gnuplot
 
 # Confirmation dependencies are installed
 echo ""

@@ -51,7 +51,7 @@ def calculate_path_life(graphs, t, path, dynamic_state_update_interval_ns, simul
 def print_routes_and_rtt_for_src(s, graphs, satellites, ground_stations, data_dir, dynamic_state_update_interval_ns, simulation_end_time_ns):
     src = s + len(satellites)
               
-    dst = src + 2001
+    dst = src + 2101
     print("src ", src, "dst ", dst)
     current_path = []
     rtt_ns_list = []
