@@ -44,8 +44,8 @@ configurations = [
 ]
 
 names = {
-    "starlink_current_5shells_isls_plus_grid_ground_stations_top_100_algorithm_free_one_only_over_isls":"Current Starlink",
-    "starlink_older_5shells_isls_plus_grid_ground_stations_top_100_algorithm_free_one_only_over_isls":"Earlier Starlink",
+    "starlink_current_5shells_isls_plus_grid_ground_stations_top_100_algorithm_free_one_only_over_isls":"Starlink V2",
+    "starlink_older_5shells_isls_plus_grid_ground_stations_top_100_algorithm_free_one_only_over_isls":"Starlink V1",
     "starlink_different_8shells_isls_plus_grid_ground_stations_top_100_algorithm_free_one_only_over_isls":"8 Shells",
     "starlink_different_4shells_isls_plus_grid_ground_stations_top_100_algorithm_free_one_only_over_isls":"4 Shells",
     "starlink_different_2shells_isls_plus_grid_ground_stations_top_100_algorithm_free_one_only_over_isls":"2 Shells",
@@ -127,7 +127,7 @@ if __name__ == '__main__':
     # plt.set_xticklabels(np.round(np.linspace(0.3,1,8), decimals=2), fontsize=14)
     plt.yticks(np.linspace(0,1,6), fontsize=16)
     # plt.set_yticklabels(np.round(np.linspace(0,1,6), decimals=1), fontsize=14)
-    if config_num == 0:
+    if config_num != 1:
         plt.arrow(0.6, 0.5, 0.15,0, width=0.3, head_width=0.5, head_length=0.05, fill=False, alpha=0.5)
         plt.annotate("Better", (0.63,0.45), alpha=0.5, fontsize=20)
 

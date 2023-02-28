@@ -24,7 +24,7 @@ import exputil
 import time
 
 local_shell = exputil.LocalShell()
-max_num_processes = 42
+max_num_processes = 40
 
 # Check that no screen is running
 # if local_shell.count_screens() != 0:
@@ -57,13 +57,18 @@ for satgenpy_generated_constellation in [
     # "starlink_550_isls_plus_grid_ground_stations_world_grid_paper_algorithm_free_one_only_over_isls"
     # "starlink_550_isls_plus_grid_ground_stations_newyork_london_circular_algorithm_free_one_only_over_isls"
     # "starlink_550_isls_plus_grid_ground_stations_newyork_london_circular_bigger_algorithm_free_one_only_over_isls"
-    "starlink_550_isls_plus_grid_ground_stations_darfur_algorithm_free_one_only_over_isls"
+    # "starlink_550_isls_plus_grid_ground_stations_darfur_algorithm_free_one_only_over_isls"
     # "starlink_550_isls_plus_grid_ground_stations_newyork_london_1600_algorithm_free_one_only_over_isls"
-    # "starlink_550_isls_plus_grid_ground_stations_top_100_algorithm_free_one_only_over_isls"
+    # "starlink_550_no_phase_isls_plus_grid_ground_stations_top_100_algorithm_free_one_only_over_isls"
+    # "starlink_550_half_phase_isls_plus_grid_ground_stations_top_100_algorithm_free_one_only_over_isls",
+    # "starlink_550_third_phase_isls_plus_grid_ground_stations_top_100_algorithm_free_one_only_over_isls",
+    # "starlink_550_fourth_phase_isls_plus_grid_ground_stations_top_100_algorithm_free_one_only_over_isls"
+    "starlink_550_third_phase_variant_isls_plus_grid_ground_stations_top_100_algorithm_free_one_only_over_isls",
+    "starlink_550_fourth_phase_variant_isls_plus_grid_ground_stations_top_100_algorithm_free_one_only_over_isls"
     # "telesat_1015_isls_plus_grid_ground_stations_top_100_algorithm_free_one_only_over_isls"
 ]:
     update_interval_ms = 1000
-    duration_s = 600
+    duration_s = 6000
     print(satgenpy_generated_constellation)
 
     interval = duration_s // num_shells

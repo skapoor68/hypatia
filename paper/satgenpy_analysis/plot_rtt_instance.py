@@ -77,6 +77,7 @@ if __name__ == '__main__':
     
     plt_colors = ["b-", "r-", "g-", "m-", "y-",  "c-", "b-", "r-", "g-", "m-", "y-", "c-","b-"]
     path_colors = ["b--", "r--", "g--", "m--", "y--",  "c--", "b--", "r--", "g--", "m--", "y--", "c--", "b--"]
+    path_colors = ["brown",  "blue", "red", "darkorange", "cyan", "darkviolet", "chocolate", "gold", "fuchsia", "tan", "lawngreen", "", "turquoise", "teal", "tan"]
     x = np.arange(0, total_time)
 
     # paths, rtts, latencies = load_data(1610,1616)
@@ -93,10 +94,10 @@ if __name__ == '__main__':
     for i in range(data.shape[0] - 1):
         rtt = data[i]
         idxs = np.argwhere(rtt > 0)
-        plt.plot(x[idxs], rtt[idxs], path_colors[i])
+        plt.plot(x[idxs], rtt[idxs], path_colors[i], linestyle='--')
 
     latencies = data[-1]
-    plt.plot(x[:200], latencies[:200], "k-", linewidth=3, alpha=0.5)
+    plt.plot(x[:200], latencies[:200], "k-", linewidth=3, alpha=0.3)
 
     # plt.legend(fontsize=14, loc="lower right")
     plt.yticks(fontsize=14)

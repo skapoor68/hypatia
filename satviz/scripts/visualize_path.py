@@ -37,7 +37,7 @@ EARTH_RADIUS = 6378135.0 # WGS72 value; taken from https://geographiclib.sourcef
 ECCENTRICITY = 0.0000001  # Circular orbits are zero, but pyephem does not permit 0, so lowest possible value
 ARG_OF_PERIGEE_DEGREE = 0.0
 PHASE_DIFF = True
-EPOCH = "2000-01-01 00:00:00"
+EPOCH = "2022-01-01 00:00:00"
 
 # CONSTELLATION SPECIFIC PARAMETERS
 # STARLINK 550
@@ -90,7 +90,7 @@ GEN_TIME=46800  #ms
 # City IDs are available in the city_detail_file.
 # If city ID is X (for Paris X = 24) and constellation is Starlink_550 (1584 satellites),
 # then offset ID is 1584 + 24 = 1608.
-path_file = "../../paper/satgenpy_analysis/data/starlink_550_isls_plus_grid_ground_stations_top_100_algorithm_free_one_only_over_isls/1000ms_for_200s/manual/data/networkx_path_1585_to_1588.txt"
+path_file = "../../paper/satgenpy_analysis/paper_data/starlink_550_isls_plus_grid_ground_stations_top_100_algorithm_free_one_only_over_isls/1000ms_for_6000s/manual/data/networkx_path_1604_to_1654.txt"
 
 # Output directory for creating visualization html files
 OUT_DIR = "../viz_output/"

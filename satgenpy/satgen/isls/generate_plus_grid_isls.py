@@ -44,6 +44,14 @@ def generate_plus_grid_isls(output_filename_isls, n_orbits, n_sats_per_orbit, is
             # Link to the next in the orbit
             sat_same_orbit = i * n_sats_per_orbit + ((j + 1) % n_sats_per_orbit)
             sat_adjacent_orbit = ((i + 1) % n_orbits) * n_sats_per_orbit + ((j + isl_shift) % n_sats_per_orbit)
+            
+            # in place just to simulate variations in connectivity with phase
+            if i % 2 == 0:
+                sat_adjacent_orbit = ((i + 1) % n_orbits) * n_sats_per_orbit + ((j + isl_shift) % n_sats_per_orbit)
+            else:
+                sat_adjacent_orbit = ((i + 1) % n_orbits) * n_sats_per_orbit + ((j - 1 + isl_shift) % n_sats_per_orbit)
+
+            
 
             # Same orbit
             list_isls.append((idx_offset + min(sat, sat_same_orbit), idx_offset + max(sat, sat_same_orbit)))

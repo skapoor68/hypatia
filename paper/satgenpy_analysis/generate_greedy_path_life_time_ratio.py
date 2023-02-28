@@ -123,25 +123,42 @@ if __name__ == '__main__':
 
     bins = np.linspace(1,2048,21000)
     plt.figure(figsize=(6.4,3.2))
-    for constellation in constellations:
-        ratio, greedy_ratio = load_data(constellation)
+    # for constellation in constellations:
+    #     ratio, greedy_ratio = load_data(constellation)
         
-        # print("Mean, 25th Percentile, Median, 75th Percentile, 90th Percentile, Max, Min, Std")
-        # print(np.mean(ratio), np.percentile(ratio, 25), np.median(ratio), np.percentile(ratio, 75), np.percentile(ratio, 90),  np.max(ratio), np.min(ratio), np.std(ratio), sep=',')
-        print(np.mean(greedy_ratio), np.percentile(greedy_ratio, 25), np.median(greedy_ratio), np.percentile(greedy_ratio, 75), np.percentile(greedy_ratio, 90),  np.max(greedy_ratio), np.min(greedy_ratio), np.std(greedy_ratio), sep=',')
-        count, bins_count = np.histogram(ratio, bins=bins)
-        pdf_ratio = count / sum(count)
-        cdf_ratio = np.cumsum(pdf_ratio)
-        print(list(cdf_ratio))
-        idxs = np.nonzero(cdf_ratio < 0.99999)
-        plt.plot(bins_count[idxs], cdf_ratio[idxs], "r-", label="Current Routing")
+    #     # print("Mean, 25th Percentile, Median, 75th Percentile, 90th Percentile, Max, Min, Std")
+    #     # print(np.mean(ratio), np.percentile(ratio, 25), np.median(ratio), np.percentile(ratio, 75), np.percentile(ratio, 90),  np.max(ratio), np.min(ratio), np.std(ratio), sep=',')
+    #     # print(np.mean(greedy_ratio), np.percentile(greedy_ratio, 25), np.median(greedy_ratio), np.percentile(greedy_ratio, 75), np.percentile(greedy_ratio, 90),  np.max(greedy_ratio), np.min(greedy_ratio), np.std(greedy_ratio), sep=',')
+    #     count, bins_count = np.histogram(ratio, bins=bins)
+    #     pdf_ratio = count / sum(count)
+    #     cdf_ratio = np.cumsum(pdf_ratio)
+    #     print(list(cdf_ratio))
+    #     idxs = np.nonzero(cdf_ratio < 0.99999)
+    #     plt.plot(bins_count[idxs], cdf_ratio[idxs], "r-", label="Current Routing")
 
-        count, bins_count = np.histogram(greedy_ratio, bins=bins)
-        pdf_greedy_ratio = count / sum(count)
-        cdf_greedy_ratio = np.cumsum(pdf_greedy_ratio)
-        print(list(cdf_greedy_ratio))
-        idxs = np.nonzero(cdf_greedy_ratio < 0.99999)
-        plt.plot(bins_count[idxs], cdf_greedy_ratio[idxs], "b--", label="Thrifty Routing")
+    #     count, bins_count = np.histogram(greedy_ratio, bins=bins)
+    #     pdf_greedy_ratio = count / sum(count)
+    #     cdf_greedy_ratio = np.cumsum(pdf_greedy_ratio)
+    #     print(list(cdf_greedy_ratio))
+    #     idxs = np.nonzero(cdf_greedy_ratio < 0.99999)
+    #     plt.plot(bins_count[idxs], cdf_greedy_ratio[idxs], "b--", label="Thrifty Routing")
+
+    data = np.genfromtxt("greedy_path_life_time_ratio.txt", delimiter=",")
+    ratio = data[0]
+    greedy_ratio = data[1]
+    # print(greedy_ratio)
+    # count, bins_count = np.histogram(ratio, bins=bins)
+    # pdf_ratio = count / sum(count)
+    # cdf_ratio = np.cumsum(pdf_ratio)
+    idxs = np.nonzero(ratio < 0.99999)
+    plt.plot(bins[idxs], ratio[idxs], "r-", label="Current Routing")
+
+    # count, bins_count = np.histogram(greedy_ratio, bins=bins)
+    # print(count)
+    # pdf_greedy_ratio = count / sum(count)
+    # cdf_greedy_ratio = np.cumsum(pdf_greedy_ratio)
+    idxs = np.nonzero(greedy_ratio < 0.99999)
+    plt.plot(bins[idxs], greedy_ratio[idxs], "b--", label="Thrifty Routing")
 
     # data = np.genfromtxt("path_life_ratio.txt", delimiter=",")
     # for constellation in constellations:
@@ -158,8 +175,8 @@ if __name__ == '__main__':
     plt.yticks([0, 0.2,0.4,0.6,0.8,1], fontsize=14)
     plt.xscale("log")
     plt.xticks([1,2,4,8,16,32,64,128,256,512,1024,2048], labels=[1,2,4,8,16,32,64,128,256,512,1024,2048], fontsize=13.5)
-    plt.arrow(4,0.5,13,0, width=0.3, head_width=0.5, head_length=20, fill=False, alpha=0.5)
-    plt.annotate("Better", (6,0.45), alpha=0.5, fontsize=20)
+    plt.arrow(100,0.6,-84,0, width=0.3, head_width=0.5, head_length=7, fill=False, alpha=0.5)
+    plt.annotate("Better", (20,0.55), alpha=0.5, fontsize=20)
     plt.grid(linewidth=0.5, linestyle=':')
     plt.tight_layout()
 

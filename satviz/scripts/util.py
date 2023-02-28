@@ -99,6 +99,58 @@ def generate_sat_obj_list(
             counter += 1
     return sat_objs
 
+def generate_sat_obj_list_with_phase(
+        num_orbit,
+        num_sats_per_orbit,
+        epoch,
+        phase_diff,
+        inclination,
+        eccentricity,
+        arg_perigee,
+        mean_motion,
+        altitude
+):
+    """
+    Generates list of satellite objects based on orbital elements
+    :param num_orbit: Number of orbits
+    :param num_sats_per_orbit: Number of satellites per orbit
+    :param epoch: Epoch (start time)
+    :param phase_diff: Phase difference between adjacent orbits
+    :param inclination: Angle of inclination
+    :param eccentricity: Eccentricity of orbits
+    :param arg_perigee: Argument of perigee of orbits
+    :param mean_motion: Mean motion in revolutions per day
+    :param altitude: Altitude in metres
+    :return: List of satellite objects
+    """
+    sat_objs = [None] * (num_orbit * num_sats_per_orbit)
+    counter = 0
+    for orb in range(0, num_orbit):
+        raan = orb * 360 / num_orbit
+        orbit_wise_shift = 0
+        orbit_wise_shift = ((360 / num_sats_per_orbit) * (num_orbit / 2)) % 360
+
+        for n_sat in range(0, num_sats_per_orbit):
+            mean_anomaly = orbit_wise_shift + (n_sat * 360 / num_sats_per_orbit)
+
+            sat = ephem.EarthSatellite()
+            sat._epoch = epoch
+            sat._inc = ephem.degrees(inclination)
+            sat._e = eccentricity
+            sat._raan = ephem.degrees(raan)
+            sat._ap = arg_perigee
+            sat._M = ephem.degrees(mean_anomaly)
+            sat._n = mean_motion
+
+            sat_objs[counter] = {
+                "sat_obj": sat,
+                "alt_km": altitude / 1000,
+                "orb_id": orb,
+                "orb_sat_id": n_sat
+
+            }
+            counter += 1
+    return sat_objs
 
 def get_neighbor_satellite(
         sat1_orb,

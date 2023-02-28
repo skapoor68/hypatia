@@ -29,14 +29,14 @@ EARTH_RADIUS = 6378135.0
 
 # GENERATION CONSTANTS
 
-BASE_NAME = "starlink_550"
-NICE_NAME = "Starlink-550"
+BASE_NAME = "starlink_550_half_phase_variant"
+NICE_NAME = "Starlink-550-Half-Phase-Variant"
 
 # STARLINK 550
 
 ECCENTRICITY = 0.0000001  # Circular orbits are zero, but pyephem does not permit 0, so lowest possible value
 ARG_OF_PERIGEE_DEGREE = 0.0
-PHASE_DIFF = True
+PHASE_DIFF = 0.5
 
 ################################################################
 # The below constants are taken from Starlink's FCC filing as below:

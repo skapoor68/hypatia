@@ -15,7 +15,7 @@ def load_data(constellation, frequency, total_time):
     greedy_times = []
     # bad_paths = 
     dir = "paper_data/" + constellation + "/" + frequency + "ms_for_" + total_time + "s/manual/data/"
-    greedy_dir = "paper_data/" + constellation + "/greedy_" + frequency + "ms_for_" + total_time + "s/manual/data/"
+    greedy_dir = "paper_data/" + constellation + "/v2_" + frequency + "ms_for_" + total_time + "s/manual/data/"
     for src in range(1584, 1684):
         for dst in range(src+1, 1684):
             f = dir + "networkx_path_" + str(src) + "_to_" + str(dst) + ".txt"
@@ -65,7 +65,7 @@ def load_data(constellation, frequency, total_time):
 
                     id = id + 1
 
-            f = greedy_dir + "networkx_path_0.2_" + str(src) + "_to_" + str(dst) + ".txt"
+            f = greedy_dir + "networkx_path_v2_" + str(src) + "_to_" + str(dst) + ".txt"
             with open(f) as csvfile:
                 spamreader = csv.reader(csvfile, delimiter=',',quotechar='"',quoting=csv.QUOTE_ALL, skipinitialspace=True)
 
@@ -167,7 +167,7 @@ if __name__ == '__main__':
     plt.plot(bins[idxs], cdf_greedy_times[idxs], "b--", label="Thrifty usage times of Paths")
     plt.arrow(0, 0.8, 40,0, width=0.3, head_width=0.5, head_length=20, fill=False, alpha=0.5)
     plt.annotate("Better", (0,0.75), alpha=0.5, fontsize=20)
-    base_file = "paper_plots/" +  file_name[constellation] + "GreedyPathLife"
+    base_file = "paper_plots/" +  file_name[constellation] + "v2"
     png_file = base_file + ".png"
     pdf_file = base_file + ".pdf"
     plt.legend(fontsize=14, loc="lower right", frameon=False)

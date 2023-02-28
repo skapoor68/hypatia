@@ -22,9 +22,9 @@ constellation_line_numbers = {
 }
 
 nice_name = {
-    "kuiper_630_isls_plus_grid_ground_stations_top_100_algorithm_free_one_only_over_isls" : "Kuiper 630",
-    "starlink_550_isls_plus_grid_ground_stations_top_100_algorithm_free_one_only_over_isls" : "Starlink 550",
-    "telesat_1015_isls_plus_grid_ground_stations_top_100_algorithm_free_one_only_over_isls": "Telesat 1015"
+    "kuiper_630_isls_plus_grid_ground_stations_top_100_algorithm_free_one_only_over_isls" : "Kuiper",
+    "starlink_550_isls_plus_grid_ground_stations_top_100_algorithm_free_one_only_over_isls" : "Starlink",
+    "telesat_1015_isls_plus_grid_ground_stations_top_100_algorithm_free_one_only_over_isls": "Telesat"
 }
 
 file_name = {
@@ -140,7 +140,7 @@ if __name__ == '__main__':
         plt.plot(bins[idxs], cdf_ratio[idxs], patterns[constellation], label=nice_name[constellation])
 
 
-    plt.xlabel("Ratio of Path Lifetime to Usability Time", fontsize=18)
+    plt.xlabel("Ratio of Path Lifetime to Usage Time", fontsize=18)
     plt.ylabel("CDF", fontsize=18)
     plt.legend(fontsize=14, loc="lower right", frameon=False)
     plt.yticks([0, 0.2,0.4,0.6,0.8,1], fontsize=14)

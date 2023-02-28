@@ -15,41 +15,41 @@ def load_data(algo, frequency, total_time):
     # bad_paths = 
     dir = "paper_data/" + algo + "/" + frequency + "ms_for_" + total_time + "s/manual/data/"
     for file in os.listdir(dir):
-        if file.startswith("networkx_path_"):            
-            f = dir + file
-            with open(f) as csvfile:
-                spamreader = csv.reader(csvfile, delimiter=',',quotechar='"',quoting=csv.QUOTE_ALL, skipinitialspace=True)
+        # if file.startswith("networkx_path_"):            
+        #     f = dir + file
+        #     with open(f) as csvfile:
+        #         spamreader = csv.reader(csvfile, delimiter=',',quotechar='"',quoting=csv.QUOTE_ALL, skipinitialspace=True)
 
-                id = 0
-                prev_time = -1
-                for row in spamreader:
-                    # path = list(row[1].split("-"))
-                    # path = [int(i) for i in path]
-                    # p = path[1:-1]
-                    # if not all(x < 1584 for x in p):
-                    #     print(path)
-                    # print(row)
-                    if prev_time == -1:
-                        prev_time = int(row[0]) / 1000000000
-                        continue
+        #         id = 0
+        #         prev_time = -1
+        #         for row in spamreader:
+        #             # path = list(row[1].split("-"))
+        #             # path = [int(i) for i in path]
+        #             # p = path[1:-1]
+        #             # if not all(x < 1584 for x in p):
+        #             #     print(path)
+        #             # print(row)
+        #             if prev_time == -1:
+        #                 prev_time = int(row[0]) / 1000000000
+        #                 continue
                     
-                    t = int(row[0]) / 1000000000
-                    path_time = t - prev_time
-                    usable_times.append(path_time)
+        #             t = int(row[0]) / 1000000000
+        #             path_time = t - prev_time
+        #             usable_times.append(path_time)
 
-                    prev_time = t
-                    id = id + 1
-                    # if usable_times[-1] > 150:
-                    #     print(row)
+        #             prev_time = t
+        #             id = id + 1
+        #             # if usable_times[-1] > 150:
+        #             #     print(row)
 
-                if prev_time == -1:
-                    print(f)
-                else:
-                    usable_times.append(float(total_time) - prev_time)
+        #         if prev_time == -1:
+        #             print(f)
+        #         else:
+        #             usable_times.append(float(total_time) - prev_time)
 
                 # if usable_times[-1] > 150:
                 #     print(row)
-        elif file.startswith("networkx_life_of_path"):
+        if file.startswith("networkx_life_of_path"):
             f = dir + file
             with open(f) as csvfile:
                 spamreader = csv.reader(csvfile, delimiter=',',quotechar='"',quoting=csv.QUOTE_ALL, skipinitialspace=True)
@@ -81,18 +81,19 @@ if __name__ == '__main__':
     usable_times, life_times = load_data(args[0], args[1], args[2])
     
     # min_time = min(np.min(usable_times), np.min(life_times))
-    max_time = max(np.max(usable_times), np.max(life_times))
+    # max_time = max(np.max(usable_times), np.max(life_times))
+    max_time = np.max(life_times)
     max_time = 100 * ((max_time // 100) + 1)
     bins = np.arange(0, max_time)
     # print(bins)
-    print("Mean, 25th Percentile, Median, 75th Percentile, 90th Percentile, Max, Min, Std")
-    print(np.mean(usable_times), np.percentile(usable_times, 25), np.median(usable_times), np.percentile(usable_times, 75), np.percentile(usable_times, 90),  np.max(usable_times), np.min(usable_times), np.std(usable_times), sep=',')
-    count, bins_count = np.histogram(usable_times, bins=bins)
-    pdf_usable_times = count / sum(count)
-    cdf_usable_times = np.cumsum(pdf_usable_times)
+    # print("Mean, 25th Percentile, Median, 75th Percentile, 90th Percentile, Max, Min, Std")
+    # print(np.mean(usable_times), np.percentile(usable_times, 25), np.median(usable_times), np.percentile(usable_times, 75), np.percentile(usable_times, 90),  np.max(usable_times), np.min(usable_times), np.std(usable_times), sep=',')
+    # count, bins_count = np.histogram(usable_times, bins=bins)
+    # pdf_usable_times = count / sum(count)
+    # cdf_usable_times = np.cumsum(pdf_usable_times)
 
     print("Mean, 25th Percentile, Median, 75th Percentile, 90th Percentile, Max, Min, Std")
-    print(np.mean(life_times), np.percentile(life_times, 25), np.median(life_times), np.percentile(life_times, 75), np.percentile(life_times, 90),  np.max(life_times), np.min(life_times), np.std(life_times), sep=',')
+    print(np.mean(life_times), np.percentile(life_times, 2.8), np.median(life_times), np.percentile(life_times, 75), np.percentile(life_times, 90),  np.max(life_times), np.min(life_times), np.std(life_times), sep=',')
     count, bins_count = np.histogram(life_times, bins=bins)
     pdf_life_times = count / sum(count)
     cdf_life_times = np.cumsum(pdf_life_times)
@@ -121,5 +122,5 @@ if __name__ == '__main__':
     pdf_file = base_file + ".pdf"
     plt.legend(fontsize=14, loc="upper left", frameon=False)
     plt.grid(linewidth=0.5, linestyle=':')
-    plt.savefig(png_file)
-    plt.savefig(pdf_file)
+    # plt.savefig(png_file)
+    # plt.savefig(pdf_file)
