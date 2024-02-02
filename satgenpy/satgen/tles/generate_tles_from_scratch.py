@@ -159,12 +159,12 @@ def generate_tles_from_scratch_manual(
             # Orbit-dependent
             raan_degree = orbit * 360.0 / num_orbits
             orbit_wise_shift = 0
-            # if orbit % 2 == 1:
-            #     if phase_diff:
-            #         orbit_wise_shift = 360.0 / (num_sats_per_orbit * 2.0)
+            if orbit % 2 == 1:
+                if phase_diff:
+                    orbit_wise_shift = 360.0 / (num_sats_per_orbit * 2.0)
 
             # To use different phase values
-            orbit_wise_shift = (((360.0 / num_sats_per_orbit) * orbit) * phase_diff) % 360
+            # orbit_wise_shift = (((360.0 / num_sats_per_orbit) * orbit) * phase_diff) % 360
 
             # For each satellite in the orbit
             for n_sat in range(0, num_sats_per_orbit):
