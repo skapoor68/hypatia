@@ -1,5 +1,13 @@
 # Hypatia
 
+## Steps to run this fork (for Starlink's first shell)
+1. First create the basic parameters for the simulation.
+  `python main_starlink_550.py {total_time_s} {frequency_ms} isls_plus_grid {ground-stations} algorithm_free_one_only_over_isls ${num_threads}`
+  ground-stations should be of the format ground_stations_top_100. You can add new ground station files, but you need to make the corresponding changes in `main_helper.py`
+2. Create graphs for the simulation using the `paper/satgenpy_analysis/generate_all_graphs.py` file. Be sure to update the frequency, total time, as well as the simulation contellation you're running. The constellation name is made up of the different parameters you provide in the 1st step. You can copy the name over from the gen_data directory if needed.
+3. Once the graphs are created, run the `paper/satgenpy_analysis/perform_full_analysis.py` file. Be sure to update the constellation name. I have created some extra logic to distribute the workload amongst different threads. Take a look at that depending on the workload you're running -- that logic may not be applicable for you if your workload is very small.
+
+
 [![Build Status](https://travis-ci.com/snkas/hypatia.svg?branch=master)](https://travis-ci.com/snkas/hypatia)
 
 Hypatia is a low earth orbit (LEO) satellite network simulation framework. It pre-calculates network state over time, enables packet-level simulations using ns-3 and provides visualizations to aid understanding.
