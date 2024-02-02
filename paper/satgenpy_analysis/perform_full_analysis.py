@@ -165,54 +165,54 @@ phases = [[0,1], [12,13], [24,25], [36,37], [48,49], [60,61]]
 #     commands_to_run.append("python find_best_phase.py %d %d > phase_expts/best_phase_lats_all_%d.txt" % (phase[0], phase[1], phase[0]))
 
 
-for time_stamp in range(2, 200, 3):
-    commands_to_run.append("python calculate_path_lengths_variations.py %d" % (time_stamp))
+# for time_stamp in range(2, 200, 3):
+#     commands_to_run.append("python calculate_path_lengths_variations.py %d" % (time_stamp))
 
-# # tasks.append([99,100])
-# print("Generating commands for constellation comparison...")
-# for satgenpy_generated_constellation in [
-#     # "kuiper_630_isls_none_ground_stations_paris_moscow_grid_algorithm_free_one_only_gs_relays",
-#     # "kuiper_630_isls_plus_grid_ground_stations_top_100_algorithm_free_one_only_over_isls"
-#     # "starlink_550_isls_plus_grid_ground_stations_newyork_london_circular_algorithm_free_one_only_over_isls"
-#     # "starlink_550_isls_plus_grid_ground_stations_newyork_london_circular_bigger_algorithm_free_one_only_over_isls"
-#     # "starlink_550_isls_plus_grid_ground_stations_kyiv_algorithm_free_one_only_over_isls"
-#     # "starlink_550_isls_plus_grid_ground_stations_darfur_algorithm_free_one_only_over_isls"
-#     # "starlink_550_isls_plus_grid_ground_stations_newyork_london_1600_algorithm_free_one_only_over_isls"
-#     # "starlink_550_isls_plus_grid_ground_stations_top_100_algorithm_free_one_only_over_isls"
-#     "starlink_550_half_phase_isls_plus_grid_ground_stations_top_100_algorithm_free_one_only_over_isls",
-#     # "telesat_1015_isls_plus_grid_ground_stations_top_100_algorithm_free_one_only_over_isls"
-#     # "starlink_current_5shells_isls_plus_grid_ground_stations_top_100_algorithm_free_one_only_over_isls",
-#     # "starlink_older_5shells_isls_plus_grid_ground_stations_top_100_algorithm_free_one_only_over_isls",
-#     # "starlink_550_72_66_isls_plus_grid_ground_stations_top_100_algorithm_free_one_only_over_isls",
-#     # "starlink_different_8shells_isls_plus_grid_ground_stations_top_100_algorithm_free_one_only_over_isls", #run this later from 600
-#     # "starlink_different_4shells_isls_plus_grid_ground_stations_top_100_algorithm_free_one_only_over_isls",
-#     # "starlink_550_isls_plus_grid_ground_stations_world_grid_paper_algorithm_free_one_only_over_isls"
-#     # "starlink_different_2shells_isls_plus_grid_ground_stations_top_100_algorithm_free_one_only_over_isls",
-#     # "starlink_8shells_isls_plus_grid_ground_stations_top_100_algorithm_free_one_only_over_isls",
-#     # "starlink_4shells_isls_plus_grid_ground_stations_top_100_algorithm_free_one_only_over_isls",
-#     # "starlink_2shells_isls_plus_grid_ground_stations_top_100_algorithm_free_one_only_over_isls"
-# ]:
-#     for duration_s in [6000]:
-#         list_update_interval_ms = [1000]
+# tasks.append([99,100])
+print("Generating commands for constellation comparison...")
+for satgenpy_generated_constellation in [
+    # "kuiper_630_isls_none_ground_stations_paris_moscow_grid_algorithm_free_one_only_gs_relays",
+    # "kuiper_630_isls_plus_grid_ground_stations_top_100_algorithm_free_one_only_over_isls"
+    # "starlink_550_isls_plus_grid_ground_stations_newyork_london_circular_algorithm_free_one_only_over_isls"
+    # "starlink_550_isls_plus_grid_ground_stations_newyork_london_circular_bigger_algorithm_free_one_only_over_isls"
+    # "starlink_550_isls_plus_grid_ground_stations_kyiv_algorithm_free_one_only_over_isls"
+    # "starlink_550_isls_plus_grid_ground_stations_darfur_algorithm_free_one_only_over_isls"
+    # "starlink_550_isls_plus_grid_ground_stations_newyork_london_1600_algorithm_free_one_only_over_isls"
+    "starlink_550_isls_plus_grid_ground_stations_top_100_algorithm_free_one_only_over_isls"
+    # "starlink_550_half_phase_isls_plus_grid_ground_stations_top_100_algorithm_free_one_only_over_isls",
+    # "telesat_1015_isls_plus_grid_ground_stations_top_100_algorithm_free_one_only_over_isls"
+    # "starlink_current_5shells_isls_plus_grid_ground_stations_top_100_algorithm_free_one_only_over_isls",
+    # "starlink_older_5shells_isls_plus_grid_ground_stations_top_100_algorithm_free_one_only_over_isls",
+    # "starlink_550_72_66_isls_plus_grid_ground_stations_top_100_algorithm_free_one_only_over_isls",
+    # "starlink_different_8shells_isls_plus_grid_ground_stations_top_100_algorithm_free_one_only_over_isls", #run this later from 600
+    # "starlink_different_4shells_isls_plus_grid_ground_stations_top_100_algorithm_free_one_only_over_isls",
+    # "starlink_550_isls_plus_grid_ground_stations_world_grid_paper_algorithm_free_one_only_over_isls"
+    # "starlink_different_2shells_isls_plus_grid_ground_stations_top_100_algorithm_free_one_only_over_isls",
+    # "starlink_8shells_isls_plus_grid_ground_stations_top_100_algorithm_free_one_only_over_isls",
+    # "starlink_4shells_isls_plus_grid_ground_stations_top_100_algorithm_free_one_only_over_isls",
+    # "starlink_2shells_isls_plus_grid_ground_stations_top_100_algorithm_free_one_only_over_isls"
+]:
+    for duration_s in [6000]:
+        list_update_interval_ms = [1000]
 
-#         for update_interval_ms in list_update_interval_ms:
-#             for thread in seventeen_threads:
-#                 start = thread[0]
-#                 end = thread[1]
-#                 commands_to_run.append(
-#                     "cd ../../satgenpy; "
-#                     # "python -m satgen.post_analysis.main_print_newyork_london_routes "
-#                     # "python -m satgen.post_analysis.main_print_v2_routes_and_rtt "
-#                     "python -m satgen.post_analysis.main_print_all_routes_and_rtt "
-#                     # "python -m satgen.post_analysis.main_print_path_life "
-#                     # "python -m satgen.post_analysis.main_print_greedy_path_routes_and_rtt "
-#                     "../paper/satgenpy_analysis/paper_data ../paper/satellite_networks_state/gen_data/%s ../paper/satgenpy_analysis/graphs/%s/%dms %d %d %d %d "
-#                     "> ../paper/satgenpy_analysis/paper_data/command_logs/v2_path_%s_%dms_for_%ds_%d_to_%d.log "
-#                     "2>&1" % (
-#                         satgenpy_generated_constellation, satgenpy_generated_constellation, update_interval_ms, update_interval_ms, duration_s, start, end,
-#                         satgenpy_generated_constellation, update_interval_ms, duration_s, start, end
-#                     )
-#                 )
+        for update_interval_ms in list_update_interval_ms:
+            for thread in seventeen_threads:
+                start = thread[0]
+                end = thread[1]
+                commands_to_run.append(
+                    "cd ../../satgenpy; "
+                    # "python -m satgen.post_analysis.main_print_newyork_london_routes "
+                    # "python -m satgen.post_analysis.main_print_v2_routes_and_rtt "
+                    "python -m satgen.post_analysis.main_print_all_routes_and_rtt "
+                    # "python -m satgen.post_analysis.main_print_path_life "
+                    # "python -m satgen.post_analysis.main_print_greedy_path_routes_and_rtt "
+                    "../paper/satgenpy_analysis/paper_data ../paper/satellite_networks_state/gen_data/%s ../paper/satgenpy_analysis/graphs/%s/%dms %d %d %d %d "
+                    "> ../paper/satgenpy_analysis/paper_data/command_logs/v2_path_%s_%dms_for_%ds_%d_to_%d.log "
+                    "2>&1" % (
+                        satgenpy_generated_constellation, satgenpy_generated_constellation, update_interval_ms, update_interval_ms, duration_s, start, end,
+                        satgenpy_generated_constellation, update_interval_ms, duration_s, start, end
+                    )
+                )
 
 
 
