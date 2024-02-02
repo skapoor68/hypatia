@@ -36,7 +36,7 @@ NICE_NAME = "Starlink-550-Half-Phase-Variant"
 
 ECCENTRICITY = 0.0000001  # Circular orbits are zero, but pyephem does not permit 0, so lowest possible value
 ARG_OF_PERIGEE_DEGREE = 0.0
-PHASE_DIFF = 0.5
+PHASE_DIFF = True
 
 ################################################################
 # The below constants are taken from Starlink's FCC filing as below:
