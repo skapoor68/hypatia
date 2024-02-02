@@ -29,8 +29,8 @@ EARTH_RADIUS = 6378135.0
 
 # GENERATION CONSTANTS
 
-BASE_NAME = "starlink_550_half_phase_variant"
-NICE_NAME = "Starlink-550-Half-Phase-Variant"
+BASE_NAME = "starlink_550"
+NICE_NAME = "Starlink-550"
 
 # STARLINK 550
 
