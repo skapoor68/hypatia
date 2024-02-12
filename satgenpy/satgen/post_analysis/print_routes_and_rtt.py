@@ -62,76 +62,79 @@ def print_routes_and_rtt(base_output_dir, satellite_network_dir, dynamic_state_u
     # Write data file
 
     data_path_filename = data_dir + "/networkx_path_1.2_" + str(src) + "_to_" + str(dst) + ".txt"
-    with open(data_path_filename, "w+") as data_path_file:
+    # with open(data_path_filename, "w+") as data_path_file:
 
-        # For each time moment
-        fstate = {}
-        current_path = []
-        rtt_ns_list = []
-        for t in range(0, simulation_end_time_ns, dynamic_state_update_interval_ns):
-            print(t)
-            with open(satellite_network_dynamic_state_dir + "/fstate_1.2_" + str(t) + ".txt", "r") as f_in:
-                for line in f_in:
-                    spl = line.split(",")
-                    current = int(spl[0])
-                    destination = int(spl[1])
-                    next_hop = int(spl[2])
-                    fstate[(current, destination)] = next_hop
+    #     # For each time moment
+    #     fstate = {}
+    #     current_path = []
+    #     rtt_ns_list = []
+    #     for t in range(0, simulation_end_time_ns, dynamic_state_update_interval_ns):
+    #         print(t)
+    #         with open(satellite_network_dynamic_state_dir + "/fstate_1.2_" + str(t) + ".txt", "r") as f_in:
+    #             for line in f_in:
+    #                 spl = line.split(",")
+    #                 current = int(spl[0])
+    #                 destination = int(spl[1])
+    #                 next_hop = int(spl[2])
+    #                 fstate[(current, destination)] = next_hop
 
-                # Calculate path length
-                path_there = get_path(src, dst, fstate)
-                path_back = get_path(dst, src, fstate)
-                print(path_there, path_back)
-                if path_there is not None and path_back is not None:
-                    length_src_to_dst_m = compute_path_length_without_graph(path_there, epoch, t, satellites,
-                                                                            ground_stations, list_isls,
-                                                                            max_gsl_length_m, max_isl_length_m)
-                    length_dst_to_src_m = compute_path_length_without_graph(path_back, epoch, t,
-                                                                            satellites, ground_stations, list_isls,
-                                                                            max_gsl_length_m, max_isl_length_m)
-                    rtt_ns = (length_src_to_dst_m + length_dst_to_src_m) * 1000000000.0 / 299792458.0
-                else:
-                    length_src_to_dst_m = 0.0
-                    length_dst_to_src_m = 0.0
-                    rtt_ns = 0.0
+    #             # Calculate path length
+    #             path_there = get_path(src, dst, fstate)
+    #             path_back = get_path(dst, src, fstate)
+    #             print(path_there, path_back)
+    #             if path_there is not None and path_back is not None:
+    #                 length_src_to_dst_m = compute_path_length_without_graph(path_there, epoch, t, satellites,
+    #                                                                         ground_stations, list_isls,
+    #                                                                         max_gsl_length_m, max_isl_length_m)
+    #                 length_dst_to_src_m = compute_path_length_without_graph(path_back, epoch, t,
+    #                                                                         satellites, ground_stations, list_isls,
+    #                                                                         max_gsl_length_m, max_isl_length_m)
+    #                 rtt_ns = (length_src_to_dst_m + length_dst_to_src_m) * 1000000000.0 / 299792458.0
+    #             else:
+    #                 length_src_to_dst_m = 0.0
+    #                 length_dst_to_src_m = 0.0
+    #                 rtt_ns = 0.0
 
-                # Add to RTT list
-                rtt_ns_list.append((t, rtt_ns))
+    #             # Add to RTT list
+    #             rtt_ns_list.append((t, rtt_ns))
 
-                # Only if there is a new path, print new path
-                new_path = get_path(src, dst, fstate)
-                if current_path != new_path:
+    #             # Only if there is a new path, print new path
+    #             new_path = get_path(src, dst, fstate)
+    #             if current_path != new_path:
 
-                    # This is the new path
-                    current_path = new_path
+    #                 # This is the new path
+    #                 current_path = new_path
 
-                    # Write change nicely to the console
-                    print("Change at t=" + str(t) + " ns (= " + str(t / 1e9) + " seconds)")
-                    print("  > Path..... " + (" -- ".join(list(map(lambda x: str(x), current_path)))
-                                              if current_path is not None else "Unreachable"))
-                    print("  > Length... " + str(length_src_to_dst_m + length_dst_to_src_m) + " m")
-                    print("  > RTT...... %.2f ms" % (rtt_ns / 1e6))
-                    print("")
+    #                 # Write change nicely to the console
+    #                 print("Change at t=" + str(t) + " ns (= " + str(t / 1e9) + " seconds)")
+    #                 print("  > Path..... " + (" -- ".join(list(map(lambda x: str(x), current_path)))
+    #                                           if current_path is not None else "Unreachable"))
+    #                 print("  > Length... " + str(length_src_to_dst_m + length_dst_to_src_m) + " m")
+    #                 print("  > RTT...... %.2f ms" % (rtt_ns / 1e6))
+    #                 print("")
 
-                    # Write to path file
-                    data_path_file.write(str(t) + "," + ("-".join(list(map(lambda x: str(x), current_path)))
-                                                         if current_path is not None else "Unreachable") + "\n")
+    #                 # Write to path file
+    #                 data_path_file.write(str(t) + "," + ("-".join(list(map(lambda x: str(x), current_path)))
+    #                                                      if current_path is not None else "Unreachable") + "\n")
 
-        # Write data file
-        data_filename = data_dir + "/networkx_rtt_" + str(src) + "_to_" + str(dst) + ".txt"
-        with open(data_filename, "w+") as data_file:
-            for i in range(len(rtt_ns_list)):
-                data_file.write("%d,%.10f\n" % (rtt_ns_list[i][0], rtt_ns_list[i][1]))
+    #     # Write data file
+    #     data_filename = data_dir + "/networkx_rtt_" + str(src) + "_to_" + str(dst) + ".txt"
+    #     with open(data_filename, "w+") as data_file:
+    #         for i in range(len(rtt_ns_list)):
+    #             data_file.write("%d,%.10f\n" % (rtt_ns_list[i][0], rtt_ns_list[i][1]))
 
-        # Make plot
-        pdf_filename = pdf_dir + "/time_vs_networkx_rtt_" + str(src) + "_to_" + str(dst) + ".pdf"
-        tf = tempfile.NamedTemporaryFile(delete=False)
-        tf.close()
-        local_shell.copy_file(satgenpy_dir_with_ending_slash + "plot/plot_time_vs_networkx_rtt.plt", tf.name)
-        local_shell.sed_replace_in_file_plain(tf.name, "[OUTPUT-FILE]", pdf_filename)
-        local_shell.sed_replace_in_file_plain(tf.name, "[DATA-FILE]", data_filename)
-        local_shell.perfect_exec("gnuplot " + tf.name)
-        print("Produced plot: " + pdf_filename)
-        local_shell.remove(tf.name)
+    # Make plot
+    
+    data_filename = data_dir + "/networkx_rtt_" + str(src) + "_to_" + str(dst) + ".txt"
+    
+    pdf_filename = pdf_dir + "/time_vs_networkx_rtt_" + str(src) + "_to_" + str(dst) + ".pdf"
+    tf = tempfile.NamedTemporaryFile(delete=False)
+    tf.close()
+    local_shell.copy_file(satgenpy_dir_with_ending_slash + "plot/plot_time_vs_networkx_rtt.plt", tf.name)
+    local_shell.sed_replace_in_file_plain(tf.name, "[OUTPUT-FILE]", pdf_filename)
+    local_shell.sed_replace_in_file_plain(tf.name, "[DATA-FILE]", data_filename)
+    local_shell.perfect_exec("gnuplot " + tf.name)
+    print("Produced plot: " + pdf_filename)
+    local_shell.remove(tf.name)
 
 

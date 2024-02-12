@@ -118,15 +118,15 @@ def print_routes_and_rtt_for_src(s, graphs, satellites, ground_stations, data_di
 
 
 def print_all_routes_and_rtt(base_output_dir, satellite_network_dir, graph_dir, dynamic_state_update_interval_ms,
-                         simulation_end_time_s, start, end, satgenpy_dir_with_ending_slash):
+                         simulation_end_time_s, start, end):
 
     # Local shell
     local_shell = exputil.LocalShell()
 
     # Dynamic state dir can be inferred
-    satellite_network_dynamic_state_dir = "%s/dynamic_state_%dms_for_%ds" % (
-        satellite_network_dir, dynamic_state_update_interval_ms, simulation_end_time_s
-    )
+    # satellite_network_dynamic_state_dir = "%s/dynamic_state_%dms_for_%ds" % (
+    #     satellite_network_dir, dynamic_state_update_interval_ms, simulation_end_time_s
+    # )
 
     # Default output dir assumes it is done manual
     pdf_dir = base_output_dir + "/pdf"
@@ -168,6 +168,10 @@ def print_all_routes_and_rtt(base_output_dir, satellite_network_dir, graph_dir, 
         # shortest_paths[t] = dict(nx.all_pairs_shortest_path(graphs[t]))
 
     print("all graphs loaded")
+    print("start", start)
+    print("end", end)
+    start = int(start)
+    end = int(end)
     for s in range(start, end):
         # if s < 35 or s >= 49:
         #     continue
