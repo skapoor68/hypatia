@@ -54,7 +54,7 @@ for satgenpy_generated_constellation in [
     # "starlink_4shells_isls_plus_grid_ground_stations_top_100_algorithm_free_one_only_over_isls",
     # "starlink_2shells_isls_plus_grid_ground_stations_top_100_algorithm_free_one_only_over_isls"
     # "starlink_550_isls_plus_grid_ground_stations_world_grid_algorithm_free_one_only_over_isls"
-    "starlink_550_isls_plus_grid_ground_stations_top_100_algorithm_free_one_only_over_isls"
+    # "starlink_550_isls_plus_grid_ground_stations_top_100_algorithm_free_one_only_over_isls"
     # "starlink_550_isls_plus_grid_ground_stations_world_grid_paper_algorithm_free_one_only_over_isls"
     # "starlink_550_isls_plus_grid_ground_stations_newyork_london_circular_algorithm_free_one_only_over_isls"
     # "starlink_550_isls_plus_grid_ground_stations_newyork_london_circular_bigger_algorithm_free_one_only_over_isls"

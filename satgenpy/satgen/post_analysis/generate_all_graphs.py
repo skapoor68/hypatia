@@ -46,7 +46,7 @@ def generate_satellite_shell_index(num_satellites, num_orbits, num_sats_per_orbi
     return satellites_shell_idx
 
 def generate_all_graphs(base_output_dir, satellite_network_dir, dynamic_state_update_interval_ms,
-                         simulation_start_time_s, simulation_end_time_s, n_shells = 1):
+                         simulation_start_time_s, simulation_end_time_s, n_shells = 1, use_capacity=False):
 
     print(simulation_start_time_s, simulation_end_time_s)
 
@@ -78,6 +78,9 @@ def generate_all_graphs(base_output_dir, satellite_network_dir, dynamic_state_up
         satellites_shell_idx = generate_satellite_shell_index(len(satellites), num_orbits, num_sats_per_orbit)
         print(num_orbits, num_sats_per_orbit, max_gsl_length_m, max_isl_length_m, len(satellites))
 
+    isl_capacity = 1000000
+    gsl_capacity = 800000
+
     for t in range(simulation_start_time_ns, simulation_end_time_ns, dynamic_state_update_interval_ns):
         print(t)
         graph_path_filename = base_output_dir + "/graph_" + str(t) + ".txt"
@@ -97,9 +100,14 @@ def generate_all_graphs(base_output_dir, satellite_network_dir, dynamic_state_up
             # Only ISLs which are close enough are considered
             sat_distance_m = distance_m_between_satellites(satellites[a], satellites[b], str(epoch), str(time))
             if sat_distance_m <= max_length:
-                sat_net_graph_with_gs.add_edge(
-                    a, b, weight=sat_distance_m
-                )
+                if use_capacity:
+                    sat_net_graph_with_gs.add_edge(
+                        a, b, weight=sat_distance_m, capacity=isl_capacity
+                    )
+                else:
+                    sat_net_graph_with_gs.add_edge(
+                        a, b, weight=sat_distance_m
+                    )
 
         # GSLs
         for ground_station in ground_stations:
@@ -112,6 +120,9 @@ def generate_all_graphs(base_output_dir, satellite_network_dir, dynamic_state_up
                 
                 distance_m = distance_m_ground_station_to_satellite(ground_station, satellites[sid], str(epoch), str(time))
                 if distance_m <= max_length:
-                    sat_net_graph_with_gs.add_edge(len(satellites) + ground_station["gid"], sid, weight=distance_m)
+                    if use_capacity:
+                        sat_net_graph_with_gs.add_edge(len(satellites) + ground_station["gid"], sid, weight=distance_m, capacity=gsl_capacity)
+                    else:
+                        sat_net_graph_with_gs.add_edge(len(satellites) + ground_station["gid"], sid, weight=distance_m)
 
         nx.write_gpickle(sat_net_graph_with_gs, graph_path_filename)
