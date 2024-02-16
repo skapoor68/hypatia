@@ -131,6 +131,12 @@ class MainHelper:
         else:
             raise ValueError("Unknown ground station selection: " + gs_selection)
 
+        # User Terminals
+        print("Generating user terminals...")
+        satgen.extend_user_terminals(
+                "input_data/user_terminals_atlanta.txt",
+                output_generated_data_dir + "/" + name + "/user_terminals.txt"
+        )
         # TLEs
         print("Generating TLEs...")
         satgen.generate_tles_from_scratch_manual(

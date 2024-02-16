@@ -1,5 +1,6 @@
 from .interfaces import *
 from .ground_stations import *
+from .user_terminals import *
 from .tles import *
 from .isls import *
 from .dynamic_state import *

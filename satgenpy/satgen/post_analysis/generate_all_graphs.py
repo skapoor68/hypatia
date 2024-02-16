@@ -23,6 +23,7 @@
 from .graph_tools import *
 from satgen.isls import *
 from satgen.ground_stations import *
+from satgen.user_terminals import *
 from satgen.tles import *
 import exputil
 import networkx as nx
@@ -57,6 +58,10 @@ def generate_all_graphs(base_output_dir, satellite_network_dir, dynamic_state_up
 
     # Variables (load in for each thread such that they don't interfere)
     ground_stations = read_ground_stations_extended(satellite_network_dir + "/ground_stations.txt")
+    user_terminals = read_user_terminals_extended(satellite_network_dir + "/user_terminals.txt")
+
+    # Add user terminals to list of ground stations for convenience
+    ground_stations.extend(user_terminals)
     tles = read_tles(satellite_network_dir + "/tles.txt")
     satellites = tles["satellites"]
     list_isls = read_isls(satellite_network_dir + "/isls.txt", len(satellites))
@@ -124,5 +129,20 @@ def generate_all_graphs(base_output_dir, satellite_network_dir, dynamic_state_up
                         sat_net_graph_with_gs.add_edge(len(satellites) + ground_station["gid"], sid, weight=distance_m, capacity=gsl_capacity)
                     else:
                         sat_net_graph_with_gs.add_edge(len(satellites) + ground_station["gid"], sid, weight=distance_m)
+
+        # for user_terminal in user_terminals:
+        #     # Find satellites in range
+        #     for sid in range(len(satellites)):
+        #         if n_shells == 1:
+        #             max_length = max_gsl_length_m
+        #         else:                    
+        #             max_length = max_gsl_length_m[satellites_shell_idx[sid]]
+                
+        #         distance_m = distance_m_ground_station_to_satellite(user_terminal, satellites[sid], str(epoch), str(time))
+        #         if distance_m <= max_length:
+        #             if use_capacity:
+        #                 sat_net_graph_with_gs.add_edge(len(satellites) + len(ground_stations) + user_terminal["gid"], sid, weight=distance_m, capacity=gsl_capacity)
+        #             else:
+        #                 sat_net_graph_with_gs.add_edge(len(satellites) + len(ground_stations) + user_terminal["gid"], sid, weight=distance_m)
 
         nx.write_gpickle(sat_net_graph_with_gs, graph_path_filename)
