@@ -44,7 +44,7 @@ def read_user_terminals_basic(filename_user_terminals_basic):
                 "latitude_degrees_str": split[2],
                 "longitude_degrees_str": split[3],
                 "elevation_m_float": float(split[4]),
-                "demand" : float(split[5]),
+                "demand" : float(split[5]) * 1000,
             }
             user_terminals_basic.append(ground_station_basic)
             uid += 1

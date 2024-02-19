@@ -32,8 +32,21 @@ from multiprocessing.pool import ThreadPool
 import threading
 import math
 
-def print_max_flow_for_src(graphs, satellites, ground_stations, user_terminals, data_dir, dynamic_state_update_interval_ns, simulation_end_time_ns):
-    src = 0
+def print_max_flow_for_src(base_output_dir, graphs, satellites, ground_stations, user_terminals, dynamic_state_update_interval_ns, simulation_end_time_ns):
+    
+    local_shell = exputil.LocalShell()
+
+    data_dir = base_output_dir + "/data"
+    pdf_dir = base_output_dir + "/pdf"
+    local_shell.make_full_dir(pdf_dir)
+    local_shell.make_full_dir(data_dir)
+
+    dynamic_state_update_interval_ms = dynamic_state_update_interval_ns / 1000 /1000
+    simulation_end_time_s = simulation_end_time_ns / 1000 / 1000 / 1000
+
+    data_filename = data_dir + "/networkx_all_flow_" + str(dynamic_state_update_interval_ms) +"ms_for_" + str(simulation_end_time_s) + "s" ".txt"
+
+    flow_list = []
     # Step 1. Assign the super source and super sink nodes
     for t in range(0, simulation_end_time_ns, dynamic_state_update_interval_ns):
         data_flow_filename = data_dir + "/networkx_flow_" + str(t) + ".txt"
@@ -60,8 +73,24 @@ def print_max_flow_for_src(graphs, satellites, ground_stations, user_terminals, 
             flow_value, flow_dict = nx.maximum_flow(graph, source, sink)
             data_flow_file.write("flow value:" + str(flow_value) + "\n" + "flow_dict:\n")
             data_flow_file.write(str(flow_dict))
-            
 
+            flow_list.append((t, flow_value))
+
+    with open(data_filename, "w+") as flow_value_file:
+        for i in range(len(flow_list)):
+            flow_value_file.write("%d,%.10f\n" % (flow_list[i][0], flow_list[i][1]))
+
+    pdf_dir = base_output_dir + "/pdf"
+    pdf_filename = pdf_dir + "/time_vs_networkx_flow_" + str(dynamic_state_update_interval_ms) + "ms_for_" + str(simulation_end_time_s) + "s" + ".pdf"
+    tf = tempfile.NamedTemporaryFile(delete=False)
+    tf.close()
+    local_shell.copy_file("plot/plot_time_vs_networkx_flow.plt", tf.name)
+    local_shell.sed_replace_in_file_plain(tf.name, "[OUTPUT-FILE]", pdf_filename)
+    local_shell.sed_replace_in_file_plain(tf.name, "[DATA-FILE]", data_filename)
+
+    local_shell.perfect_exec("gnuplot " + tf.name)
+    print("Produced plot: " + pdf_filename)
+    local_shell.remove(tf.name)
 
 def print_all_max_flows(base_output_dir, satellite_network_dir, graph_dir, dynamic_state_update_interval_ms,
                          simulation_end_time_s):
@@ -109,7 +138,7 @@ def print_all_max_flows(base_output_dir, satellite_network_dir, graph_dir, dynam
         # shortest_paths[t] = dict(nx.all_pairs_shortest_path(graphs[t]))
 
     print("all graphs loaded")
-    print_max_flow_for_src(graphs, satellites, ground_stations, user_terminals, data_dir, dynamic_state_update_interval_ns, simulation_end_time_ns)
+    print_max_flow_for_src(base_output_dir, graphs, satellites, ground_stations, user_terminals, dynamic_state_update_interval_ns, simulation_end_time_ns)
     #     pool.apply_async(print_routes_and_rtt_for_src, (s, graphs, satellites, ground_stations, data_dir, dynamic_state_update_interval_ns, simulation_end_time_ns))
 
     # pool.close()
