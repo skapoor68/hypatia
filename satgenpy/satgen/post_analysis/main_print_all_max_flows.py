@@ -21,30 +21,32 @@
 # SOFTWARE.
 
 import sys
-from satgen.post_analysis.generate_all_graphs import generate_all_graphs
-import os
+from satgen.post_analysis.print_all_max_flows import print_all_max_flows
 
 
 def main():
     args = sys.argv[1:]
-    
-    core_network_folder_name = args[1].split("/")[-1]
-    base_output_dir = "%s/%s/%dms" % (
-        args[0], core_network_folder_name, int(args[2])
-    )
-    print("Data dir: " + args[0])
-    print("Used data dir to form base output dir: " + base_output_dir)
-    if not os.path.isdir(base_output_dir):
-        os.makedirs(base_output_dir, exist_ok=True)
-    generate_all_graphs(
-        base_output_dir,
-        args[1],
-        int(args[2]),
-        int(args[3]),
-        int(args[4]),
-        int(args[5]),
-        bool(args[6])
-    )
+    if len(args) != 5:
+        print("Must supply exactly five arguments")
+        print("Usage: python -m satgen.post_analysis.main_print_all_max_flows.py [data_dir] [satellite_network_dir] "
+              "[dynamic_state_update_interval_ms] [end_time_s]")
+        print(len(args))
+        print(args)
+        exit(1)
+    else:
+        core_network_folder_name = args[1].split("/")[-1]
+        base_output_dir = "%s/%s/%dms_for_%ds/manual" % (
+            args[0], core_network_folder_name, int(args[3]), int(args[4])
+        )
+        print("Data dir: " + args[0])
+        print("Used data dir to form base output dir: " + base_output_dir)
+        print_all_max_flows(
+            base_output_dir,
+            args[1],
+            args[2],
+            int(args[3]),
+            int(args[4]),
+        )
 
 
 if __name__ == "__main__":

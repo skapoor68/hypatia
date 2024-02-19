@@ -35,7 +35,7 @@ def extend_user_terminals(filename_user_terminals_basic_in, filename_user_termin
             )
             f_out.write(
                 "%d,%s,%f,%f,%f,%f,%f,%f,%f\n" % (
-                    user_terminal["gid"],
+                    user_terminal["uid"],
                     user_terminal["name"],
                     float(user_terminal["latitude_degrees_str"]),
                     float(user_terminal["longitude_degrees_str"]),

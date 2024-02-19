@@ -6,3 +6,4 @@ from .extend_user_terminals import (
     read_user_terminals_extended,
     extend_user_terminals
 )
+from .global_variables import *

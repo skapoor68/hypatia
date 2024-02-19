@@ -30,16 +30,16 @@ def read_user_terminals_basic(filename_user_terminals_basic):
     :return: List of user terminals
     """
     user_terminals_basic = []
-    gid = 0
+    uid = 0
     with open(filename_user_terminals_basic, 'r') as f:
         for line in f:
             split = line.split(',')
             if len(split) != 6:
                 raise ValueError("Basic user terminal file has 6 columns")
-            if int(split[0]) != gid:
+            if int(split[0]) != uid:
                 raise ValueError("user terminal id must increment each line")
             ground_station_basic = {
-                "gid": gid,
+                "uid": uid,
                 "name": split[1],
                 "latitude_degrees_str": split[2],
                 "longitude_degrees_str": split[3],
@@ -47,7 +47,7 @@ def read_user_terminals_basic(filename_user_terminals_basic):
                 "demand" : float(split[5]),
             }
             user_terminals_basic.append(ground_station_basic)
-            gid += 1
+            uid += 1
     return user_terminals_basic
 
 
@@ -60,16 +60,16 @@ def read_user_terminals_extended(filename_user_terminals_extended):
     :return: List of user terminals
     """
     user_terminals_extended = []
-    gid = 0
+    uid = 0
     with open(filename_user_terminals_extended, 'r') as f:
         for line in f:
             split = line.split(',')
             if len(split) != 9:
                 raise ValueError("Extended user terminal file has 9 columns: " + line)
-            if int(split[0]) != gid:
+            if int(split[0]) != uid:
                 raise ValueError("user terminal id must increment each line")
             user_terminal_basic = {
-                "gid": gid,
+                "uid": uid,
                 "name": split[1],
                 "latitude_degrees_str": split[2],
                 "longitude_degrees_str": split[3],
@@ -80,5 +80,5 @@ def read_user_terminals_extended(filename_user_terminals_extended):
                 "demand" : float(split[8]),
             }
             user_terminals_extended.append(user_terminal_basic)
-            gid += 1
+            uid += 1
     return user_terminals_extended
