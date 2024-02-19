@@ -81,14 +81,20 @@ def print_max_flow_for_src(base_output_dir, graphs, satellites, ground_stations,
             flow_value_file.write("%d,%.10f\n" % (flow_list[i][0], flow_list[i][1]))
 
     pdf_dir = base_output_dir + "/pdf"
-    pdf_filename = pdf_dir + "/time_vs_networkx_flow_" + str(dynamic_state_update_interval_ms) + "ms_for_" + str(simulation_end_time_s) + "s" + ".pdf"
+    pdf_filename = pdf_dir + "/time_vs_networkx_flow_" + "ut_capacity_" + str(user_terminal_gsl_capacity)+ "_mbps_" + "gs_capacity_" + str(ground_station_gsl_capacity) + "_mbps_" + str(dynamic_state_update_interval_ms) + "ms_for_" + str(simulation_end_time_s) + "s" + ".pdf"
     tf = tempfile.NamedTemporaryFile(delete=False)
     tf.close()
     local_shell.copy_file("plot/plot_time_vs_networkx_flow.plt", tf.name)
     local_shell.sed_replace_in_file_plain(tf.name, "[OUTPUT-FILE]", pdf_filename)
     local_shell.sed_replace_in_file_plain(tf.name, "[DATA-FILE]", data_filename)
 
+    ut_demand_total = 0
+    for ut in user_terminals:
+        ut_demand_total += ut["demand"]
+    local_shell.sed_replace_in_file_plain(tf.name, "UT_DEMAND_TOTAL", str(ut_demand_total))
+
     local_shell.perfect_exec("gnuplot " + tf.name)
+    print("Total UT demand:", ut_demand_total)
     print("Produced plot: " + pdf_filename)
     local_shell.remove(tf.name)
 

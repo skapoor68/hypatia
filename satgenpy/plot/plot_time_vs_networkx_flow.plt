@@ -42,11 +42,11 @@ set output "[OUTPUT-FILE]"
 
 # Axes labels
 set xlabel "Time (s)" # Markup: e.g. 99^{th}, {/Symbol s}, {/Helvetica-Italic P}
-set ylabel "NetworkX FLOW (Mbps)"
+set ylabel "NetworkX Flow (Mbps)"
 
 # Axes ranges
 set xrange [0:]       # Explicitly set the x-range [lower:upper]
-set yrange [0:]       # Explicitly set the y-range [lower:upper]
+set yrange [0:UT_DEMAND_TOTAL]       # Explicitly set the y-range [lower:upper]
 # set xtics (0, 100, 300, 500, 700, 900)
 # set ytics <start>, <incr> {,<end>}
 # set format x "%.2f%%"  # Set the x-tic format, e.g. in this case it takes 2 sign. decimals: "24.13%""
@@ -66,4 +66,4 @@ set key spacing 2
 #####################################
 ### PLOTS
 set datafile separator ","
-plot    "[DATA-FILE]" using ($1/1000000000):($2/1000000) title "" w lp ls 1, \
+plot    "[DATA-FILE]" using ($1/1000000000):($2) title "" w lp ls 1, \
