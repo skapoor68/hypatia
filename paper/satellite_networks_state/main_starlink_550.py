@@ -79,11 +79,12 @@ main_helper = MainHelper(
 
 def main():
     args = sys.argv[1:]
-    if len(args) != 6:
+    if len(args) != 7:
         print("Must supply exactly six arguments")
         print("Usage: python main_starlink_550.py [duration (s)] [time step (ms)] "
               "[isls_plus_grid / isls_none] "
               "[ground_stations_{top_100, paris_moscow_grid}] "
+              "[user_terminals_{top_100, atlanta}] "
               "[algorithm_{free_one_only_over_isls, free_one_only_gs_relays, paired_many_only_over_isls}] "
               "[num threads]")
         exit(1)
@@ -95,7 +96,8 @@ def main():
             args[2],
             args[3],
             args[4],
-            int(args[5]),
+            args[5],
+            int(args[6]),
         )
 
 

@@ -20,7 +20,7 @@ python satgen/post_analysis/main_generate_graphs.py ~/hypatia/paper/satellite_ne
 python satgen/post_analysis/main_print_all_routes_and_rtt.py ~/hypatia/paper/satellite_networks_state/gen_data ~/hypatia/paper/satellite_networks_state/gen_data/starlink_550_isls_plus_grid_ground_stations_top_100_algorithm_free_one_only_over_isls ~/hypatia/paper/satellite_networks_state/gen_data/starlink_550_isls_plus_grid_ground_stations_top_100_algorithm_free_one_only_over_isls/1000ms $steps $time $src $dst
 
 # Generate pdf for a src/dest pair
-python satgen/post_analysis/main_print_routes_and_rtt.py ~/hypatia/paper/satellite_networks_state/gen_data ~/hypatia/paper/satellite_networks_state/gen_data/starlink_550_isls_plus_grid_ground_stations_top_100_algorithm_free_one_only_over_isls $steps $time $(($src+$num_satellites)) $(($dst+$num_satellites))
+python satgen/post_analysis/main_print_ut_to_gw_routes_and_rtt.py ~/hypatia/paper/satellite_networks_state/gen_data ~/hypatia/paper/satellite_networks_state/gen_data/starlink_550_isls_plus_grid_ground_stations_top_100_algorithm_free_one_only_over_isls $steps $time $(($src+$num_satellites)) $(($dst+$num_satellites))
 
 # Generate visualization based on route and rtt
 # cd ../../satviz/scripts

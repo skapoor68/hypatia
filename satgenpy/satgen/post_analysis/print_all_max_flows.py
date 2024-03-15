@@ -31,6 +31,8 @@ import tempfile
 from multiprocessing.pool import ThreadPool
 import threading
 import math
+import matplotlib.pyplot as plt
+import pandas as pd
 
 def print_max_flow_for_src(base_output_dir, graphs, satellites, ground_stations, user_terminals, dynamic_state_update_interval_ns, simulation_end_time_ns):
     
@@ -63,18 +65,36 @@ def print_max_flow_for_src(base_output_dir, graphs, satellites, ground_stations,
             # Add edges from super-source to sources
             for ut in user_terminals:
                 # Source to user terminals is capped at each user terminal's demand
-                graph.add_edge(source, len(satellites) + len(ground_stations) + ut["uid"], capacity=ut["demand"])
+                # graph.add_edge(source, len(satellites) + len(ground_stations) + ut["uid"], capacity=ut["demand"])
+                graph.add_edge(source, len(satellites) + len(ground_stations) + ut["uid"], capacity=ut_default_demand)
+        
             
             # Add edges from sinks to super-sink
             for gs in ground_stations:
                 # Ground stations to sink has unbounded limit
-                graph.add_edge(len(satellites) + gs["gid"], sink, capacity=float('inf'))
+                graph.add_edge(len(satellites) + gs["gid"], sink, capacity=ground_station_capacity)
 
-            flow_value, flow_dict = nx.maximum_flow(graph, source, sink)
-            data_flow_file.write("flow value:" + str(flow_value) + "\n" + "flow_dict:\n")
-            data_flow_file.write(str(flow_dict))
+            # Find the max flow (demand satisfied)
+            # flow_value, flow_dict = nx.maximum_flow(graph, source, sink) 
 
-            flow_list.append((t, flow_value))
+            # Find the max flow (demand satisfied) using the minimum cost (distance)
+            min_cost_flow_dict = nx.max_flow_min_cost(graph, source, sink)   
+            min_cost = nx.cost_of_flow(G=graph, flowDict=min_cost_flow_dict)
+            min_cost_flow_value = sum((min_cost_flow_dict[u][sink] for u in graph.predecessors(sink)))
+
+            data_flow_file.write("flow value:" + str(min_cost_flow_value) + "\n" + "flow_dict:\n")
+            data_flow_file.write(str(min_cost_flow_dict))
+
+            flow_list.append((t, min_cost_flow_value))   
+
+            # Plot the graph with only edges used for flow
+            # selected_edges = [(u,v) for u,v,e in graph.edges(data=True) if flow_dict[u][v] > 0]
+            # selected_nodes = [n for n,v in graph.nodes(data=True) if len(flow_dict[n].values()) > 0 and max(flow_dict[n].values()) > 0]
+            # # for python 2.x:
+            # plt.bar(range(len(D)), D.values(), align='center')  # python 2.x
+            # plt.xticks(range(len(D)), D.keys())  # in python 2.x
+
+            pd.DataFrame(min_cost_flow_dict).to_csv("/home/robin/hypatia/output/mappings/" + str(t) + ".csv")
 
     with open(data_filename, "w+") as flow_value_file:
         for i in range(len(flow_list)):
@@ -90,7 +110,7 @@ def print_max_flow_for_src(base_output_dir, graphs, satellites, ground_stations,
 
     ut_demand_total = 0
     for ut in user_terminals:
-        ut_demand_total += ut["demand"]
+        ut_demand_total += ut_default_demand
     local_shell.sed_replace_in_file_plain(tf.name, "UT_DEMAND_TOTAL", str(ut_demand_total))
 
     local_shell.perfect_exec("gnuplot " + tf.name)

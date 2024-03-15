@@ -63,6 +63,7 @@ class MainHelper:
             time_step_ms,
             isl_selection,            # isls_{none, plus_grid}
             gs_selection,             # ground_stations_{top_100, paris_moscow_grid}
+            ut_selection,
             dynamic_state_algorithm,  # algorithm_{free_one_only_{gs_relays,_over_isls}, paired_many_only_over_isls}
             num_threads
     ):
@@ -133,10 +134,21 @@ class MainHelper:
 
         # User Terminals
         print("Generating user terminals...")
-        satgen.extend_user_terminals(
-                "input_data/user_terminals_atlanta.txt",
-                output_generated_data_dir + "/" + name + "/user_terminals.txt"
+        if ut_selection == "user_terminals_top_100":
+            satgen.extend_user_terminals(
+                    "input_data/user_terminals_top_100.txt",
+                    output_generated_data_dir + "/" + name + "/user_terminals.txt"
+            )
+        elif ut_selection == "user_terminals_atlanta":
+            satgen.extend_user_terminals(
+                    "input_data/user_terminals_atlanta.txt",
+                    output_generated_data_dir + "/" + name + "/user_terminals.txt"
         )
+        elif ut_selection == "user_terminals_atl_1000":
+            satgen.extend_user_terminals(
+                    "input_data/user_terminals_atl_1000.txt",
+                    output_generated_data_dir + "/" + name + "/user_terminals.txt"
+            )
         # TLEs
         print("Generating TLEs...")
         satgen.generate_tles_from_scratch_manual(

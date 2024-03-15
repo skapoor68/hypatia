@@ -20,6 +20,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
+from .global_variables import *
 
 def read_user_terminals_basic(filename_user_terminals_basic):
     """
@@ -34,8 +35,9 @@ def read_user_terminals_basic(filename_user_terminals_basic):
     with open(filename_user_terminals_basic, 'r') as f:
         for line in f:
             split = line.split(',')
-            if len(split) != 6:
-                raise ValueError("Basic user terminal file has 6 columns")
+            # print(split)
+            if len(split) != 5:
+                raise ValueError("Basic user terminal file has 5 columns")
             if int(split[0]) != uid:
                 raise ValueError("user terminal id must increment each line")
             ground_station_basic = {
@@ -44,7 +46,9 @@ def read_user_terminals_basic(filename_user_terminals_basic):
                 "latitude_degrees_str": split[2],
                 "longitude_degrees_str": split[3],
                 "elevation_m_float": float(split[4]),
-                "demand" : float(split[5]),
+                # "demand" : float(split[5]),
+                "sid" : None,
+                "hop_count" : satellite_handoff_seconds,
             }
             user_terminals_basic.append(ground_station_basic)
             uid += 1
@@ -64,7 +68,7 @@ def read_user_terminals_extended(filename_user_terminals_extended):
     with open(filename_user_terminals_extended, 'r') as f:
         for line in f:
             split = line.split(',')
-            if len(split) != 9:
+            if len(split) != 8:
                 raise ValueError("Extended user terminal file has 9 columns: " + line)
             if int(split[0]) != uid:
                 raise ValueError("user terminal id must increment each line")
@@ -77,7 +81,9 @@ def read_user_terminals_extended(filename_user_terminals_extended):
                 "cartesian_x": float(split[5]),
                 "cartesian_y": float(split[6]),
                 "cartesian_z": float(split[7]),
-                "demand" : float(split[8]),
+                # "demand" : float(split[8]),
+                "sid" : None,
+                "hop_count" : satellite_handoff_seconds
             }
             user_terminals_extended.append(user_terminal_basic)
             uid += 1

@@ -34,7 +34,7 @@ def extend_user_terminals(filename_user_terminals_basic_in, filename_user_termin
                 user_terminal["elevation_m_float"]
             )
             f_out.write(
-                "%d,%s,%f,%f,%f,%f,%f,%f,%f\n" % (
+                "%d,%s,%f,%f,%f,%f,%f,%f\n" % (
                     user_terminal["uid"],
                     user_terminal["name"],
                     float(user_terminal["latitude_degrees_str"]),
@@ -43,6 +43,6 @@ def extend_user_terminals(filename_user_terminals_basic_in, filename_user_termin
                     cartesian[0],
                     cartesian[1],
                     cartesian[2],
-                    user_terminal["demand"],
+                    # user_terminal["demand"],
                 )
             )

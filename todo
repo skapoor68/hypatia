@@ -1,0 +1,8 @@
+2 capacities for satellites
+- how many users can a single satellite handle
+- total capacity for satellite
+
+Make each user terminal only able to talk to one satellite
+
+- Make each user terminal 'stick' to the satellite it connects with for n seconds
+- Start with n = 15
