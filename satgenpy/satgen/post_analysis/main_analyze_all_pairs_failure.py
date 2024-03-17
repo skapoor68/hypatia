@@ -20,16 +20,32 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-def parse_failure_file(failure_file):
-    failure_table = {'SAT': {}, 'ISL': {}, 'GS': {}}
-    with open(failure_file, "r") as f:
-        for line in f:
-            parts = line.strip().split(",")
-            device = parts[0]
-            if device == 'SAT' or device == 'GS':
-                node_id, failure_start_time, failure_end_time = parts[1:]
-                failure_table[device][int(node_id)] = (int(float(failure_start_time) * 1_000_000_000), int(float(failure_end_time) * 1_000_000_000))
-            elif device == 'ISL':
-                sat1, sat2, failure_start_time, failure_end_time = parts[1:]
-                failure_table[device][(int(sat1), int(sat2))] = (int(float(failure_start_time) * 1_000_000_000), int(float(failure_end_time) * 1_000_000_000))
-    return failure_table
+import sys
+from satgen.post_analysis.analyze_all_pairs_failure import analyze_all_pairs_failure
+
+def main():
+    args = sys.argv[1:]
+    if len(args) != 4:
+        print("Must supply exactly 4 arguments")
+        print("Usage: python -m satgen.post_analysis.main_analyze_all_pairs_failure [data_dir] [satellite_network_dir] "
+              "[dynamic_state_update_interval_ms] [end_time_s]")
+        exit(1)
+    else:
+        core_network_folder_name = args[1].split("/")[-1]
+        base_output_dir = "%s/%s/%dms_for_%ds/manual" % (
+            args[0], core_network_folder_name, int(args[2]), int(args[3])
+        )
+        print("Data dir: " + args[0])
+        print("Used data dir to form base output dir: " + base_output_dir)
+        
+        analyze_all_pairs_failure(
+            base_output_dir,
+            args[1],
+            int(args[2]),
+            int(args[3]),
+            "", # Must be executed in satgenpy directory
+        )
+
+
+if __name__ == "__main__":
+    main()

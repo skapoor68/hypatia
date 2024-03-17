@@ -28,8 +28,10 @@ import exputil
 import tempfile
 
 
-def print_routes_and_rtt_failure(base_output_dir, satellite_network_dir, dynamic_state_update_interval_ms,
+def analyze_pair(base_output_dir, satellite_network_dir, dynamic_state_update_interval_ms,
                          simulation_end_time_s, src, dst, satgenpy_dir_with_ending_slash):
+
+    route_reachable = True
 
     # Local shell
     local_shell = exputil.LocalShell()
@@ -89,6 +91,7 @@ def print_routes_and_rtt_failure(base_output_dir, satellite_network_dir, dynamic
                                                                             max_gsl_length_m, max_isl_length_m)
                     rtt_ns = (length_src_to_dst_m + length_dst_to_src_m) * 1000000000.0 / 299792458.0
                 else:
+                    route_reachable = False
                     length_src_to_dst_m = 0.0
                     length_dst_to_src_m = 0.0
                     rtt_ns = 0.0
@@ -104,12 +107,12 @@ def print_routes_and_rtt_failure(base_output_dir, satellite_network_dir, dynamic
                     current_path = new_path
 
                     # Write change nicely to the console
-                    print("Change at t=" + str(t) + " ns (= " + str(t / 1e9) + " seconds)")
-                    print("  > Path..... " + (" -- ".join(list(map(lambda x: str(x), current_path)))
-                                              if current_path is not None else "Unreachable"))
-                    print("  > Length... " + str(length_src_to_dst_m + length_dst_to_src_m) + " m")
-                    print("  > RTT...... %.2f ms" % (rtt_ns / 1e6))
-                    print("")
+                    # print("Change at t=" + str(t) + " ns (= " + str(t / 1e9) + " seconds)")
+                    # print("  > Path..... " + (" -- ".join(list(map(lambda x: str(x), current_path)))
+                    #                           if current_path is not None else "Unreachable"))
+                    # print("  > Length... " + str(length_src_to_dst_m + length_dst_to_src_m) + " m")
+                    # print("  > RTT...... %.2f ms" % (rtt_ns / 1e6))
+                    # print("")
 
                     # Write to path file
                     data_path_file.write(str(t) + "," + ("-".join(list(map(lambda x: str(x), current_path)))
@@ -131,5 +134,7 @@ def print_routes_and_rtt_failure(base_output_dir, satellite_network_dir, dynamic
         local_shell.perfect_exec("gnuplot " + tf.name)
         print("Produced plot: " + pdf_filename)
         local_shell.remove(tf.name)
+
+    return route_reachable
 
 
