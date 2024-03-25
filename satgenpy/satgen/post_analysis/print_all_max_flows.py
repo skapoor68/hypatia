@@ -94,14 +94,13 @@ def print_max_flow_for_src(base_output_dir, graphs, satellites, ground_stations,
             # plt.bar(range(len(D)), D.values(), align='center')  # python 2.x
             # plt.xticks(range(len(D)), D.keys())  # in python 2.x
 
-            pd.DataFrame(min_cost_flow_dict).to_csv("/home/robin/hypatia/output/mappings/" + str(t) + ".csv")
 
     with open(data_filename, "w+") as flow_value_file:
         for i in range(len(flow_list)):
             flow_value_file.write("%d,%.10f\n" % (flow_list[i][0], flow_list[i][1]))
 
     pdf_dir = base_output_dir + "/pdf"
-    pdf_filename = pdf_dir + "/time_vs_networkx_flow_" + "ut_capacity_" + str(user_terminal_gsl_capacity)+ "_mbps_" + "gs_capacity_" + str(ground_station_gsl_capacity) + "_mbps_" + str(dynamic_state_update_interval_ms) + "ms_for_" + str(simulation_end_time_s) + "s" + ".pdf"
+    pdf_filename = pdf_dir + "/time_vs_networkx_flow_num_ut_" + str(len(user_terminals)) + "_ut_capacity_"+ str(user_terminal_gsl_capacity)+ "_mbps_num_gs_" + str(len(ground_stations)) + "_gs_capacity_" + str(ground_station_gsl_capacity) + "_mbps_" + str(dynamic_state_update_interval_ms) + "ms_for_" + str(simulation_end_time_s) + "s" + ".pdf"
     tf = tempfile.NamedTemporaryFile(delete=False)
     tf.close()
     local_shell.copy_file("plot/plot_time_vs_networkx_flow.plt", tf.name)

@@ -24,8 +24,8 @@ from satgen.distance_tools import *
 from .read_user_terminals import *
 
 
-def extend_user_terminals(filename_user_terminals_basic_in, filename_user_terminals_out):
-    user_terminals = read_user_terminals_basic(filename_user_terminals_basic_in)
+def extend_user_terminals(filename_user_terminals_basic_in, filename_user_terminals_out, num_user_terminals):
+    user_terminals = read_user_terminals_basic(filename_user_terminals_basic_in, num_user_terminals)
     with open(filename_user_terminals_out, "w+") as f_out:
         for user_terminal in user_terminals:
             cartesian = geodetic2cartesian(

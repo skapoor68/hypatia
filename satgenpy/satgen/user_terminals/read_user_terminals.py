@@ -22,7 +22,7 @@
 
 from .global_variables import *
 
-def read_user_terminals_basic(filename_user_terminals_basic):
+def read_user_terminals_basic(filename_user_terminals_basic, num_user_terminals):
     """
     Reads user terminals from the input file.
 
@@ -52,6 +52,9 @@ def read_user_terminals_basic(filename_user_terminals_basic):
             }
             user_terminals_basic.append(ground_station_basic)
             uid += 1
+            # Quit reading once we reach the required number of user terminals
+            if uid == num_user_terminals:
+                break
     return user_terminals_basic
 
 

@@ -63,13 +63,15 @@ class MainHelper:
             time_step_ms,
             isl_selection,            # isls_{none, plus_grid}
             gs_selection,             # ground_stations_{top_100, paris_moscow_grid}
+            num_gateways,
             ut_selection,
+            num_user_terminals,
             dynamic_state_algorithm,  # algorithm_{free_one_only_{gs_relays,_over_isls}, paired_many_only_over_isls}
             num_threads
     ):
 
         # Add base name to setting
-        name = self.BASE_NAME + "_" + isl_selection + "_" + gs_selection + "_" + dynamic_state_algorithm
+        name = self.BASE_NAME + "_" + isl_selection + "_" + gs_selection + "_" + dynamic_state_algorithm + "_" + ut_selection
 
         # Create output directories
         if not os.path.isdir(output_generated_data_dir):
@@ -129,6 +131,12 @@ class MainHelper:
                 "input_data/ground_stations_newyork_london_circular_bigger.basic.txt",
                 output_generated_data_dir + "/" + name + "/ground_stations.txt"
             )
+        elif gs_selection == "ground_stations_atlanta":
+            satgen.extend_ground_stations(
+                "input_data/ground_stations_atlanta.basic.txt",
+                output_generated_data_dir + "/" + name + "/ground_stations.txt",
+                num_gateways
+            )
         else:
             raise ValueError("Unknown ground station selection: " + gs_selection)
 
@@ -142,13 +150,9 @@ class MainHelper:
         elif ut_selection == "user_terminals_atlanta":
             satgen.extend_user_terminals(
                     "input_data/user_terminals_atlanta.txt",
-                    output_generated_data_dir + "/" + name + "/user_terminals.txt"
+                    output_generated_data_dir + "/" + name + "/user_terminals.txt",
+                    num_user_terminals
         )
-        elif ut_selection == "user_terminals_atl_1000":
-            satgen.extend_user_terminals(
-                    "input_data/user_terminals_atl_1000.txt",
-                    output_generated_data_dir + "/" + name + "/user_terminals.txt"
-            )
         # TLEs
         print("Generating TLEs...")
         satgen.generate_tles_from_scratch_manual(

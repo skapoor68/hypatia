@@ -24,8 +24,8 @@ from satgen.distance_tools import *
 from .read_ground_stations import *
 
 
-def extend_ground_stations(filename_ground_stations_basic_in, filename_ground_stations_out):
-    ground_stations = read_ground_stations_basic(filename_ground_stations_basic_in)
+def extend_ground_stations(filename_ground_stations_basic_in, filename_ground_stations_out, num_gateways):
+    ground_stations = read_ground_stations_basic(filename_ground_stations_basic_in, num_gateways)
     with open(filename_ground_stations_out, "w+") as f_out:
         for ground_station in ground_stations:
             cartesian = geodetic2cartesian(

@@ -21,7 +21,7 @@
 # SOFTWARE.
 
 
-def read_ground_stations_basic(filename_ground_stations_basic):
+def read_ground_stations_basic(filename_ground_stations_basic, num_gateways):
     """
     Reads ground stations from the input file.
 
@@ -47,6 +47,10 @@ def read_ground_stations_basic(filename_ground_stations_basic):
             }
             ground_stations_basic.append(ground_station_basic)
             gid += 1
+            
+            # Quit once we reach the number of desired gateways
+            if gid == num_gateways:
+                break
     return ground_stations_basic
 
 

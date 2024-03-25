@@ -1,4 +1,4 @@
-2 capacities for satellites
+<!-- 2 capacities for satellites
 - how many users can a single satellite handle
 - total capacity for satellite
 
@@ -6,3 +6,14 @@ Make each user terminal only able to talk to one satellite
 
 - Make each user terminal 'stick' to the satellite it connects with for n seconds
 - Start with n = 15
+
+ -->
+
+3/15
+
+1. Add support for more satellites
+2. 
+
+3/25
+
+1. Produce a table every 10 seconds for number of user terminals connected to each satellite
