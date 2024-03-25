@@ -2,7 +2,7 @@ cd paper/satellite_networks_state
 
 time=$1
 steps=$2
-threads=$3
+threads=${3:-"4"}
 start_uid=${4:-"0"} # First user terminal id to print routes and rtt to gateways
 end_uid=${5:-"1"} # Last user terminal id to print routes and rtt to gateways
 gs_config=${6:-"ground_stations_atlanta"}

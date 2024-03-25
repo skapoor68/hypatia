@@ -193,4 +193,4 @@ def generate_all_graphs(base_output_dir, satellite_network_dir, dynamic_state_up
         #     'with_labels':True
         # }
         # nx.draw_networkx(sat_net_graph_with_gs, arrows=True, **options)
-        # plt.savefig("/home/robin/hypatia/output/mappings/" + str(t) + ".png")
+        # plt.savefig("~/hypatia/output/mappings/" + str(t) + ".png")

@@ -1,70 +1,16 @@
 # Hypatia
 
 ## Steps to run this fork (for Starlink's first shell)
-1. First create the basic parameters for the simulation.
-  `python main_starlink_550.py {total_time_s} {frequency_ms} isls_plus_grid {ground-stations} algorithm_free_one_only_over_isls ${num_threads}`
-  ground-stations should be of the format ground_stations_top_100. You can add new ground station files, but you need to make the corresponding changes in `main_helper.py`
-2. Create graphs for the simulation using the `paper/satgenpy_analysis/generate_all_graphs.py` file. Be sure to update the frequency, total time, as well as the simulation contellation you're running. The constellation name is made up of the different parameters you provide in the 1st step. You can copy the name over from the gen_data directory if needed.
-3. Once the graphs are created, run the `paper/satgenpy_analysis/perform_full_analysis.py` file. Be sure to update the constellation name. I have created some extra logic to distribute the workload amongst different threads. Take a look at that depending on the workload you're running -- that logic may not be applicable for you if your workload is very small.
-
-
-[![Build Status](https://travis-ci.com/snkas/hypatia.svg?branch=master)](https://travis-ci.com/snkas/hypatia)
-
-Hypatia is a low earth orbit (LEO) satellite network simulation framework. It pre-calculates network state over time, enables packet-level simulations using ns-3 and provides visualizations to aid understanding.
-
-<a href="#"><img alt="Kuiper side-view" src="https://raw.githubusercontent.com/leosatsim/leosatsim.github.io/master/images/Kuiper_side_view.png" width="20%" /></a>
-<a href="#"><img alt="Telesat top-view" src="https://raw.githubusercontent.com/leosatsim/leosatsim.github.io/master/images/Telesat_top_view.png" width="20%" /></a>
-<a href="#"><img alt="starlink_paris_luanda_short" src="https://raw.githubusercontent.com/leosatsim/leosatsim.github.io/master/images/starlink_paris_luanda_short.png" width="10%" /></a>
-
-It consists of four main components:
-
-* `satgenpy` : Python framework to generate LEO satellite networks and generate 
-  routing over time over a period of time. It additionally includes several 
-  analysis tools to study individual cases. It makes use of several Python modules
-  among which: numpy, astropy, ephem, networkx, sgp4, geopy, matplotlib, 
-  statsmodels, cartopy (and its dependent (data) packages: libproj-dev, proj-data,
-  proj-bin, libgeos-dev), and exputil.
-  More information can be found in `satgenpy/README.md`.
-  (license: MIT)
-
-* `ns3-sat-sim` : ns-3 based framework which takes as input the state generated 
-  by `satgenpy` to perform packet-level simulations over LEO satellite networks.
-  It makes use of the [`satellite`](https://gitlab.inesctec.pt/pmms/ns3-satellite)
-  ns-3 module by Pedro Silva to calculate satellite locations over time.
-  It uses the [`basic-sim`](https://github.com/snkas/basic-sim/tree/3b32597c183e1039be7f0bede17d36d354696776) 
-  ns-3 module to make e.g., running end-to-end TCP flows easier, which makes use of several Python
-  modules (e.g., numpy, statsmodels, exputil) as well as several other packages (e.g., OpenMPI, lcov, gnuplot).
-  More information can be found in `ns3-sat-sim/README.md`.
-  (license: GNU GPL version 2)
-  
-* `satviz` : Cesium visualization pipeline to generate interactive satellite network
-  visualizations. It makes use of the online Cesium API by generating CesiumJS code.
-  The API calls require its user to obtain a Cesium access token (via [https://cesium.com/]()).
-  More information can be found in `satviz/README.md`.
-  (license: MIT)
-
-* `paper` : Experimental and plotting code to reproduce the experiments and 
-  figures which are presented in the paper.
-  It makes use of several Python modules among which: satgenpy, numpy, networkload, and exputil.
-  It uses the gnuplot package for most of its plotting.
-  More information can be found in `paper/README.md`.
-  (license: MIT)
-  
-(there is a fifth folder called `integration_tests` which is used for integration testing purposes)
-
-This is the code repository introduced and used in "Exploring the “Internet from space” with Hypatia" 
-by Simon Kassing*, Debopam Bhattacherjee*, André Baptista Águas, Jens Eirik Saethre and Ankit Singla
-(*equal contribution), which is published in the Internet Measurement Conference (IMC) 2020.
-
-BibTeX citation:
+1. Run 
 ```
-@inproceedings {hypatia,
-    author = {Kassing, Simon and Bhattacherjee, Debopam and Águas, André Baptista and Saethre, Jens Eirik and Singla, Ankit},
-    title = {{Exploring the “Internet from space” with Hypatia}},
-    booktitle = {{ACM IMC}},
-    year = {2020}
-}
+bash run_max_flow.sh
 ```
+with parameters specified in the script.
+
+2. Modify `global_variables.py`to configure ISLs, GSLs, user terminal settings.
+
+3. The resulting network flow is generated in the paper/satellite_networks_state/gen_data
+
 
 ## Getting started
 
