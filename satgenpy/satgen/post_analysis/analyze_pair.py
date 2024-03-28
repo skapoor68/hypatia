@@ -31,8 +31,6 @@ import tempfile
 def analyze_pair(base_output_dir, satellite_network_dir, dynamic_state_update_interval_ms,
                          simulation_end_time_s, src, dst, satgenpy_dir_with_ending_slash):
 
-    route_reachable = True
-
     # Local shell
     local_shell = exputil.LocalShell()
 
@@ -68,6 +66,7 @@ def analyze_pair(base_output_dir, satellite_network_dir, dynamic_state_update_in
 
         # For each time moment
         current_path = []
+        all_paths = []
         rtt_ns_list = []
         for t in range(0, simulation_end_time_ns, dynamic_state_update_interval_ns):
             fstate = {}
@@ -91,7 +90,6 @@ def analyze_pair(base_output_dir, satellite_network_dir, dynamic_state_update_in
                                                                             max_gsl_length_m, max_isl_length_m)
                     rtt_ns = (length_src_to_dst_m + length_dst_to_src_m) * 1000000000.0 / 299792458.0
                 else:
-                    route_reachable = False
                     length_src_to_dst_m = 0.0
                     length_dst_to_src_m = 0.0
                     rtt_ns = 0.0
@@ -105,36 +103,9 @@ def analyze_pair(base_output_dir, satellite_network_dir, dynamic_state_update_in
 
                     # This is the new path
                     current_path = new_path
-
-                    # Write change nicely to the console
-                    # print("Change at t=" + str(t) + " ns (= " + str(t / 1e9) + " seconds)")
-                    # print("  > Path..... " + (" -- ".join(list(map(lambda x: str(x), current_path)))
-                    #                           if current_path is not None else "Unreachable"))
-                    # print("  > Length... " + str(length_src_to_dst_m + length_dst_to_src_m) + " m")
-                    # print("  > RTT...... %.2f ms" % (rtt_ns / 1e6))
-                    # print("")
-
-                    # Write to path file
-                    data_path_file.write(str(t) + "," + ("-".join(list(map(lambda x: str(x), current_path)))
-                                                         if current_path is not None else "Unreachable") + "\n")
-
-        # Write data file
-        data_filename = data_dir + "/networkx_rtt_" + str(src) + "_to_" + str(dst) + ".txt"
-        with open(data_filename, "w+") as data_file:
-            for i in range(len(rtt_ns_list)):
-                data_file.write("%d,%.10f\n" % (rtt_ns_list[i][0], rtt_ns_list[i][1]))
-
-        # Make plot
-        pdf_filename = pdf_dir + "/time_vs_networkx_rtt_" + str(src) + "_to_" + str(dst) + ".pdf"
-        tf = tempfile.NamedTemporaryFile(delete=False)
-        tf.close()
-        local_shell.copy_file(satgenpy_dir_with_ending_slash + "plot/plot_time_vs_networkx_rtt.plt", tf.name)
-        local_shell.sed_replace_in_file_plain(tf.name, "[OUTPUT-FILE]", pdf_filename)
-        local_shell.sed_replace_in_file_plain(tf.name, "[DATA-FILE]", data_filename)
-        local_shell.perfect_exec("gnuplot " + tf.name)
-        print("Produced plot: " + pdf_filename)
-        local_shell.remove(tf.name)
-
-    return route_reachable
+                    all_paths.append(current_path)
+    
+    return all_paths
+        
 
 

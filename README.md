@@ -1,6 +1,9 @@
 # Hypatia
 
-## Steps to run on ARM Mac running Ubuntu
+## Steps to run failure pipeline
+1. Edit run_failure.sh with desired parameters and run the shell script
+
+## Steps to run on ARM Mac running Ubuntu (old)
 
 1. Generate dynamic state:
     - `cd hypatia/paper/satellite_networks_state`

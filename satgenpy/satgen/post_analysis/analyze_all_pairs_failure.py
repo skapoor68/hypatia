@@ -21,27 +21,59 @@
 # SOFTWARE.
 
 from satgen.post_analysis.analyze_pair import analyze_pair
+import threading
 
 def analyze_all_pairs_failure(base_output_dir, satellite_network_dir, dynamic_state_update_interval_ms,
                       simulation_end_time_s, satgenpy_dir_with_ending_slash):
-    
-    num_ground_stations = 100
-    total_routes = 0
-    unreachable_route_count = 0
-    unreachable_routes = []
+    routing_map = {}  # maps a (src, dst) pair to a list of lists of hops
+    route_pairs = [(src, dst) for src in range(100) for dst in range(src + 1, 100)]
+    num_threads = 15
+    threads = []
+    lock = threading.Lock()
 
-    for src in range(num_ground_stations):
-        for dst in range(src + 1, num_ground_stations):
-            print("Analyzing route from {} to {}".format(src, dst))
-            route_reachable = analyze_pair(base_output_dir, satellite_network_dir, dynamic_state_update_interval_ms,
-                                         simulation_end_time_s, src + 1584, dst + 1584, satgenpy_dir_with_ending_slash)
-            
-            if not route_reachable:
-                unreachable_route_count += 1
-                unreachable_routes.append((src, dst))
-            total_routes += 1
-            
+    def analyze_route_chunk(route_chunk):
+        local_routing_map = {}
+        for src, dst in route_chunk:
+            print(f"Analyzing route from {src + 1584} to {dst + 1584}")
+            local_routing_map[(src, dst)] = analyze_pair(
+                base_output_dir,
+                satellite_network_dir,
+                dynamic_state_update_interval_ms,
+                simulation_end_time_s,
+                src + 1584,
+                dst + 1584,
+                satgenpy_dir_with_ending_slash
+            )
+        with lock:
+            routing_map.update(local_routing_map)
+
+    # Divide the route pairs among the threads
+    chunk_size = len(route_pairs) // num_threads + 1
+    for i in range(0, len(route_pairs), chunk_size):
+        route_chunk = route_pairs[i:i + chunk_size]
+        thread = threading.Thread(target=analyze_route_chunk, args=(route_chunk,))
+        threads.append(thread)
+        thread.start()
+
+    # Wait for all threads to complete
+    for thread in threads:
+        thread.join()
+    
+    total_paths = 0
+    failed_paths = 0
+    total_routes = 0
+    failed_satellite = 1000
+    for route, paths in routing_map.items():
+        total_routes += 1
+        for path in paths:
+            total_paths += 1
+            for satellite in path:
+                if satellite == failed_satellite:
+                    failed_paths += 1
+                    break
+    
+    print("Paths going through failed satellite: " + str(failed_paths))
+    print("Total paths: " + str(total_paths))
     print("Total routes: " + str(total_routes))
-    print("Unreachable route count " + str(unreachable_route_count))
-    print("Unreachable routes " + str(unreachable_routes))
+            
     
