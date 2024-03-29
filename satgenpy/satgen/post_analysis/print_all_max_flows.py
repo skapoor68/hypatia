@@ -34,6 +34,55 @@ import math
 import matplotlib.pyplot as plt
 import pandas as pd
 
+def get_max_flow_for_timeseries(graphs, satellites, ground_stations, user_terminals, dynamic_state_update_interval_ns, simulation_end_time_ns) -> int:
+    """
+    Returns the maximum network flow in a time series for
+    a given configuration.
+    """
+
+    max_flow = 0
+
+    ut_demand_total = 0
+    for ut in user_terminals:
+        ut_demand_total += ut_default_demand
+    # Step 1. Assign the super source and super sink nodes
+    for t in range(0, simulation_end_time_ns, dynamic_state_update_interval_ns):
+        # Get the graph at this time
+        graph = graphs[t]
+
+        # Add the super-source and super-sinks into the graph
+        source = "S"
+        sink = "T"
+        graph.add_node(source)
+        graph.add_node(sink)
+
+        # Add edges from super-source to sources
+        for ut in user_terminals:
+            # Source to user terminals is capped at each user terminal's demand
+            # graph.add_edge(source, len(satellites) + len(ground_stations) + ut["uid"], capacity=ut["demand"])
+            graph.add_edge(source, len(satellites) + len(ground_stations) + ut["uid"], capacity=ut_default_demand)
+    
+        
+        # Add edges from sinks to super-sink
+        for gs in ground_stations:
+            # Ground stations to sink has unbounded limit
+            graph.add_edge(len(satellites) + gs["gid"], sink, capacity=ground_station_capacity)
+
+        # Find the max flow (demand satisfied)
+        # flow_value, flow_dict = nx.maximum_flow(graph, source, sink) 
+
+        # Find the max flow (demand satisfied) using the minimum cost (distance)
+        min_cost_flow_dict = nx.max_flow_min_cost(graph, source, sink)   
+        # min_cost = nx.cost_of_flow(G=graph, flowDict=min_cost_flow_dict)
+        min_cost_flow_value = sum((min_cost_flow_dict[u][sink] for u in graph.predecessors(sink)))
+
+        max_flow = max(max_flow, min_cost_flow_value)  
+        if max_flow == ut_demand_total:
+            return max_flow
+
+    return max_flow
+
+
 def print_max_flow_for_src(base_output_dir, graphs, satellites, ground_stations, user_terminals, dynamic_state_update_interval_ns, simulation_end_time_ns):
     
     local_shell = exputil.LocalShell()
@@ -79,7 +128,7 @@ def print_max_flow_for_src(base_output_dir, graphs, satellites, ground_stations,
 
             # Find the max flow (demand satisfied) using the minimum cost (distance)
             min_cost_flow_dict = nx.max_flow_min_cost(graph, source, sink)   
-            min_cost = nx.cost_of_flow(G=graph, flowDict=min_cost_flow_dict)
+            # min_cost = nx.cost_of_flow(G=graph, flowDict=min_cost_flow_dict)
             min_cost_flow_value = sum((min_cost_flow_dict[u][sink] for u in graph.predecessors(sink)))
 
             data_flow_file.write("flow value:" + str(min_cost_flow_value) + "\n" + "flow_dict:\n")
@@ -169,6 +218,40 @@ def print_all_max_flows(base_output_dir, satellite_network_dir, graph_dir, dynam
     # pool.close()
     # pool.join()
 
-    
 
+def get_max_flow(satellite_network_dir, graph_dir, dynamic_state_update_interval_ms,
+                         simulation_end_time_s) -> int:
+    """
+    Returns the maximum network flow in a time series for
+    a given configuration.
+    """
+
+    # Variables (load in for each thread such that they don't interfere)
+    ground_stations = read_ground_stations_extended(satellite_network_dir + "/ground_stations.txt")
+    user_terminals = read_user_terminals_extended(satellite_network_dir + "/user_terminals.txt")
+    tles = read_tles(satellite_network_dir + "/tles.txt")
+    satellites = tles["satellites"]
+
+    # Derivatives
+    simulation_end_time_ns = simulation_end_time_s * 1000 * 1000 * 1000
+    dynamic_state_update_interval_ns = dynamic_state_update_interval_ms * 1000 * 1000
+
+    # max_gsl_length_m = exputil.parse_positive_float(description.get_property_or_fail("max_gsl_length_m"))
+    # max_isl_length_m = exputil.parse_positive_float(description.get_property_or_fail("max_isl_length_m"))
+
+    # Write data file
+    # For each time moment
+    print("inside all_paths")
+
+    graphs = {}
+
+    for t in range(0, simulation_end_time_ns, dynamic_state_update_interval_ns):
+        print(t)
+
+        graph_path = graph_dir + "/graph_" + str(t) + ".txt"
+        # print(graph_path)
+        graphs[t] = nx.read_gpickle(graph_path)
+
+    print("all graphs loaded")
+    return get_max_flow_for_timeseries(graphs, satellites, ground_stations, user_terminals, dynamic_state_update_interval_ns, simulation_end_time_ns)
 

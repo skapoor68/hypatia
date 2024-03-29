@@ -25,7 +25,7 @@ python satgen/post_analysis/main_print_all_max_flows.py ~/hypatia/paper/satellit
 python satgen/post_analysis/main_print_all_ut_to_gw_routes_and_rtt.py ~/hypatia/paper/satellite_networks_state/gen_data ~/hypatia/paper/satellite_networks_state/gen_data/starlink_550_isls_plus_grid_ground_stations_atlanta_algorithm_free_one_only_over_isls_$ut_config ~/hypatia/paper/satellite_networks_state/gen_data/starlink_550_isls_plus_grid_ground_stations_atlanta_algorithm_free_one_only_over_isls_$ut_config/1000ms $steps $time $start_uid $end_uid
 
 # Generate pdf for a src/dest pair
-# python satgen/post_analysis/main_print_ut_to_gw_routes_and_rtt.py ~/hypatia/paper/satellite_networks_state/gen_data ~/hypatia/paper/satellite_networks_state/gen_data/starlink_550_isls_plus_grid_ground_stations_atlanta_algorithm_free_one_only_over_isls $steps $time $src $dst
+# python satgen/post_analysis/main_print_ut_to_gw_routes_and_rtt.py ~/hypatia/paper/satellite_networks_state/gen_data ~/hypatia/paper/satellite_networks_state/gen_data/starlink_550_isls_plus_grid_ground_stations_atlanta_algorithm_free_one_only_over_isls_$ut_config $steps $time $src $dst
 
 # Generate visualization based on route and rtt
 # cd ../../satviz/scripts

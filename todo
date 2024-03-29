@@ -17,3 +17,6 @@ Make each user terminal only able to talk to one satellite
 3/25
 
 1. Produce a table every 10 seconds for number of user terminals connected to each satellite
+
+# problem
+The point at which the network (ISLs) becomes the bottleneck is too early in terms of number of user terminals
