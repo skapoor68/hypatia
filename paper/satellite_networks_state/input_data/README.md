@@ -7,5 +7,8 @@ Files:
 * `ground_stations_cities_sorted_by_estimated_2025_pop_top_1000.basic.txt` : The top 1000 cities by the largest population estimated for 2025
 * `ground_stations_cities_sorted_by_estimated_2025_pop_top_100.basic.txt` : The first 100 of the 1000 cities
 * `ground_stations_paris_moscow_grid.basic.txt` : Paris and Moscow (from the top 100) and a grid of ground stations between them that can function as relays
+* `user_terminals_atlanta.txt` : 1000 user terminals located randomly in bounds of Atlanta. We pull the specified number of user terminals from this file.
+* `user_terminals_top_100.txt` : 100 user terminals located at the top 100 ground station.
+
 * `generate_paris_moscow_grid.py` : Used to generate the aforemetioned Paris-Moscow ground station grid
 * `legacy/` : Remnants of old data files, can be deleted later on
