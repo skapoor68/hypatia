@@ -33,6 +33,7 @@ import tempfile
 import json
 from astropy import units as u
 from satgen.distance_tools import *
+from satgen.simulate_failures import *
 
 def generate_satellite_shell_index(num_satellites, num_orbits, num_sats_per_orbit):
     satellites_shell_idx = {}
@@ -66,6 +67,8 @@ def generate_all_graphs(base_output_dir, satellite_network_dir, dynamic_state_up
     epoch = tles["epoch"]
     description = exputil.PropertiesConfig(satellite_network_dir + "/description.txt")
 
+    failure_table = parse_failure_file("../../../paper/satellite_networks_state/input_data/failure_config_0.txt") # Specify failure configuration here
+
     # Derivatives
     simulation_start_time_ns = simulation_start_time_s * 1000 * 1000 * 1000
     simulation_end_time_ns = simulation_end_time_s * 1000 * 1000 * 1000
@@ -91,7 +94,13 @@ def generate_all_graphs(base_output_dir, satellite_network_dir, dynamic_state_up
         sat_net_graph_with_gs = nx.DiGraph()
 
         # ISLs
-        for (a,b) in list_isls:            
+        for (a,b) in list_isls:
+            if (a, b) in failure_table["ISL"] and failure_table["ISL"][(a, b)][0] <= t <= failure_table["ISL"][(a, b)][1]:
+                continue
+            if a in failure_table["SAT"] and failure_table["SAT"][a][0] <= t <= failure_table["SAT"][a][1]:
+                continue
+            if b in failure_table["SAT"] and failure_table["SAT"][b][0] <= t <= failure_table["SAT"][b][1]:
+                continue    
             if n_shells == 1:
                 max_length = max_isl_length_m
             else:
@@ -120,6 +129,8 @@ def generate_all_graphs(base_output_dir, satellite_network_dir, dynamic_state_up
         for ground_station in ground_stations:
             # Find satellites in range
             for sid in range(len(satellites)):
+                if sid in failure_table["SAT"] and failure_table["SAT"][sid][0] <= t <= failure_table["SAT"][sid][1]:
+                    continue
                 if n_shells == 1:
                     max_length = max_gsl_length_m
                 else:                    
@@ -140,6 +151,8 @@ def generate_all_graphs(base_output_dir, satellite_network_dir, dynamic_state_up
                 min_dist = float('inf')
                 nearest_sid = -1
                 for sid in range(len(satellites)):
+                    if sid in failure_table["SAT"] and failure_table["SAT"][sid][0] <= t <= failure_table["SAT"][sid][1]:
+                        continue
                     if n_shells == 1:
                         max_length = max_gsl_length_m
                     else:                    
