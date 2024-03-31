@@ -20,9 +20,12 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
+import os
+
 def parse_failure_file(failure_file):
+    failure_file_path = os.path.expanduser(failure_file)
     failure_table = {'SAT': {}, 'ISL': {}, 'GS': {}}
-    with open(failure_file, "r") as f:
+    with open(failure_file_path, "r") as f:
         for line in f:
             parts = line.strip().split(",")
             device = parts[0]

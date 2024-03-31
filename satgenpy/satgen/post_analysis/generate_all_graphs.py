@@ -67,7 +67,7 @@ def generate_all_graphs(base_output_dir, satellite_network_dir, dynamic_state_up
     epoch = tles["epoch"]
     description = exputil.PropertiesConfig(satellite_network_dir + "/description.txt")
 
-    failure_table = parse_failure_file("../../../paper/satellite_networks_state/input_data/failure_config_0.txt") # Specify failure configuration here
+    failure_table = parse_failure_file("~/hypatia-robin/paper/satellite_networks_state/input_data/failure_config_0.txt") # Specify failure configuration here
 
     # Derivatives
     simulation_start_time_ns = simulation_start_time_s * 1000 * 1000 * 1000
@@ -152,6 +152,9 @@ def generate_all_graphs(base_output_dir, satellite_network_dir, dynamic_state_up
                 nearest_sid = -1
                 for sid in range(len(satellites)):
                     if sid in failure_table["SAT"] and failure_table["SAT"][sid][0] <= t <= failure_table["SAT"][sid][1]:
+                        if sid == user_terminal["sid"]: # if the UT is connected to the failed satellite
+                            user_terminal["sid"] = None # disconnect the UT from the failed satellite
+                            user_terminal["hop_count"] = satellite_handoff_seconds # not sure if this is needed (for Robin)
                         continue
                     if n_shells == 1:
                         max_length = max_gsl_length_m
@@ -177,8 +180,8 @@ def generate_all_graphs(base_output_dir, satellite_network_dir, dynamic_state_up
                         
                 if nearest_sid != -1:
                     rounded_dist = round(min_dist)
-                    if user_terminal["sid"] == None:
-                        # No connected Satellite, connect to this one
+                    if user_terminal["sid"] == None or user_terminal["sid"] != nearest_sid:
+                        # No connected Satellite or failed satellite is back online and gives a shorter path, connect to this one
                         user_terminal["sid"] = nearest_sid
                         user_terminal["hop_count"] = satellite_handoff_seconds
                         

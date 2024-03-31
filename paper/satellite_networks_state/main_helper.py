@@ -67,11 +67,12 @@ class MainHelper:
             ut_selection,
             num_user_terminals,
             dynamic_state_algorithm,  # algorithm_{free_one_only_{gs_relays,_over_isls}, paired_many_only_over_isls}
-            num_threads
+            num_threads,
+            failure_id
     ):
 
         # Add base name to setting
-        name = self.BASE_NAME + "_" + isl_selection + "_" + gs_selection + "_" + dynamic_state_algorithm + "_" + ut_selection
+        name = self.BASE_NAME + "_" + isl_selection + "_" + gs_selection + "_" + dynamic_state_algorithm + "_" + ut_selection + "_failure_" + str(failure_id)
 
         # Create output directories
         if not os.path.isdir(output_generated_data_dir):
