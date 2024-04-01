@@ -26,6 +26,7 @@ import os
 from main_helper import MainHelper
 from satgen.post_analysis.generate_all_graphs import generate_all_graphs
 from satgen.post_analysis.print_all_max_flows import get_max_flow
+from satgen.user_terminals.global_variables import *
 import matplotlib.pyplot as plt
 
 # WGS72 value; taken from https://geographiclib.sourceforge.io/html/NET/NETGeographicLib_8h_source.html
@@ -83,11 +84,13 @@ main_helper = MainHelper(
 
 def main():
     args = sys.argv[1:]
-    if len(args) != 11:
-        print("Must supply exactly eleven arguments")
+    if len(args) != 12:
+        print("Must supply exactly twelve arguments")
         print(len(args))
         print("args:",args)
-        print("Usage: python main_starlink_550_all_conf.py [duration (s)] [time step (ms)] "
+        print("Usage: python main_starlink_550_all_conf.py [start_time (s)] " 
+              "[end_time (s)] "
+              "[time step (ms)] "
               "[isls_plus_grid / isls_none] "
               "[ground_stations_{top_100, paris_moscow_grid}] "
               "[num_ground_stations_start] "
@@ -100,17 +103,18 @@ def main():
         exit(1)
         
     # parse arguments
-    duration = int(args[0])
-    step = int(args[1])
-    isl_config = args[2]
-    gs_config = args[3]
-    gs_start = int(args[4])
-    gs_end = int(args[5])
-    ut_config = args[6]
-    ut_start = int(args[7])
-    ut_end = int(args[8])
-    algorithm = args[9]
-    num_threads = args[10]
+    start_time = int(args[0])
+    end_time = int(args[1])
+    step = int(args[2])
+    isl_config = args[3]
+    gs_config = args[4]
+    gs_start = int(args[5])
+    gs_end = int(args[6])
+    ut_config = args[7]
+    ut_start = int(args[8])
+    ut_end = int(args[9])
+    algorithm = args[10]
+    num_threads = args[11]
 
     # for i in range [gstart, gend]:
     #   max_flow_arr = {}
@@ -121,14 +125,42 @@ def main():
 
     gs_interval = 10
     ut_interval = 50
+    # Dictionary holding flow values for graphing
     gs_to_graph = dict()
+    # Hashmap of hashmap holding num_terminal : (num_gs: max_flow) pairings
+    max_flow_dict = dict() 
     for num_gateway in range(gs_start, gs_end + 1, gs_interval):
-        max_flow_dict = dict()
+        ut_to_max_flow = dict()
+        # ut_start should be from where the last configuration was bottlenecked
+        # ut_end should be until we reach the max GS capacity
+        max_gs_capacity = num_gateway * ground_station_capacity
         for num_terminal in range(ut_start, ut_end + 1, ut_interval):
+            # if num_terminal, num_gs max flow is already computed
+            # where num_gs <= num_gateway and max_flow is max demand
+            max_demand = num_terminal * ut_default_demand
+            skip = False
+            if num_terminal in max_flow_dict:
+                for num_gs in max_flow_dict[num_terminal]:
+                    if num_gs <= num_gateway:
+                        if max_flow_dict[num_terminal][num_gs] == max_demand:
+                            # Add data to dictionary
+                            ut_to_max_flow[num_terminal] = max_demand
+                            skip = True
+            # Check if previous run was bottlenecked by GS capacity
+            for num_ut in max_flow_dict:
+                if num_ut < num_terminal and num_gateway in max_flow_dict[num_ut]:
+                    if max_flow_dict[num_ut][num_gateway] == max_gs_capacity:
+                        ut_to_max_flow[num_terminal] = max_gs_capacity
+                        skip = True
+
+            if skip:
+                print("Skipping configuration", (num_terminal, num_gateway), "as result is already computed.")
+                continue
+
             # Generate new data for each configuration
             main_helper.calculate(
                 "gen_data",
-                duration,
+                end_time,
                 step,
                 isl_config,
                 gs_config,
@@ -139,7 +171,7 @@ def main():
                 num_threads,
             )
             
-            gen_data_dir = "/home/robin/hypatia/paper/satellite_networks_state/gen_data"
+            gen_data_dir = "/home/hkim3019/hypatia/paper/satellite_networks_state/gen_data"
             core_network_folder_name = "starlink_550_" + isl_config + "_" + gs_config + "_" + algorithm + "_" + ut_config
             graph_dir = "%s/%s/%dms" % (
                 gen_data_dir, core_network_folder_name, step
@@ -158,23 +190,28 @@ def main():
                 graph_dir,
                 satellite_network_dir,
                 step,
-                0,
-                duration,
-                n_shells=1,
-                use_capacity=True
+                start_time,
+                end_time,
+                n_shells=1
             )
 
             max_flow = get_max_flow(
                 satellite_network_dir,
                 graph_dir, 
                 step,
-                duration
+                start_time,
+                end_time
             )
-            max_flow_dict[num_terminal] = max_flow
-        gs_to_graph[num_gateway] = max_flow_dict
+            # Add data to dictionary
+            ut_to_max_flow[num_terminal] = max_flow
+            # Create mappings for future use
+            if not num_terminal in max_flow_dict:
+                max_flow_dict[num_terminal] = dict()
+            max_flow_dict[num_terminal][num_gateway] = max_flow
+        gs_to_graph[num_gateway] = ut_to_max_flow
     
     # After the loop:
-    # gs_to_graph := # Gateway : Max Flow Dict mapping user terminals to max flow
+    # gs_to_graph := # Gateway : Dict mapping user terminals to max flow
     for num_gateway, graph_dict in gs_to_graph.items():
         # output graph to satellite_network_dir
         terminals = graph_dict.keys()
@@ -186,12 +223,10 @@ def main():
     plt.title("UT, GW vs. Max Flow")
     plt.legend()
 
-    pdf_file = satellite_network_dir + "/output_graphs/starlink_550_"+gs_config+"_" +str(gs_end)+"_"+ ut_config +"_"+str(ut_end)+"_max_flow.pdf"
+    duration_s = end_time - start_time
+    pdf_file = satellite_network_dir + "/output_graphs/starlink_550_"+gs_config+"_" +str(gs_end)+"_"+ ut_config +"_"+str(ut_end)+"duration_" + duration_s + "_max_flow.pdf"
     plt.savefig(pdf_file)
     print("Plot successfully saved. ")
-
-    
-    
 
 
 if __name__ == "__main__":

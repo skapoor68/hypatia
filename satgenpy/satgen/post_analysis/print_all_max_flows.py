@@ -219,7 +219,7 @@ def print_all_max_flows(base_output_dir, satellite_network_dir, graph_dir, dynam
 
 
 def get_max_flow(satellite_network_dir, graph_dir, dynamic_state_update_interval_ms,
-                         simulation_end_time_s) -> int:
+                         simulation_start_time_s, simulation_end_time_s) -> int:
     """
     Returns the maximum network flow in a time series for
     a given configuration.
@@ -232,6 +232,7 @@ def get_max_flow(satellite_network_dir, graph_dir, dynamic_state_update_interval
     satellites = tles["satellites"]
 
     # Derivatives
+    simulation_start_time_ns = simulation_start_time_s * 1000 * 1000 * 1000
     simulation_end_time_ns = simulation_end_time_s * 1000 * 1000 * 1000
     dynamic_state_update_interval_ns = dynamic_state_update_interval_ms * 1000 * 1000
 
@@ -244,7 +245,7 @@ def get_max_flow(satellite_network_dir, graph_dir, dynamic_state_update_interval
 
     graphs = {}
 
-    for t in range(0, simulation_end_time_ns, dynamic_state_update_interval_ns):
+    for t in range(simulation_start_time_ns, simulation_end_time_ns, dynamic_state_update_interval_ns):
         print(t)
 
         graph_path = graph_dir + "/graph_" + str(t) + ".txt"

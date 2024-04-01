@@ -4,17 +4,27 @@ ut_config="user_terminals_atlanta"
 
 while [[ $# -gt 0 ]]; do
   case "$1" in
-    -t|--time)
+    -s|--starttime)
       if [[ -n "$2" ]]; then
-        time="$2"
-        echo "Simulation end time is set to $time."
+        start_time="$2"
+        echo "Simulation start time is set to $start_time."
         shift
       else
-        echo "Error: Time requires a value."
+        echo "Error: Start time requires a value."
         exit 1
       fi
       ;;
-    -s|--steps)
+    -e|--endtime)
+      if [[ -n "$2" ]]; then
+        end_time="$2"
+        echo "Simulation end time is set to $end_time."
+        shift
+      else
+        echo "Error: End time requires a value."
+        exit 1
+      fi
+      ;;
+    -i|--interval)
       if [[ -n "$2" ]]; then
         steps="$2"
         echo "Simulation time interval is set to $steps."
@@ -102,4 +112,4 @@ done
 cd paper/satellite_networks_state
 
 # Generate GS and satellite data
-python main_starlink_550_all_conf.py $time $steps isls_plus_grid $gs_config $gstart $gend $ut_config $ustart $uend algorithm_free_one_only_over_isls $threads
+python main_starlink_550_all_conf.py $start_time $end_time $steps isls_plus_grid $gs_config $gstart $gend $ut_config $ustart $uend algorithm_free_one_only_over_isls $threads
