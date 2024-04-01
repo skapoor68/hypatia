@@ -45,7 +45,7 @@ set xlabel "Time (s)" # Markup: e.g. 99^{th}, {/Symbol s}, {/Helvetica-Italic P}
 set ylabel "NetworkX Flow (Mbps)"
 
 # Axes ranges
-set xrange [0:]       # Explicitly set the x-range [lower:upper]
+set xrange [XRANGE_START:]       # Explicitly set the x-range [lower:upper]
 set yrange [0:UT_DEMAND_TOTAL]       # Explicitly set the y-range [lower:upper]
 # set xtics (0, 100, 300, 500, 700, 900)
 # set ytics <start>, <incr> {,<end>}

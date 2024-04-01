@@ -83,7 +83,7 @@ def get_max_flow_for_timeseries(graphs, satellites, ground_stations, user_termin
     return max_flow
 
 
-def print_max_flow_for_src(base_output_dir, graphs, satellites, ground_stations, user_terminals, dynamic_state_update_interval_ns, simulation_end_time_ns):
+def print_max_flow_for_src(base_output_dir, graphs, satellites, ground_stations, user_terminals, dynamic_state_update_interval_ns, simulation_start_time_ns, simulation_end_time_ns):
     
     local_shell = exputil.LocalShell()
 
@@ -93,13 +93,14 @@ def print_max_flow_for_src(base_output_dir, graphs, satellites, ground_stations,
     local_shell.make_full_dir(data_dir)
 
     dynamic_state_update_interval_ms = dynamic_state_update_interval_ns / 1000 /1000
+    simulation_start_time_s = simulation_start_time_ns / 1000 / 1000 / 1000
     simulation_end_time_s = simulation_end_time_ns / 1000 / 1000 / 1000
 
-    data_filename = data_dir + "/networkx_all_flow_" + str(dynamic_state_update_interval_ms) +"ms_for_" + str(simulation_end_time_s) + "s" ".txt"
+    data_filename = data_dir + "/networkx_all_flow_" + str(dynamic_state_update_interval_ms) + "ms_for_" + str(simulation_end_time_s) + "s" ".txt"
 
     flow_list = []
     # Step 1. Assign the super source and super sink nodes
-    for t in range(0, simulation_end_time_ns, dynamic_state_update_interval_ns):
+    for t in range(simulation_start_time_ns, simulation_end_time_ns, dynamic_state_update_interval_ns):
         data_flow_filename = data_dir + "/networkx_flow_" + str(t) + ".txt"
         with open(data_flow_filename, "w+") as data_flow_file:
             # Get the graph at this time
@@ -149,10 +150,11 @@ def print_max_flow_for_src(base_output_dir, graphs, satellites, ground_stations,
             flow_value_file.write("%d,%.10f\n" % (flow_list[i][0], flow_list[i][1]))
 
     pdf_dir = base_output_dir + "/pdf"
-    pdf_filename = pdf_dir + "/time_vs_networkx_flow_num_ut_" + str(len(user_terminals)) + "_ut_capacity_"+ str(user_terminal_gsl_capacity)+ "_mbps_num_gs_" + str(len(ground_stations)) + "_gs_capacity_" + str(ground_station_gsl_capacity) + "_mbps_" + str(dynamic_state_update_interval_ms) + "ms_for_" + str(simulation_end_time_s) + "s" + ".pdf"
+    pdf_filename = pdf_dir + "/time_vs_networkx_flow_num_ut_" + str(len(user_terminals)) + "_ut_capacity_"+ str(user_terminal_gsl_capacity)+ "_mbps_num_gs_" + str(len(ground_stations)) + "_gs_capacity_" + str(ground_station_gsl_capacity) + "_mbps_" + str(dynamic_state_update_interval_ms) + "ms_from_" + str(simulation_start_time_s) + "s_to_" + str(simulation_end_time_s) + "s" + ".pdf"
     tf = tempfile.NamedTemporaryFile(delete=False)
     tf.close()
     local_shell.copy_file("plot/plot_time_vs_networkx_flow.plt", tf.name)
+    local_shell.sed_replace_in_file_plain(tf.name, "XRANGE_START", str(simulation_start_time_s))
     local_shell.sed_replace_in_file_plain(tf.name, "[OUTPUT-FILE]", pdf_filename)
     local_shell.sed_replace_in_file_plain(tf.name, "[DATA-FILE]", data_filename)
 
@@ -167,7 +169,7 @@ def print_max_flow_for_src(base_output_dir, graphs, satellites, ground_stations,
     local_shell.remove(tf.name)
 
 def print_all_max_flows(base_output_dir, satellite_network_dir, graph_dir, dynamic_state_update_interval_ms,
-                         simulation_end_time_s):
+                         simulation_start_time_s, simulation_end_time_s):
 
     # Local shell
     local_shell = exputil.LocalShell()
@@ -190,6 +192,7 @@ def print_all_max_flows(base_output_dir, satellite_network_dir, graph_dir, dynam
     satellites = tles["satellites"]
 
     # Derivatives
+    simulation_start_time_ns = simulation_start_time_s * 1000 * 1000 * 1000
     simulation_end_time_ns = simulation_end_time_s * 1000 * 1000 * 1000
     dynamic_state_update_interval_ns = dynamic_state_update_interval_ms * 1000 * 1000
     # max_gsl_length_m = exputil.parse_positive_float(description.get_property_or_fail("max_gsl_length_m"))
@@ -201,7 +204,7 @@ def print_all_max_flows(base_output_dir, satellite_network_dir, graph_dir, dynam
 
     graphs = {}
 
-    for t in range(0, simulation_end_time_ns, dynamic_state_update_interval_ns):
+    for t in range(simulation_start_time_ns, simulation_end_time_ns, dynamic_state_update_interval_ns):
         print(t)
 
         graph_path = graph_dir + "/graph_" + str(t) + ".txt"
@@ -212,11 +215,7 @@ def print_all_max_flows(base_output_dir, satellite_network_dir, graph_dir, dynam
         # shortest_paths[t] = dict(nx.all_pairs_shortest_path(graphs[t]))
 
     print("all graphs loaded")
-    print_max_flow_for_src(base_output_dir, graphs, satellites, ground_stations, user_terminals, dynamic_state_update_interval_ns, simulation_end_time_ns)
-    #     pool.apply_async(print_routes_and_rtt_for_src, (s, graphs, satellites, ground_stations, data_dir, dynamic_state_update_interval_ns, simulation_end_time_ns))
-
-    # pool.close()
-    # pool.join()
+    print_max_flow_for_src(base_output_dir, graphs, satellites, ground_stations, user_terminals, dynamic_state_update_interval_ns, simulation_start_time_ns, simulation_end_time_ns)
 
 
 def get_max_flow(satellite_network_dir, graph_dir, dynamic_state_update_interval_ms,
