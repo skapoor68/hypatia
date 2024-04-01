@@ -180,7 +180,7 @@ def generate_all_graphs(base_output_dir, satellite_network_dir, dynamic_state_up
                         
                 if nearest_sid != -1:
                     rounded_dist = round(min_dist)
-                    if user_terminal["sid"] == None or (user_terminal["sid"] != nearest_sid and nearest_sid in failure_table["SAT"] and failure_table["SAT"][nearest_sid][0] < t):
+                    if user_terminal["sid"] == None:
                         # No connected Satellite or failed satellite is back online and gives a shorter path, connect to this one
                         user_terminal["sid"] = nearest_sid
                         user_terminal["hop_count"] = satellite_handoff_seconds
