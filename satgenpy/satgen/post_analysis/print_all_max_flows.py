@@ -34,7 +34,7 @@ import math
 import matplotlib.pyplot as plt
 import pandas as pd
 
-def get_max_flow_for_timeseries(graphs, satellites, ground_stations, user_terminals, dynamic_state_update_interval_ns, simulation_end_time_ns) -> int:
+def get_max_flow_for_timeseries(graphs, satellites, ground_stations, user_terminals, dynamic_state_update_interval_ns, simulation_start_time_ns, simulation_end_time_ns) -> int:
     """
     Returns the maximum network flow in a time series for
     a given configuration.
@@ -46,7 +46,7 @@ def get_max_flow_for_timeseries(graphs, satellites, ground_stations, user_termin
     for ut in user_terminals:
         ut_demand_total += ut_default_demand
     # Step 1. Assign the super source and super sink nodes
-    for t in range(0, simulation_end_time_ns, dynamic_state_update_interval_ns):
+    for t in range(simulation_start_time_ns, simulation_end_time_ns, dynamic_state_update_interval_ns):
         # Get the graph at this time
         graph = graphs[t]
 
@@ -253,5 +253,5 @@ def get_max_flow(satellite_network_dir, graph_dir, dynamic_state_update_interval
         graphs[t] = nx.read_gpickle(graph_path)
 
     print("all graphs loaded")
-    return get_max_flow_for_timeseries(graphs, satellites, ground_stations, user_terminals, dynamic_state_update_interval_ns, simulation_end_time_ns)
+    return get_max_flow_for_timeseries(graphs, satellites, ground_stations, user_terminals, dynamic_state_update_interval_ns, simulation_start_time_ns, simulation_end_time_ns)
 

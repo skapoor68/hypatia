@@ -48,7 +48,7 @@ def generate_satellite_shell_index(num_satellites, num_orbits, num_sats_per_orbi
     return satellites_shell_idx
 
 def generate_all_graphs(base_output_dir, satellite_network_dir, dynamic_state_update_interval_ms,
-                         simulation_start_time_s, simulation_end_time_s, n_shells = 1):
+                         simulation_start_time_s, simulation_end_time_s, n_shells = 1, allow_multiple_gsl=False):
 
     print(simulation_start_time_s, simulation_end_time_s)
 
@@ -123,7 +123,7 @@ def generate_all_graphs(base_output_dir, satellite_network_dir, dynamic_state_up
                 )
 
         # GSLs
-        # Each Satellite can only connect to one ground station at a time
+        # Each Satellite can only connect to one ground station at a time unless allow_multiple_gsl is enabled
         for sid in range(len(satellites)):
             if sid in failure_table["SAT"] and failure_table["SAT"][sid][0] <= t <= failure_table["SAT"][sid][1]:
                 continue
@@ -140,11 +140,15 @@ def generate_all_graphs(base_output_dir, satellite_network_dir, dynamic_state_up
                 
                 distance_m = distance_m_ground_station_to_satellite(ground_station, satellite, str(epoch), str(time))
 
-                if sat_net_graph_with_gs.has_node(len(satellites) + gid) and sat_net_graph_with_gs.degree(len(satellites)+gid) >= ground_station_max_satellites:
+                if sat_net_graph_with_gs.has_node(len(satellites) + gid) and sat_net_graph_with_gs.degree(len(satellites)+gid, "capacity") >= ground_station_capacity:
                     # if this ground station is at full capacity, don't connect to it
                     continue
-
-                if distance_m <= max_length and distance_m < min_dist:
+                
+                # If multiple GSL connections is enabled, connect to every GS within range.
+                if allow_multiple_gsl:
+                    sat_net_graph_with_gs.add_edge(sid, len(satellites) + gid, weight=rounded_dist, capacity=ground_station_gsl_capacity)
+                # Single GSL connection to nearest GS
+                elif distance_m <= max_length and distance_m < min_dist:
                     min_dist = distance_m
                     nearest_gid = gid
 
@@ -172,7 +176,7 @@ def generate_all_graphs(base_output_dir, satellite_network_dir, dynamic_state_up
                 elif schedule_count != 0:
                     # Current connection is still in range and active
                     # If it's not time to reallocate, keep this connection.
-                    sat_net_graph_with_gs.add_edge(len(satellites) + len(ground_stations) + user_terminal["uid"], sid, weight=rounded_dist, capacity=user_terminal_gsl_capacity, ut_demand=ut_default_demand)
+                    sat_net_graph_with_gs.add_edge(len(satellites) + len(ground_stations) + user_terminal["uid"], current_connection, weight=rounded_dist, capacity=user_terminal_gsl_capacity, ut_demand=ut_default_demand)
                     continue
 
             # Current connection is out of range

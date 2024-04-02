@@ -1,6 +1,8 @@
 threads=4
+steps=1000
 gs_config="ground_stations_atlanta"
 ut_config="user_terminals_atlanta"
+allow_multiple_gsl=0
 
 while [[ $# -gt 0 ]]; do
   case "$1" in
@@ -29,27 +31,18 @@ while [[ $# -gt 0 ]]; do
         steps="$2"
         echo "Simulation time interval is set to $steps."
         shift
-      else
-        echo "Error: Step requires a value."
-        exit 1
       fi
       ;;
     -g|--gs)
       if [[ -n "$2" ]]; then
         gs_config="$2"
-        echo "GS config is set to $gs_config."
         shift
-      else
-        echo "GS config is set to $gs_config."
       fi
       ;;
     -u|--ut)
       if [[ -n "$2" ]]; then
         ut_config="$2"
-        echo "UT config is set to $ut_config."
         shift
-      else
-        echo "UT config is set to $ut_config."
       fi
       ;;
     --gstart)
@@ -92,6 +85,10 @@ while [[ $# -gt 0 ]]; do
         exit 1
       fi
       ;;
+    --multiple-gsl)
+        allow_multiple_gsl=1
+        echo "Multiple GSL per Satellite Enabled."
+      ;;
     *)
       echo "Unknown option: $1"
       exit 1
@@ -100,6 +97,9 @@ while [[ $# -gt 0 ]]; do
   shift
 done
 
+echo "Simulation time interval is set to $steps."
+echo "UT config is set to $ut_config."
+echo "GS config is set to $gs_config."
 
 # for i in range [gstart, gend]:
 #   max_flow_arr = {}
@@ -112,4 +112,4 @@ done
 cd paper/satellite_networks_state
 
 # Generate GS and satellite data
-python main_starlink_550_all_conf.py $start_time $end_time $steps isls_plus_grid $gs_config $gstart $gend $ut_config $ustart $uend algorithm_free_one_only_over_isls $threads
+python main_starlink_550_all_conf.py $start_time $end_time $steps isls_plus_grid $gs_config $gstart $gend $ut_config $ustart $uend algorithm_free_one_only_over_isls $allow_multiple_gsl $threads

@@ -50,10 +50,62 @@ def parse_flow_file(filename):
         flow_dict = ast.literal_eval(f.read())
     return flow_dict
 
+def get_satellite_num_connections(flow_dict, satellites):
+    """
+    Calculates the total user terminal connections for each satellite in the flow_dict.
+
+    Args:
+        flow_dict: A dictionary representing the graph, where keys are nodes and values are dictionaries mapping outgoing nodes to their capacities.
+
+    Returns:
+        A dictionary where keys are nodes and values are the total connections for that node.
+    """
+    connections = {}
+    num_satellites = len(satellites)
+    for node, edges in flow_dict.items():
+        for neighbor, capacity in edges.items():
+            if neighbor == 'S' or neighbor == 'T':
+                continue
+            # Skip ISLs and empty connections
+            if int(neighbor) < num_satellites and int(node) > num_satellites and capacity > 0:
+                if not neighbor in connections:
+                    connections[neighbor] = 0
+                connections[neighbor] += 1
+    return connections
+
+def get_satellite_traffic(flow_dict, satellites, outgoing=False):
+    """
+    Calculates the total user terminal connections for each satellite in the flow_dict.
+
+    Args:
+        flow_dict: A dictionary representing the graph, where keys are nodes and values are dictionaries mapping outgoing nodes to their capacities.
+
+    Returns:
+        A dictionary where keys are nodes and values are the total connections for that node.
+    """
+    connections = {}
+    num_satellites = len(satellites)
+    for node, edges in flow_dict.items():
+        for neighbor, capacity in edges.items():
+            if node == 'S' or node == 'T' or neighbor == 'S' or neighbor == 'T':
+                continue
+            if outgoing:
+                # Calculate outgoing traffic from Satellites
+                if int(node) < num_satellites and int(neighbor) >= num_satellites and capacity > 0:
+                    if not node in connections:
+                        connections[node] = 0
+                    connections[node] += capacity
+            else:
+                # Calculate incoming traffic into Satellites
+                if int(node) >= num_satellites and int(neighbor) < num_satellites and capacity > 0:
+                    if not neighbor in connections:
+                        connections[neighbor] = 0
+                    connections[neighbor] += capacity
+    return connections
 
 def get_gs_outgoing_capacity(flow_dict):
     """
-    Calculates the total outgoing capacity for each gateway in the flow_dict.
+    Calculates the total outgoing capacity for each node in the flow_dict.
 
     Args:
         flow_dict: A dictionary representing the graph, where keys are nodes and values are dictionaries mapping outgoing nodes to their capacities.
@@ -72,7 +124,10 @@ def get_gs_outgoing_capacity(flow_dict):
 
 
 def print_flow_mapping(base_output_dir, satellite_network_dir, dynamic_state_update_interval_ms, simulation_end_time_s, target_flow_time_s):
-    
+    '''
+    Prints the number of user terminals connected to each satellite
+    at a given time instance, and the total demand satisfied at each ground station.
+    '''
     local_shell = exputil.LocalShell()
 
     data_dir = base_output_dir + "/data"
@@ -94,33 +149,70 @@ def print_flow_mapping(base_output_dir, satellite_network_dir, dynamic_state_upd
     node_names = list(outgoing_capacity.keys())
     capacities = list(outgoing_capacity.values())
 
-    print(len(node_names))
-    print(len(capacities))
-
     # Create a bar chart
     plt.rcParams.update({'font.size': 5})
-    plt.figure(figsize=(10, 3))  # width:20, height:3
+    plt.figure(0, figsize=(10, 3))  # width:20, height:3
     plt.xlabel("Node")
     plt.ylabel("Total Incoming Capacity")
-    plt.title("Incoming Capacity per Gateway")
+    plt.title("Incoming Capacity per Gateway at time "+ str(target_flow_time_s) + "s")
     plt.bar(range(len(outgoing_capacity)), capacities, align='center', width=0.3)
     plt.xticks(range(len(outgoing_capacity)), node_names)  # Rotate x-axis labels for better readability
     plt.tight_layout()
     plt.savefig(pdf_filename)
 
+    # Satellite connections
+    tles = read_tles(satellite_network_dir + "/tles.txt")
+    satellites = tles["satellites"]
+    connections = get_satellite_num_connections(flow_dict, satellites)
 
-    # tf = tempfile.NamedTemporaryFile(delete=False)
-    # tf.close()
-    # local_shell.copy_file("plot/plot_time_vs_networkx_flow.plt", tf.name)
-    # local_shell.sed_replace_in_file_plain(tf.name, "[OUTPUT-FILE]", pdf_filename)
-    # local_shell.sed_replace_in_file_plain(tf.name, "[DATA-FILE]", data_filename)
+    # Extract node names and connections
+    node_names = list(connections.keys())
+    num_connections = list(connections.values())
 
-    # ut_demand_total = 0
-    # for ut in user_terminals:
-    #     ut_demand_total += ut_default_demand
-    # local_shell.sed_replace_in_file_plain(tf.name, "UT_DEMAND_TOTAL", str(ut_demand_total))
+    # Create a bar chart
+    plt.figure(1, figsize=(10, 3))  # width:20, height:3
+    plt.xlabel("Satelllite")
+    plt.ylabel("User Terminals Connected")
+    plt.title("Connections per Satellite at time " + str(target_flow_time_s) + "s")
+    plt.bar(range(len(connections)), num_connections, align='center', width=0.3, color="green")
+    plt.xticks(range(len(connections)), node_names)  # Rotate x-axis labels for better readability
+    plt.tight_layout()
 
-    # local_shell.perfect_exec("gnuplot " + tf.name)
-    # print("Total UT demand:", ut_demand_total)
-    # print("Produced plot: " + pdf_filename)
-    # local_shell.remove(tf.name)
+    pdf_filename = pdf_dir + "/networkx_connection_mapping_" + str(target_flow_time_s) + "_ut_capacity_" + str(user_terminal_gsl_capacity)+ "_mbps_" + "gs_capacity_" + str(ground_station_gsl_capacity) + "_mbps_" + str(dynamic_state_update_interval_ms) + "ms_for_" + str(simulation_end_time_s) + "s" + ".pdf"
+    plt.savefig(pdf_filename)
+
+    demand_dict = get_satellite_traffic(flow_dict, satellites)
+
+    # Extract node names and connections
+    node_names = list(demand_dict.keys())
+    demands = list(demand_dict.values())
+
+    # Create a bar chart
+    plt.figure(2, figsize=(10, 3))  # width:20, height:3
+    plt.xlabel("Satelllite")
+    plt.ylabel("Total Incoming Demand")
+    plt.title("Incoming Traffic at each Satellite at time " + str(target_flow_time_s) + "s")
+    plt.bar(range(len(demand_dict)), demands, align='center', width=0.3, color="yellow")
+    plt.xticks(range(len(demand_dict)), node_names)  # Rotate x-axis labels for better readability
+    plt.tight_layout()
+
+    pdf_filename = pdf_dir + "/networkx_satellite_traffic_mapping_" + str(target_flow_time_s) + "_ut_capacity_" + str(user_terminal_gsl_capacity)+ "_mbps_" + "gs_capacity_" + str(ground_station_gsl_capacity) + "_mbps_" + str(dynamic_state_update_interval_ms) + "ms_for_" + str(simulation_end_time_s) + "s" + ".pdf"
+    plt.savefig(pdf_filename)
+
+    outgoing_demand_dict = get_satellite_traffic(flow_dict, satellites, outgoing=True)
+
+    # Extract node names and connections
+    node_names = list(outgoing_demand_dict.keys())
+    demands = list(outgoing_demand_dict.values())
+
+    # Create a bar chart
+    plt.figure(3, figsize=(10, 3))  # width:20, height:3
+    plt.xlabel("Satelllite")
+    plt.ylabel("Total Outgoing Demand")
+    plt.title("Outgoing Traffic at each Satellite at time " + str(target_flow_time_s) + "s")
+    plt.bar(range(len(outgoing_demand_dict)), demands, align='center', width=0.3, color="orange")
+    plt.xticks(range(len(outgoing_demand_dict)), node_names)  # Rotate x-axis labels for better readability
+    plt.tight_layout()
+
+    pdf_filename = pdf_dir + "/networkx_satellite_traffic_mapping_isl_" + str(target_flow_time_s) + "_ut_capacity_" + str(user_terminal_gsl_capacity)+ "_mbps_" + "gs_capacity_" + str(ground_station_gsl_capacity) + "_mbps_" + str(dynamic_state_update_interval_ms) + "ms_for_" + str(simulation_end_time_s) + "s" + ".pdf"
+    plt.savefig(pdf_filename)

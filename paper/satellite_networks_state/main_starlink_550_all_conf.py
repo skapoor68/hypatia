@@ -84,8 +84,8 @@ main_helper = MainHelper(
 
 def main():
     args = sys.argv[1:]
-    if len(args) != 12:
-        print("Must supply exactly twelve arguments")
+    if len(args) != 13:
+        print("Must supply exactly thirteen arguments")
         print(len(args))
         print("args:",args)
         print("Usage: python main_starlink_550_all_conf.py [start_time (s)] " 
@@ -99,6 +99,7 @@ def main():
               "[num_user_terminals_start] "
               "[num_user_terminals_end] "
               "[algorithm_{free_one_only_over_isls, free_one_only_gs_relays, paired_many_only_over_isls}] "
+              "[allow_multiple_gsl] "
               "[num threads]")
         exit(1)
         
@@ -114,7 +115,8 @@ def main():
     ut_start = int(args[8])
     ut_end = int(args[9])
     algorithm = args[10]
-    num_threads = args[11]
+    allow_multiple_gsl = int(args[11])
+    num_threads = args[12]
 
     # for i in range [gstart, gend]:
     #   max_flow_arr = {}
@@ -124,7 +126,7 @@ def main():
     #   plot_graph(max_flow_arr)
 
     gs_interval = 10
-    ut_interval = 50
+    ut_interval = 100
     # Dictionary holding flow values for graphing
     gs_to_graph = dict()
     # Hashmap of hashmap holding num_terminal : (num_gs: max_flow) pairings
@@ -154,7 +156,7 @@ def main():
                         skip = True
 
             if skip:
-                print("Skipping configuration", (num_terminal, num_gateway), "as result is already computed.")
+                print("Skipping configuration", (num_gateway, num_terminal), "as result is already computed.")
                 continue
 
             # Generate new data for each configuration
@@ -192,7 +194,8 @@ def main():
                 step,
                 start_time,
                 end_time,
-                n_shells=1
+                n_shells=1,
+                allow_multiple_gsl=allow_multiple_gsl
             )
 
             max_flow = get_max_flow(
@@ -224,7 +227,7 @@ def main():
     plt.legend()
 
     duration_s = end_time - start_time
-    pdf_file = satellite_network_dir + "/output_graphs/starlink_550_"+gs_config+"_" +str(gs_end)+"_"+ ut_config +"_"+str(ut_end)+"duration_" + duration_s + "_max_flow.pdf"
+    pdf_file = satellite_network_dir + "/output_graphs/starlink_550_" + gs_config + "_" + str(gs_end) + "_" + ut_config + "_" + str(ut_end)+ "_duration_" + str(duration_s) + "_max_flow.pdf"
     plt.savefig(pdf_file)
     print("Plot successfully saved. ")
 
