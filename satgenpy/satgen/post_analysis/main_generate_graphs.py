@@ -43,7 +43,8 @@ def main():
         int(args[3]),
         int(args[4]),
         int(args[5]),
-        allow_multiple_gsl=int(args[6]),
+        failure_id=int(args[6]),
+        allow_multiple_gsl=int(args[7]),
     )
 
 

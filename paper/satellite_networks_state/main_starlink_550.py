@@ -81,6 +81,8 @@ def main():
     args = sys.argv[1:]
     if len(args) != 10:
         print("Must supply exactly ten arguments")
+        print(len(args))
+        print("args:", args)
         print("Usage: python main_starlink_550.py [duration (s)] [time step (ms)] "
               "[isls_plus_grid / isls_none] "
               "[ground_stations_{top_100, paris_moscow_grid}] "

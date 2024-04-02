@@ -13,19 +13,19 @@ allow_multiple_gsl=${10:-"0"}
 
 
 # Generate GS and satellite data
-python main_starlink_550.py $time $steps isls_plus_grid $gs_config $num_gs $ut_config $num_ut algorithm_free_one_only_over_isls $threads $failure_id
+python main_starlink_550.py $end_time $steps isls_plus_grid $gs_config $num_gs $ut_config $num_ut algorithm_free_one_only_over_isls $threads $failure_id
 
 # Generate graphs from data
 cd ../../satgenpy
-python satgen/post_analysis/main_generate_graphs.py ~/hypatia-robin/paper/satellite_networks_state/gen_data ~/hypatia-robin/paper/satellite_networks_state/gen_data/starlink_550_isls_plus_grid_ground_stations_atlanta_algorithm_free_one_only_over_isls_${ut_config}_failure_${failure_id} $steps $start_time $end_time 1 1 $allow_multiple_gsl
+python satgen/post_analysis/main_generate_graphs.py ~/hypatia/paper/satellite_networks_state/gen_data ~/hypatia/paper/satellite_networks_state/gen_data/starlink_550_isls_plus_grid_${gs_config}_algorithm_free_one_only_over_isls_${ut_config}_failure_${failure_id} $steps $start_time $end_time 1 $failure_id $allow_multiple_gsl
 # Generate maximum flow from the graphs
-python satgen/post_analysis/main_print_all_max_flows.py ~/hypatia-robin/paper/satellite_networks_state/gen_data ~/hypatia-robin/paper/satellite_networks_state/gen_data/starlink_550_isls_plus_grid_ground_stations_atlanta_algorithm_free_one_only_over_isls_${ut_config}_failure_${failure_id} ~/hypatia-robin/paper/satellite_networks_state/gen_data/starlink_550_isls_plus_grid_ground_stations_atlanta_algorithm_free_one_only_over_isls_${ut_config}_failure_${failure_id}/${steps}ms $steps $start_time $end_time
+python satgen/post_analysis/main_print_all_max_flows.py ~/hypatia/paper/satellite_networks_state/gen_data ~/hypatia/paper/satellite_networks_state/gen_data/starlink_550_isls_plus_grid_${gs_config}_algorithm_free_one_only_over_isls_${ut_config}_failure_${failure_id} ~/hypatia/paper/satellite_networks_state/gen_data/starlink_550_isls_plus_grid_${gs_config}_algorithm_free_one_only_over_isls_${ut_config}_failure_${failure_id}/${steps}ms $steps $start_time $end_time
 
 # Generate routes and rtt from the graphs
-# python satgen/post_analysis/main_print_all_ut_to_gw_routes_and_rtt.py ~/hypatia-robin/paper/satellite_networks_state/gen_data ~/hypatia-robin/paper/satellite_networks_state/gen_data/starlink_550_isls_plus_grid_ground_stations_atlanta_algorithm_free_one_only_over_isls_${ut_config}_failure_${failure_id} ~/hypatia-robin/paper/satellite_networks_state/gen_data/starlink_550_isls_plus_grid_ground_stations_atlanta_algorithm_free_one_only_over_isls_${ut_config}_failure_${failure_id}/${steps}ms $steps $end_time $start_uid $end_uid
+# python satgen/post_analysis/main_print_all_ut_to_gw_routes_and_rtt.py ~/hypatia/paper/satellite_networks_state/gen_data ~/hypatia/paper/satellite_networks_state/gen_data/starlink_550_isls_plus_grid_${gs_config}_algorithm_free_one_only_over_isls_${ut_config}_failure_${failure_id} ~/hypatia/paper/satellite_networks_state/gen_data/starlink_550_isls_plus_grid_ground_stations_atlanta_algorithm_free_one_only_over_isls_${ut_config}_failure_${failure_id}/${steps}ms $steps $end_time $start_uid $end_uid
 
 # Generate pdf for a src/dest pair
-# python satgen/post_analysis/main_print_ut_to_gw_routes_and_rtt.py ~/hypatia-robin/paper/satellite_networks_state/gen_data ~/hypatia-robin/paper/satellite_networks_state/gen_data/starlink_550_isls_plus_grid_ground_stations_atlanta_algorithm_free_one_only_over_isls_$ut_config $steps $time $src $dst
+# python satgen/post_analysis/main_print_ut_to_gw_routes_and_rtt.py ~/hypatia/paper/satellite_networks_state/gen_data ~/hypatia/paper/satellite_networks_state/gen_data/starlink_550_isls_plus_grid_${gs_config}_algorithm_free_one_only_over_isls_${ut_config} $steps $time $src $dst
 
 # Generate visualization based on route and rtt
 # cd ../../satviz/scripts

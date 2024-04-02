@@ -48,7 +48,7 @@ def generate_satellite_shell_index(num_satellites, num_orbits, num_sats_per_orbi
     return satellites_shell_idx
 
 def generate_all_graphs(base_output_dir, satellite_network_dir, dynamic_state_update_interval_ms,
-                         simulation_start_time_s, simulation_end_time_s, n_shells = 1, allow_multiple_gsl=False):
+                         simulation_start_time_s, simulation_end_time_s, n_shells = 1, failure_id=0, allow_multiple_gsl=False):
 
     print(simulation_start_time_s, simulation_end_time_s)
 
@@ -56,6 +56,7 @@ def generate_all_graphs(base_output_dir, satellite_network_dir, dynamic_state_up
     satellite_network_dynamic_state_dir = "%s/dynamic_state_%dms_for_%ds" % (
         satellite_network_dir, dynamic_state_update_interval_ms, simulation_end_time_s
     )
+    print("Failure id:", failure_id)
 
     # Variables (load in for each thread such that they don't interfere)
     ground_stations = read_ground_stations_extended(satellite_network_dir + "/ground_stations.txt")
@@ -67,7 +68,7 @@ def generate_all_graphs(base_output_dir, satellite_network_dir, dynamic_state_up
     epoch = tles["epoch"]
     description = exputil.PropertiesConfig(satellite_network_dir + "/description.txt")
 
-    failure_table = parse_failure_file("~/hypatia-robin/paper/satellite_networks_state/input_data/failure_config_1.txt") # Specify failure configuration here
+    failure_table = parse_failure_file("~/hypatia/paper/satellite_networks_state/input_data/failure_config_" + str(failure_id) +  ".txt") # Specify failure configuration here
 
     # Derivatives
     simulation_start_time_ns = simulation_start_time_s * 1000 * 1000 * 1000

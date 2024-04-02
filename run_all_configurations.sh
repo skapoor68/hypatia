@@ -3,6 +3,7 @@ steps=1000
 gs_config="ground_stations_atlanta"
 ut_config="user_terminals_atlanta"
 allow_multiple_gsl=0
+failure_id=0
 
 while [[ $# -gt 0 ]]; do
   case "$1" in
@@ -85,6 +86,16 @@ while [[ $# -gt 0 ]]; do
         exit 1
       fi
       ;;
+    -f|--failure)
+      if [[ -n "$2" ]]; then
+        failure_id="$2"
+        echo "Failure id is set to $failure_id."
+        shift
+      else
+        echo "Error: Failure id requires a value."
+        exit 1
+      fi
+      ;;
     --multiple-gsl)
         allow_multiple_gsl=1
         echo "Multiple GSL per Satellite Enabled."
@@ -112,4 +123,4 @@ echo "GS config is set to $gs_config."
 cd paper/satellite_networks_state
 
 # Generate GS and satellite data
-python main_starlink_550_all_conf.py $start_time $end_time $steps isls_plus_grid $gs_config $gstart $gend $ut_config $ustart $uend algorithm_free_one_only_over_isls $allow_multiple_gsl $threads
+python main_starlink_550_all_conf.py $start_time $end_time $steps isls_plus_grid $gs_config $gstart $gend $ut_config $ustart $uend algorithm_free_one_only_over_isls $failure_id $allow_multiple_gsl $threads

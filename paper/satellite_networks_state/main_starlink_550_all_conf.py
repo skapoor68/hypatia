@@ -23,6 +23,7 @@
 import sys
 import math
 import os
+import exputil
 from main_helper import MainHelper
 from satgen.post_analysis.generate_all_graphs import generate_all_graphs
 from satgen.post_analysis.print_all_max_flows import get_max_flow
@@ -84,8 +85,8 @@ main_helper = MainHelper(
 
 def main():
     args = sys.argv[1:]
-    if len(args) != 13:
-        print("Must supply exactly thirteen arguments")
+    if len(args) != 14:
+        print("Must supply exactly fourteen arguments")
         print(len(args))
         print("args:",args)
         print("Usage: python main_starlink_550_all_conf.py [start_time (s)] " 
@@ -99,6 +100,7 @@ def main():
               "[num_user_terminals_start] "
               "[num_user_terminals_end] "
               "[algorithm_{free_one_only_over_isls, free_one_only_gs_relays, paired_many_only_over_isls}] "
+              "[failure_id] "
               "[allow_multiple_gsl] "
               "[num threads]")
         exit(1)
@@ -115,8 +117,9 @@ def main():
     ut_start = int(args[8])
     ut_end = int(args[9])
     algorithm = args[10]
-    allow_multiple_gsl = int(args[11])
-    num_threads = args[12]
+    failure_id = int(args[11])
+    allow_multiple_gsl = int(args[12])
+    num_threads = args[13]
 
     # for i in range [gstart, gend]:
     #   max_flow_arr = {}
@@ -171,10 +174,11 @@ def main():
                 num_terminal,
                 algorithm,
                 num_threads,
+                failure_id
             )
             
             gen_data_dir = "/home/hkim3019/hypatia/paper/satellite_networks_state/gen_data"
-            core_network_folder_name = "starlink_550_" + isl_config + "_" + gs_config + "_" + algorithm + "_" + ut_config
+            core_network_folder_name = "starlink_550_" + isl_config + "_" + gs_config + "_" + algorithm + "_" + ut_config + "_failure_" + str(failure_id)
             graph_dir = "%s/%s/%dms" % (
                 gen_data_dir, core_network_folder_name, step
             )
@@ -195,6 +199,7 @@ def main():
                 start_time,
                 end_time,
                 n_shells=1,
+                failure_id=failure_id,
                 allow_multiple_gsl=allow_multiple_gsl
             )
 
@@ -227,6 +232,9 @@ def main():
     plt.legend()
 
     duration_s = end_time - start_time
+    pdf_dir = satellite_network_dir + "/output_graphs/"
+    local_shell = exputil.LocalShell()
+    local_shell.make_full_dir(pdf_dir)
     pdf_file = satellite_network_dir + "/output_graphs/starlink_550_" + gs_config + "_" + str(gs_end) + "_" + ut_config + "_" + str(ut_end)+ "_duration_" + str(duration_s) + "_max_flow.pdf"
     plt.savefig(pdf_file)
     print("Plot successfully saved. ")

@@ -144,7 +144,6 @@ def print_max_flow_for_src(base_output_dir, graphs, satellites, ground_stations,
             # plt.bar(range(len(D)), D.values(), align='center')  # python 2.x
             # plt.xticks(range(len(D)), D.keys())  # in python 2.x
 
-
     with open(data_filename, "w+") as flow_value_file:
         for i in range(len(flow_list)):
             flow_value_file.write("%d,%.10f\n" % (flow_list[i][0], flow_list[i][1]))
@@ -163,6 +162,9 @@ def print_max_flow_for_src(base_output_dir, graphs, satellites, ground_stations,
         ut_demand_total += ut_default_demand
     local_shell.sed_replace_in_file_plain(tf.name, "UT_DEMAND_TOTAL", str(ut_demand_total))
 
+    if local_shell.file_exists(pdf_filename):
+        print("Removing existing output pdf.")
+        local_shell.remove(pdf_filename)
     local_shell.perfect_exec("gnuplot " + tf.name)
     print("Total UT demand:", ut_demand_total)
     print("Produced plot: " + pdf_filename)
@@ -208,7 +210,7 @@ def print_all_max_flows(base_output_dir, satellite_network_dir, graph_dir, dynam
         print(t)
 
         graph_path = graph_dir + "/graph_" + str(t) + ".txt"
-        # print(graph_path)
+        # print("Graph:", graph_path)
         graphs[t] = nx.read_gpickle(graph_path)
         # sat_only_graphs[t] = graphs[t].subgraph(list(range(len(satellites))))
         # distances[t] = nx.floyd_warshall_numpy(sat_only_graphs[t])
