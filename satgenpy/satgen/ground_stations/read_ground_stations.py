@@ -32,6 +32,9 @@ def read_ground_stations_basic(filename_ground_stations_basic, num_gateways):
     ground_stations_basic = []
     gid = 0
     with open(filename_ground_stations_basic, 'r') as f:
+        if len(f.readlines()) < num_gateways:
+            raise ValueError("Number of ground stations cannot exceed the number in the given file")
+        f.seek(0)
         for line in f:
             split = line.split(',')
             if len(split) != 5:

@@ -33,13 +33,16 @@ def read_user_terminals_basic(filename_user_terminals_basic, num_user_terminals)
     user_terminals_basic = []
     uid = 0
     with open(filename_user_terminals_basic, 'r') as f:
+        if len(f.readlines()) < num_user_terminals:
+            raise ValueError("Number of user terminals cannot exceed the number in the given file")
+        f.seek(0)
         for line in f:
             split = line.split(',')
             # print(split)
             if len(split) != 5:
                 raise ValueError("Basic user terminal file has 5 columns")
             if int(split[0]) != uid:
-                raise ValueError("user terminal id must increment each line")
+                raise ValueError("User terminal id must increment each line")
             ground_station_basic = {
                 "uid": uid,
                 "name": split[1],
@@ -55,6 +58,7 @@ def read_user_terminals_basic(filename_user_terminals_basic, num_user_terminals)
             # Quit reading once we reach the required number of user terminals
             if uid == num_user_terminals:
                 break
+        
     return user_terminals_basic
 
 

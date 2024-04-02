@@ -85,52 +85,62 @@ class MainHelper:
         if gs_selection == "ground_stations_top_100":
             satgen.extend_ground_stations(
                 "input_data/ground_stations_cities_sorted_by_estimated_2025_pop_top_100.basic.txt",
-                output_generated_data_dir + "/" + name + "/ground_stations.txt"
+                output_generated_data_dir + "/" + name + "/ground_stations.txt",
+                num_gateways
             )
         elif gs_selection == "ground_stations_top_1000":
             satgen.extend_ground_stations(
                 "input_data/ground_stations_cities_sorted_by_estimated_2025_pop_top_1000.basic.txt",
-                output_generated_data_dir + "/" + name + "/ground_stations.txt"
+                output_generated_data_dir + "/" + name + "/ground_stations.txt",
+                num_gateways
             )
         elif gs_selection == "ground_stations_paris_moscow_grid":
             satgen.extend_ground_stations(
                 "input_data/ground_stations_paris_moscow_grid.basic.txt",
-                output_generated_data_dir + "/" + name + "/ground_stations.txt"
+                output_generated_data_dir + "/" + name + "/ground_stations.txt",
+                num_gateways
             )
         elif gs_selection == "ground_stations_darfur":
             satgen.extend_ground_stations(
                 "input_data/ground_stations_darfur.basic.txt",
-                output_generated_data_dir + "/" + name + "/ground_stations.txt"
+                output_generated_data_dir + "/" + name + "/ground_stations.txt",
+                num_gateways
             )
         elif gs_selection == "ground_stations_world_grid_paper":
             satgen.extend_ground_stations(
                 "input_data/ground_stations_world_grid_paper.basic.txt",
-                output_generated_data_dir + "/" + name + "/ground_stations.txt"
+                output_generated_data_dir + "/" + name + "/ground_stations.txt",
+                num_gateways
             )
         elif gs_selection == "ground_stations_world_grid_denver":
             satgen.extend_ground_stations(
                 "input_data/ground_stations_world_grid_denver.basic.txt",
-                output_generated_data_dir + "/" + name + "/ground_stations.txt"
+                output_generated_data_dir + "/" + name + "/ground_stations.txt",
+                num_gateways
             )
         elif gs_selection == "ground_stations_newyork_london":
             satgen.extend_ground_stations(
                 "input_data/ground_stations_newyork_london.basic.txt",
-                output_generated_data_dir + "/" + name + "/ground_stations.txt"
+                output_generated_data_dir + "/" + name + "/ground_stations.txt",
+                num_gateways
             )
         elif gs_selection == "ground_stations_newyork_london_1600":
             satgen.extend_ground_stations(
                 "input_data/ground_stations_newyork_london_1600.basic.txt",
-                output_generated_data_dir + "/" + name + "/ground_stations.txt"
+                output_generated_data_dir + "/" + name + "/ground_stations.txt",
+                num_gateways
             )
         elif gs_selection == "ground_stations_newyork_london_circular":
             satgen.extend_ground_stations(
                 "input_data/ground_stations_newyork_london_circular.basic.txt",
-                output_generated_data_dir + "/" + name + "/ground_stations.txt"
+                output_generated_data_dir + "/" + name + "/ground_stations.txt",
+                num_gateways
             )
         elif gs_selection == "ground_stations_newyork_london_circular_bigger":
             satgen.extend_ground_stations(
                 "input_data/ground_stations_newyork_london_circular_bigger.basic.txt",
-                output_generated_data_dir + "/" + name + "/ground_stations.txt"
+                output_generated_data_dir + "/" + name + "/ground_stations.txt",
+                num_gateways
             )
         elif gs_selection == "ground_stations_atlanta":
             satgen.extend_ground_stations(
@@ -146,7 +156,8 @@ class MainHelper:
         if ut_selection == "user_terminals_top_100":
             satgen.extend_user_terminals(
                     "input_data/user_terminals_top_100.txt",
-                    output_generated_data_dir + "/" + name + "/user_terminals.txt"
+                    output_generated_data_dir + "/" + name + "/user_terminals.txt",
+                    num_user_terminals
             )
         elif ut_selection == "user_terminals_atlanta":
             satgen.extend_user_terminals(

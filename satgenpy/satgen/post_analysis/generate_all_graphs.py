@@ -52,10 +52,6 @@ def generate_all_graphs(base_output_dir, satellite_network_dir, dynamic_state_up
 
     print(simulation_start_time_s, simulation_end_time_s)
 
-    # Dynamic state dir can be inferred
-    satellite_network_dynamic_state_dir = "%s/dynamic_state_%dms_for_%ds" % (
-        satellite_network_dir, dynamic_state_update_interval_ms, simulation_end_time_s
-    )
     print("Failure id:", failure_id)
 
     # Variables (load in for each thread such that they don't interfere)
