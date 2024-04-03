@@ -89,6 +89,12 @@ class MainHelper:
                 "input_data/ground_stations_paris_moscow_grid.basic.txt",
                 output_generated_data_dir + "/" + name + "/ground_stations.txt"
             )
+        elif gs_selection == "ground_stations_starlink_gs":
+            satgen.extend_ground_stations(
+                "input_data/ground_stations_starlink_gs.basic.txt",
+                output_generated_data_dir + "/" + name + "/ground_stations.txt",
+                198
+            )
         else:
             raise ValueError("Unknown ground station selection: " + gs_selection)
 
@@ -201,10 +207,11 @@ class MainHelper:
                 "input_data/ground_stations_paris_moscow_grid.basic.txt",
                 output_generated_data_dir + "/" + name + "/ground_stations.txt"
             )
-        elif gs_selection == "ground_stations_starlink_550":
+        elif gs_selection == "ground_stations_starlink_gs":
             satgen.extend_ground_stations(
-                "input_data/ground_stations_starlink_550.basic.txt",
-                output_generated_data_dir + "/" + name + "/ground_stations.txt"
+                "input_data/ground_stations_starlink_gs.basic.txt",
+                output_generated_data_dir + "/" + name + "/ground_stations.txt",
+                198
             )
         else:
             raise ValueError("Unknown ground station selection: " + gs_selection)
