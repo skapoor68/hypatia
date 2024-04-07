@@ -62,7 +62,7 @@ class MainHelper:
             duration_s,
             time_step_ms,
             isl_selection,            # isls_{none, plus_grid}
-            gs_selection,             # ground_stations_{top_100, paris_moscow_grid}
+            gs_selection,             # ground_stations_{top_100, paris_moscow_grid, starlink}
             num_gateways,
             ut_selection,
             num_user_terminals,
@@ -145,6 +145,12 @@ class MainHelper:
         elif gs_selection == "ground_stations_atlanta":
             satgen.extend_ground_stations(
                 "input_data/ground_stations_atlanta.basic.txt",
+                output_generated_data_dir + "/" + name + "/ground_stations.txt",
+                num_gateways
+            )
+        elif gs_selection == "ground_stations_starlink":
+            satgen.extend_ground_stations(
+                "input_data/ground_stations_starlink.basic.txt",
                 output_generated_data_dir + "/" + name + "/ground_stations.txt",
                 num_gateways
             )

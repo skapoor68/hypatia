@@ -85,7 +85,7 @@ def main():
         print("args:", args)
         print("Usage: python main_starlink_550.py [duration (s)] [time step (ms)] "
               "[isls_plus_grid / isls_none] "
-              "[ground_stations_{top_100, paris_moscow_grid}] "
+              "[ground_stations_{top_100, paris_moscow_grid, starlink}] "
               "[num_ground_stations] "
               "[user_terminals_{top_100, atlanta}] "
               "[num_user_terminals] "
