@@ -159,6 +159,12 @@ class MainHelper:
                     output_generated_data_dir + "/" + name + "/user_terminals.txt",
                     num_user_terminals
             )
+        elif ut_selection == "user_terminals_top_1000":
+            satgen.extend_user_terminals(
+                    "input_data/user_terminals_top_1000.txt",
+                    output_generated_data_dir + "/" + name + "/user_terminals.txt",
+                    num_user_terminals
+            )
         elif ut_selection == "user_terminals_atlanta":
             satgen.extend_user_terminals(
                     "input_data/user_terminals_atlanta.txt",

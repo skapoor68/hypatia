@@ -54,7 +54,8 @@ def calculate_path_life(graphs, t, path, dynamic_state_update_interval_ns, simul
 def get_shortest_path(src, dst, graph, satellites):
     src_sats = graph[src]
     dst_sats = graph[dst]
-    nodes = list(range(len(satellites)))
+    # Get the satellites and their load balancers
+    nodes = list(range(-len(satellites)+1, len(satellites)))
     nodes.append(src)
     nodes.append(dst)
     sat_only_graph = graph.subgraph(nodes)
@@ -62,16 +63,17 @@ def get_shortest_path(src, dst, graph, satellites):
     shortest_dist = compute_path_length_with_graph(shortest_path, graph)
     return shortest_path, shortest_dist
 
-def print_ut_to_gw_routes_and_rtt_for_src(s, graphs, satellites, ground_stations, data_dir, dynamic_state_update_interval_ns, simulation_end_time_ns):
-    src = s + len(satellites) + len(ground_stations)
+def print_ut_to_gw_routes_and_rtt_for_src(src_uid, graphs, satellites, ground_stations, data_dir, dynamic_state_update_interval_ns, simulation_start_time_ns, simulation_end_time_ns):
+    src = src_uid + len(satellites) + len(ground_stations)
     for d in range(len(ground_stations)):                
         dst = d + len(satellites)
-        print("src uid:", src, "dst gid:", dst)
+        print("Source UID:", src_uid, "Destination GID:", d)
+        print("UID node #", src, "GID node #", dst)
         current_path = []
         rtt_ns_list = []
         data_path_filename = data_dir + "/networkx_path_" + str(src) + "_to_" + str(dst) + ".txt"
         with open(data_path_filename, "w+") as data_path_file:
-            for t in range(0, simulation_end_time_ns, dynamic_state_update_interval_ns):
+            for t in range(simulation_start_time_ns, simulation_end_time_ns, dynamic_state_update_interval_ns):
                 # Calculate path length
                 # print(t)
                 if not graphs[t].has_node(src) or not graphs[t].has_node(dst) or not nx.has_path(graphs[t], src, dst):
@@ -118,7 +120,7 @@ def print_ut_to_gw_routes_and_rtt_for_src(s, graphs, satellites, ground_stations
 
 
 def print_all_ut_to_gw_routes_and_rtt(base_output_dir, satellite_network_dir, graph_dir, dynamic_state_update_interval_ms,
-                         simulation_end_time_s, start, end):
+                         simulation_start_time_s, simulation_end_time_s, start_uid, end_uid):
 
     # Local shell
     local_shell = exputil.LocalShell()
@@ -143,6 +145,7 @@ def print_all_ut_to_gw_routes_and_rtt(base_output_dir, satellite_network_dir, gr
     description = exputil.PropertiesConfig(satellite_network_dir + "/description.txt")
 
     # Derivatives
+    simulation_start_time_ns = simulation_start_time_s * 1000 * 1000 * 1000
     simulation_end_time_ns = simulation_end_time_s * 1000 * 1000 * 1000
     dynamic_state_update_interval_ns = dynamic_state_update_interval_ms * 1000 * 1000
     # max_gsl_length_m = exputil.parse_positive_float(description.get_property_or_fail("max_gsl_length_m"))
@@ -168,16 +171,16 @@ def print_all_ut_to_gw_routes_and_rtt(base_output_dir, satellite_network_dir, gr
         # shortest_paths[t] = dict(nx.all_pairs_shortest_path(graphs[t]))
 
     print("all graphs loaded")
-    print("start", start)
-    print("end", end)
-    start = int(start)
-    end = int(end)
-    for s in range(start, end):
+    print("start", start_uid)
+    print("end", end_uid)
+    start_uid = int(start_uid)
+    end_uid = int(end_uid)
+    for src_uid in range(start_uid, end_uid):
         # if s < 35 or s >= 49:
         #     continue
         # if s >= 49 and s < 54:
         #     continue
-        print_ut_to_gw_routes_and_rtt_for_src(s, graphs, satellites, ground_stations, data_dir, dynamic_state_update_interval_ns, simulation_end_time_ns)
+        print_ut_to_gw_routes_and_rtt_for_src(src_uid, graphs, satellites, ground_stations, data_dir, dynamic_state_update_interval_ns, simulation_start_time_ns, simulation_end_time_ns)
     #     pool.apply_async(print_routes_and_rtt_for_src, (s, graphs, satellites, ground_stations, data_dir, dynamic_state_update_interval_ns, simulation_end_time_ns))
 
     # pool.close()

@@ -12,7 +12,7 @@ while [[ $# -gt 0 ]]; do
     -s|--starttime)
       if [[ -n "$2" ]]; then
         start_time="$2"
-        echo "Simulation start time is set to $start_time."
+        echo "Simulation start time is set to ${start_time}s."
         shift
       else
         echo "Error: Start time requires a value."
@@ -22,7 +22,7 @@ while [[ $# -gt 0 ]]; do
     -e|--endtime)
       if [[ -n "$2" ]]; then
         end_time="$2"
-        echo "Simulation end time is set to $end_time."
+        echo "Simulation end time is set to ${end_time}s."
         shift
       else
         echo "Error: End time requires a value."
@@ -32,20 +32,28 @@ while [[ $# -gt 0 ]]; do
     -i|--interval)
       if [[ -n "$2" ]]; then
         steps="$2"
-        echo "Simulation time interval is set to $steps."
         shift
+      else
+        echo "Error: Time interval requires a value."
+        exit 1
       fi
       ;;
     -G|--gs_config)
       if [[ -n "$2" ]]; then
         gs_config="$2"
         shift
+      else
+        echo "Error: Ground Station Config requires a value."
+        exit 1
       fi
       ;;
     -U|--ut_config)
       if [[ -n "$2" ]]; then
         ut_config="$2"
         shift
+      else
+        echo "Error: User Terminal Config requires a value."
+        exit 1
       fi
       ;;
     -g)
@@ -90,7 +98,7 @@ while [[ $# -gt 0 ]]; do
   shift
 done
 
-echo "Simulation time interval is set to $steps."
+echo "Simulation time interval is set to ${steps}ms."
 echo "UT config is set to $ut_config."
 echo "GS config is set to $gs_config."
 
@@ -105,7 +113,7 @@ python satgen/post_analysis/main_generate_graphs.py ~/hypatia/paper/satellite_ne
 python satgen/post_analysis/main_print_all_max_flows.py ~/hypatia/paper/satellite_networks_state/gen_data ~/hypatia/paper/satellite_networks_state/gen_data/starlink_550_isls_plus_grid_${gs_config}_algorithm_free_one_only_over_isls_${ut_config}_failure_${failure_id} ~/hypatia/paper/satellite_networks_state/gen_data/starlink_550_isls_plus_grid_${gs_config}_algorithm_free_one_only_over_isls_${ut_config}_failure_${failure_id}/${steps}ms $steps $start_time $end_time
 
 # Generate routes and rtt from the graphs
-# python satgen/post_analysis/main_print_all_ut_to_gw_routes_and_rtt.py ~/hypatia/paper/satellite_networks_state/gen_data ~/hypatia/paper/satellite_networks_state/gen_data/starlink_550_isls_plus_grid_${gs_config}_algorithm_free_one_only_over_isls_${ut_config}_failure_${failure_id} ~/hypatia/paper/satellite_networks_state/gen_data/starlink_550_isls_plus_grid_ground_stations_atlanta_algorithm_free_one_only_over_isls_${ut_config}_failure_${failure_id}/${steps}ms $steps $end_time $start_uid $end_uid
+python satgen/post_analysis/main_print_all_ut_to_gw_routes_and_rtt.py ~/hypatia/paper/satellite_networks_state/gen_data ~/hypatia/paper/satellite_networks_state/gen_data/starlink_550_isls_plus_grid_${gs_config}_algorithm_free_one_only_over_isls_${ut_config}_failure_${failure_id} $steps $start_time $end_time 0 $num_ut
 
 # Generate pdf for a src/dest pair
 # python satgen/post_analysis/main_print_ut_to_gw_routes_and_rtt.py ~/hypatia/paper/satellite_networks_state/gen_data ~/hypatia/paper/satellite_networks_state/gen_data/starlink_550_isls_plus_grid_${gs_config}_algorithm_free_one_only_over_isls_${ut_config} $steps $time $src $dst
@@ -114,5 +122,5 @@ python satgen/post_analysis/main_print_all_max_flows.py ~/hypatia/paper/satellit
 # cd ../../satviz/scripts
 # python visualize_path.py
 
-
+# python satgen/post_analysis/main_print_all_ut_to_gw_routes_and_rtt.py ~/hypatia/paper/satellite_networks_state/gen_data ~/hypatia/paper/satellite_networks_state/gen_data/starlink_550_isls_plus_grid_ground_stations_atlanta_algorithm_free_one_only_over_isls_user_terminals_atlanta_failure_0 ~/hypatia/paper/satellite_networks_state/gen_data/starlink_550_isls_plus_grid_ground_stations_atlanta_algorithm_free_one_only_over_isls_user_terminals_atlanta_failure_0/1000ms 1000  $start_uid $end_uid
 

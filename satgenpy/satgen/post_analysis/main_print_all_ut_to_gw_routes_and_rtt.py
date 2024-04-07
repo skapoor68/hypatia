@@ -29,23 +29,27 @@ def main():
     if len(args) != 7:
         print("Must supply exactly seven arguments")
         print("Usage: python -m satgen.post_analysis.main_print_modified_routes_and_rtt.py [data_dir] [satellite_network_dir] "
-              "[dynamic_state_update_interval_ms] [end_time_s] [src] [dst]")
+              "[dynamic_state_update_interval_ms] [start_time_s] [end_time_s] [src] [dst]")
         exit(1)
     else:
-        core_network_folder_name = args[1].split("/")[-1]
-        base_output_dir = "%s/%s/%dms_for_%ds/manual" % (
-            args[0], core_network_folder_name, int(args[3]), int(args[4])
+        satellite_network_dir = args[1]
+        base_output_dir = "%s/%dms_for_%ds/manual" % (
+            satellite_network_dir, int(args[2]), int(args[4])
+        )
+        graph_dir = "%s/%dms" % (
+            satellite_network_dir, int(args[2])
         )
         print("Data dir: " + args[0])
         print("Used data dir to form base output dir: " + base_output_dir)
         print_all_ut_to_gw_routes_and_rtt(
             base_output_dir,
-            args[1],
-            args[2],
+            satellite_network_dir,
+            graph_dir,
+            int(args[2]),
             int(args[3]),
             int(args[4]),
             int(args[5]),
-            int(args[6]),
+            int(args[6])
         )
 
 

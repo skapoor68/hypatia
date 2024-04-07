@@ -85,8 +85,8 @@ main_helper = MainHelper(
 
 def main():
     args = sys.argv[1:]
-    if len(args) != 14:
-        print("Must supply exactly fourteen arguments")
+    if len(args) != 16:
+        print("Must supply exactly sixteen arguments")
         print(len(args))
         print("args:",args)
         print("Usage: python main_starlink_550_all_conf.py [start_time (s)] " 
@@ -96,9 +96,11 @@ def main():
               "[ground_stations_{top_100, paris_moscow_grid}] "
               "[num_ground_stations_start] "
               "[num_ground_stations_end] "
+              "[ground_stations_step] "
               "[user_terminals_{top_100, atlanta}] "
               "[num_user_terminals_start] "
               "[num_user_terminals_end] "
+              "[user_terminals_step] "
               "[algorithm_{free_one_only_over_isls, free_one_only_gs_relays, paired_many_only_over_isls}] "
               "[failure_id] "
               "[allow_multiple_gsl] "
@@ -113,13 +115,15 @@ def main():
     gs_config = args[4]
     gs_start = int(args[5])
     gs_end = int(args[6])
-    ut_config = args[7]
-    ut_start = int(args[8])
-    ut_end = int(args[9])
-    algorithm = args[10]
-    failure_id = int(args[11])
-    allow_multiple_gsl = int(args[12])
-    num_threads = args[13]
+    gs_interval = int(args[7])
+    ut_config = args[8]
+    ut_start = int(args[9])
+    ut_end = int(args[10])
+    ut_interval = int(args[11])
+    algorithm = args[12]
+    failure_id = int(args[13])
+    allow_multiple_gsl = int(args[14])
+    num_threads = args[15]
 
     # for i in range [gstart, gend]:
     #   max_flow_arr = {}
@@ -128,8 +132,6 @@ def main():
     #       max_flow_arr[j] = max_flow
     #   plot_graph(max_flow_arr)
 
-    gs_interval = 10
-    ut_interval = 100
     # Dictionary holding flow values for graphing
     gs_to_graph = dict()
     # Hashmap of hashmap holding num_terminal : (num_gs: max_flow) pairings

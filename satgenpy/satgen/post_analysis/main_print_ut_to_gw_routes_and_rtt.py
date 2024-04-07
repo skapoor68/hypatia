@@ -29,7 +29,7 @@ def main():
     if len(args) != 6:
         print("Must supply exactly six arguments")
         print("Usage: python -m satgen.post_analysis.main_print_routes_and_rtt.py [data_dir] [satellite_network_dir] "
-              "[dynamic_state_update_interval_ms] [end_time_s] [src] [dst]")
+              "[dynamic_state_update_interval_ms] [end_time_s] [src_uid] [dst_gid]")
         exit(1)
     else:
         core_network_folder_name = args[1].split("/")[-1]
@@ -41,11 +41,8 @@ def main():
         print_ut_to_gw_routes_and_rtt(
             base_output_dir,
             args[1],
-            int(args[2]),
-            int(args[3]),
             int(args[4]),
-            int(args[5]),
-            ""  # Must be executed in satgenpy directory
+            int(args[5])
         )
 
 

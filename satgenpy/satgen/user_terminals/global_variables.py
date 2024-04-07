@@ -1,8 +1,8 @@
 user_terminal_gsl_capacity = 1000 # 1 Gbps
 ut_default_demand = 1000 # 1 Gbps
 ground_station_gsl_capacity = 20000 # Ground station link to Satellite capacity, 20 Gbps
-ground_station_capacity = 80000 # Ground station total capacity, 80 Gbps
-ground_station_max_satellites = 10
+ground_station_max_sat_connections = 40
+ground_station_capacity = ground_station_gsl_capacity * ground_station_max_sat_connections # Ground station total capacity, 80 Gbps
 isl_capacity = 100000 # 100 Gbps
 satellite_handoff_seconds = 15 # 15 seconds
 satellite_max_users = 1000

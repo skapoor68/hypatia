@@ -137,13 +137,16 @@ def generate_all_graphs(base_output_dir, satellite_network_dir, dynamic_state_up
                 
                 distance_m = distance_m_ground_station_to_satellite(ground_station, satellite, str(epoch), str(time))
 
-                if sat_net_graph_with_gs.has_node(len(satellites) + gid) and sat_net_graph_with_gs.degree(len(satellites)+gid, "capacity") >= ground_station_capacity:
+                if sat_net_graph_with_gs.has_node(len(satellites) + gid) and sat_net_graph_with_gs.in_degree(len(satellites) + gid, "capacity") >= ground_station_capacity:
                     # if this ground station is at full capacity, don't connect to it
                     continue
                 
                 # If multiple GSL connections is enabled, connect to every GS within range.
-                if allow_multiple_gsl:
-                    sat_net_graph_with_gs.add_edge(sid, len(satellites) + gid, weight=rounded_dist, capacity=ground_station_gsl_capacity)
+                if allow_multiple_gsl and distance_m <= max_length:
+                    # Create an intermediate load balancer between the satellite and the ground stations
+                    sat_net_graph_with_gs.add_edge(sid, -sid, weight=0, capacity=ground_station_gsl_capacity)
+                    # Add the edge between the load balancer and the GS
+                    sat_net_graph_with_gs.add_edge(-sid, len(satellites) + gid, weight=rounded_dist, capacity=ground_station_gsl_capacity)
                 # Single GSL connection to nearest GS
                 elif distance_m <= max_length and distance_m < min_dist:
                     min_dist = distance_m

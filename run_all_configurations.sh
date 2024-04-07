@@ -1,7 +1,9 @@
 threads=4
 steps=1000
-gs_config="ground_stations_atlanta"
-ut_config="user_terminals_atlanta"
+gs_config="atlanta"
+ut_config="atlanta"
+gstep=10
+ustep=100
 allow_multiple_gsl=0
 failure_id=0
 
@@ -34,13 +36,13 @@ while [[ $# -gt 0 ]]; do
         shift
       fi
       ;;
-    -g|--gs)
+    -G|--gs)
       if [[ -n "$2" ]]; then
         gs_config="$2"
         shift
       fi
       ;;
-    -u|--ut)
+    -U|--ut)
       if [[ -n "$2" ]]; then
         ut_config="$2"
         shift
@@ -66,6 +68,15 @@ while [[ $# -gt 0 ]]; do
         exit 1
       fi
       ;;
+    --gstep)
+      if [[ -n "$2" ]]; then
+        gstep="$2"
+        shift
+      else
+        echo "Error: Ground station interval requires a value."
+        exit 1
+      fi
+      ;;
     --ustart)
       if [[ -n "$2" ]]; then
         ustart="$2"
@@ -83,6 +94,15 @@ while [[ $# -gt 0 ]]; do
         shift
       else
         echo "Error: User terminal range end requires a value."
+        exit 1
+      fi
+      ;;
+    --ustep)
+      if [[ -n "$2" ]]; then
+        ustep="$2"
+        shift
+      else
+        echo "Error: User terminal interval requires a value."
         exit 1
       fi
       ;;
@@ -108,9 +128,15 @@ while [[ $# -gt 0 ]]; do
   shift
 done
 
+ut_config="user_terminals_${ut_config}"
+gs_config="ground_stations_${gs_config}"
+
+
 echo "Simulation time interval is set to $steps."
 echo "UT config is set to $ut_config."
 echo "GS config is set to $gs_config."
+echo "Ground station interval is set to $gstep."
+echo "User Terminal interval is set to $ustep."
 
 # for i in range [gstart, gend]:
 #   max_flow_arr = {}
@@ -123,4 +149,4 @@ echo "GS config is set to $gs_config."
 cd paper/satellite_networks_state
 
 # Generate GS and satellite data
-python main_starlink_550_all_conf.py $start_time $end_time $steps isls_plus_grid $gs_config $gstart $gend $ut_config $ustart $uend algorithm_free_one_only_over_isls $failure_id $allow_multiple_gsl $threads
+python main_starlink_550_all_conf.py $start_time $end_time $steps isls_plus_grid $gs_config $gstart $gend $gstep $ut_config $ustart $uend $ustep algorithm_free_one_only_over_isls $failure_id $allow_multiple_gsl $threads

@@ -36,7 +36,7 @@ def main():
     else:
         core_network_folder_name = args[1].split("/")[-1]
         base_output_dir = "%s/%s/%dms_for_%ds/manual" % (
-            args[0], core_network_folder_name, int(args[3]), int(args[4])
+            args[0], core_network_folder_name, int(args[3]), int(args[5])
         )
         print("Data dir: " + args[0])
         print("Used data dir to form base output dir: " + base_output_dir)
