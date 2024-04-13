@@ -1,0 +1,4292 @@
+Simulation start time is set to 20s.
+Simulation end time is set to 25s.
+Allocating 197 Ground Stations.
+Allocating 100 User Terminals.
+Threads set to 128.
+Simulation time interval is set to 1000ms.
+UT config is set to user_terminals_atlanta.
+GS config is set to ground_stations_starlink.
+Generating ground stations...
+Generating user terminals...
+Generating TLEs...
+Generating ISLs...
+Generating description...
+Data dir: /home/hkim3019/hypatia/paper/satellite_networks_state/gen_data
+Used data dir to form base output dir: /home/hkim3019/hypatia/paper/satellite_networks_state/gen_data/starlink_550_isls_plus_grid_ground_stations_starlink_algorithm_free_one_only_over_isls_user_terminals_atlanta_failure_0/1000ms
+20 25
+Failure id: 0
+20000000000
+schedule count: 5.0
+uid: 0
+connecting to satellite  1020  with ut_demand 4
+uid: 1
+connecting to satellite  1520  with ut_demand 4
+uid: 2
+connecting to satellite  1520  with ut_demand 10004
+uid: 3
+skipping satellite  1520  with ut_demand 20004
+connecting to satellite  1020  with ut_demand 10004
+uid: 4
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+connecting to satellite  998  with ut_demand 4
+uid: 5
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+connecting to satellite  998  with ut_demand 10004
+uid: 6
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+connecting to satellite  1499  with ut_demand 4
+uid: 7
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+connecting to satellite  1499  with ut_demand 10004
+uid: 8
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+connecting to satellite  1564  with ut_demand 4
+uid: 9
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+connecting to satellite  1564  with ut_demand 10004
+uid: 10
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+connecting to satellite  954  with ut_demand 4
+uid: 11
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+connecting to satellite  954  with ut_demand 10004
+uid: 12
+skipping satellite  954  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+connecting to satellite  1542  with ut_demand 4
+uid: 13
+skipping satellite  954  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+connecting to satellite  1041  with ut_demand 4
+uid: 14
+skipping satellite  954  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+connecting to satellite  1542  with ut_demand 10004
+uid: 15
+skipping satellite  954  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+connecting to satellite  1041  with ut_demand 10004
+uid: 16
+skipping satellite  954  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 17
+skipping satellite  954  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 18
+skipping satellite  954  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 19
+skipping satellite  954  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 20
+skipping satellite  954  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 21
+skipping satellite  954  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 22
+skipping satellite  954  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 23
+skipping satellite  954  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 24
+skipping satellite  954  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 25
+skipping satellite  954  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 26
+skipping satellite  954  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 27
+skipping satellite  954  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 28
+skipping satellite  954  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 29
+skipping satellite  954  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 30
+skipping satellite  954  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 31
+skipping satellite  954  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 32
+skipping satellite  954  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 33
+skipping satellite  954  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 34
+skipping satellite  954  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 35
+skipping satellite  954  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 36
+skipping satellite  954  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 37
+skipping satellite  954  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 38
+skipping satellite  954  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 39
+skipping satellite  954  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 40
+skipping satellite  954  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 41
+skipping satellite  954  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 42
+skipping satellite  954  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 43
+skipping satellite  954  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 44
+skipping satellite  954  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 45
+skipping satellite  954  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 46
+skipping satellite  954  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 47
+skipping satellite  954  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 48
+skipping satellite  954  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 49
+skipping satellite  954  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 50
+skipping satellite  954  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 51
+skipping satellite  954  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 52
+skipping satellite  954  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 53
+skipping satellite  954  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 54
+skipping satellite  954  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 55
+skipping satellite  954  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 56
+skipping satellite  954  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 57
+skipping satellite  954  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 58
+skipping satellite  954  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 59
+skipping satellite  954  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 60
+skipping satellite  954  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 61
+skipping satellite  954  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 62
+skipping satellite  954  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 63
+skipping satellite  954  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 64
+skipping satellite  954  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 65
+skipping satellite  954  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 66
+skipping satellite  954  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 67
+skipping satellite  954  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 68
+skipping satellite  954  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 69
+skipping satellite  954  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 70
+skipping satellite  954  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 71
+skipping satellite  954  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 72
+skipping satellite  954  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 73
+skipping satellite  954  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 74
+skipping satellite  954  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 75
+skipping satellite  954  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 76
+skipping satellite  954  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 77
+skipping satellite  954  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 78
+skipping satellite  954  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 79
+skipping satellite  954  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 80
+skipping satellite  954  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 81
+skipping satellite  954  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 82
+skipping satellite  954  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 83
+skipping satellite  954  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 84
+skipping satellite  954  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 85
+skipping satellite  954  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 86
+skipping satellite  954  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 87
+skipping satellite  954  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 88
+skipping satellite  954  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 89
+skipping satellite  954  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 90
+skipping satellite  954  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 91
+skipping satellite  954  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 92
+skipping satellite  954  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 93
+skipping satellite  954  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 94
+skipping satellite  954  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 95
+skipping satellite  954  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 96
+skipping satellite  954  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 97
+skipping satellite  954  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 98
+skipping satellite  954  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 99
+skipping satellite  954  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+21000000000
+schedule count: 6.0
+uid: 0
+keeping current connection 1020
+uid: 1
+keeping current connection 1520
+uid: 2
+keeping current connection 1520
+uid: 3
+keeping current connection 1020
+uid: 4
+keeping current connection 998
+uid: 5
+keeping current connection 998
+uid: 6
+keeping current connection 1499
+uid: 7
+keeping current connection 1499
+uid: 8
+keeping current connection 1564
+uid: 9
+keeping current connection 1564
+uid: 10
+keeping current connection 954
+uid: 11
+keeping current connection 954
+uid: 12
+keeping current connection 1542
+uid: 13
+keeping current connection 1041
+uid: 14
+keeping current connection 1542
+uid: 15
+keeping current connection 1041
+uid: 16
+skipping satellite  954  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 17
+skipping satellite  954  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 18
+skipping satellite  954  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 19
+skipping satellite  954  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 20
+skipping satellite  954  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 21
+skipping satellite  954  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 22
+skipping satellite  954  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 23
+skipping satellite  954  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 24
+skipping satellite  954  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 25
+skipping satellite  954  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 26
+skipping satellite  954  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 27
+skipping satellite  954  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 28
+skipping satellite  954  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 29
+skipping satellite  954  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 30
+skipping satellite  954  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 31
+skipping satellite  954  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 32
+skipping satellite  954  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 33
+skipping satellite  954  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 34
+skipping satellite  954  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 35
+skipping satellite  954  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 36
+skipping satellite  954  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 37
+skipping satellite  954  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 38
+skipping satellite  954  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+connecting to satellite  976  with ut_demand 4
+uid: 39
+skipping satellite  954  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 40
+skipping satellite  954  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 41
+skipping satellite  954  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 42
+skipping satellite  954  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 43
+skipping satellite  954  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 44
+skipping satellite  954  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 45
+skipping satellite  954  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 46
+skipping satellite  954  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 47
+skipping satellite  954  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 48
+skipping satellite  954  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 49
+skipping satellite  954  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 50
+skipping satellite  954  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 51
+skipping satellite  954  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 52
+skipping satellite  954  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 53
+skipping satellite  954  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 54
+skipping satellite  954  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 55
+skipping satellite  954  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 56
+skipping satellite  954  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 57
+skipping satellite  954  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 58
+skipping satellite  954  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 59
+skipping satellite  954  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 60
+skipping satellite  954  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 61
+skipping satellite  954  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 62
+skipping satellite  954  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 63
+skipping satellite  954  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+connecting to satellite  976  with ut_demand 10004
+uid: 64
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 65
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 66
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 67
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 68
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 69
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 70
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 71
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 72
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 73
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 74
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 75
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 76
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 77
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 78
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 79
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 80
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 81
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 82
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 83
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 84
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 85
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 86
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 87
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 88
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 89
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 90
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 91
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 92
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 93
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 94
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 95
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 96
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 97
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 98
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 99
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+22000000000
+schedule count: 7.0
+uid: 0
+keeping current connection 1020
+uid: 1
+keeping current connection 1520
+uid: 2
+keeping current connection 1520
+uid: 3
+keeping current connection 1020
+uid: 4
+keeping current connection 998
+uid: 5
+keeping current connection 998
+uid: 6
+keeping current connection 1499
+uid: 7
+keeping current connection 1499
+uid: 8
+keeping current connection 1564
+uid: 9
+keeping current connection 1564
+uid: 10
+keeping current connection 954
+uid: 11
+keeping current connection 954
+uid: 12
+keeping current connection 1542
+uid: 13
+keeping current connection 1041
+uid: 14
+keeping current connection 1542
+uid: 15
+keeping current connection 1041
+uid: 16
+skipping satellite  954  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 17
+skipping satellite  954  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 18
+skipping satellite  954  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+connecting to satellite  976  with ut_demand 4
+uid: 19
+skipping satellite  954  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 20
+skipping satellite  954  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 21
+skipping satellite  954  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 22
+skipping satellite  954  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+connecting to satellite  976  with ut_demand 10004
+uid: 23
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 24
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 25
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 26
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 27
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 28
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 29
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 30
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 31
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 32
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 33
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 34
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 35
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 36
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 37
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 38
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 39
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 40
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 41
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 42
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 43
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 44
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 45
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 46
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 47
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 48
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 49
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 50
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 51
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 52
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 53
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 54
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 55
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 56
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 57
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 58
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 59
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 60
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 61
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 62
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 63
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 64
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 65
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 66
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 67
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 68
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 69
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 70
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 71
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 72
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 73
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 74
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 75
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 76
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 77
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 78
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 79
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 80
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 81
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 82
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 83
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 84
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 85
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 86
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 87
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 88
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 89
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 90
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 91
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 92
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 93
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 94
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 95
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 96
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 97
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 98
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 99
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+23000000000
+schedule count: 8.0
+uid: 0
+keeping current connection 1020
+uid: 1
+keeping current connection 1520
+uid: 2
+keeping current connection 1520
+uid: 3
+keeping current connection 1020
+uid: 4
+keeping current connection 998
+uid: 5
+keeping current connection 998
+uid: 6
+keeping current connection 1499
+uid: 7
+keeping current connection 1499
+uid: 8
+keeping current connection 1564
+uid: 9
+keeping current connection 1564
+uid: 10
+keeping current connection 954
+uid: 11
+keeping current connection 954
+uid: 12
+keeping current connection 1542
+uid: 13
+keeping current connection 1041
+uid: 14
+keeping current connection 1542
+uid: 15
+keeping current connection 1041
+uid: 16
+skipping satellite  954  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 17
+skipping satellite  954  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+connecting to satellite  976  with ut_demand 4
+uid: 18
+keeping current connection 976
+uid: 19
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 20
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 21
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 22
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 23
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 24
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 25
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 26
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 27
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 28
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 29
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 30
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 31
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 32
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 33
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 34
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 35
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 36
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 37
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 38
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 39
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 40
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 41
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 42
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 43
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 44
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 45
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 46
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 47
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 48
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 49
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 50
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 51
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 52
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 53
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 54
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 55
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 56
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 57
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 58
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 59
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 60
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 61
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 62
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 63
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 64
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 65
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 66
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 67
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 68
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 69
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 70
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 71
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 72
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 73
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 74
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 75
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 76
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 77
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 78
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 79
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 80
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 81
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 82
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 83
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 84
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 85
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 86
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 87
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 88
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 89
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 90
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 91
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 92
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 93
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 94
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 95
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 96
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 97
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 98
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 99
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+24000000000
+schedule count: 9.0
+uid: 0
+keeping current connection 1020
+uid: 1
+keeping current connection 1520
+uid: 2
+keeping current connection 1520
+uid: 3
+keeping current connection 1020
+uid: 4
+keeping current connection 998
+uid: 5
+keeping current connection 998
+uid: 6
+keeping current connection 1499
+uid: 7
+keeping current connection 1499
+uid: 8
+keeping current connection 1564
+uid: 9
+keeping current connection 1564
+uid: 10
+keeping current connection 954
+uid: 11
+keeping current connection 954
+uid: 12
+keeping current connection 1542
+uid: 13
+keeping current connection 1041
+uid: 14
+keeping current connection 1542
+uid: 15
+keeping current connection 1041
+uid: 16
+skipping satellite  954  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 17
+keeping current connection 976
+uid: 18
+keeping current connection 976
+uid: 19
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 20
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 21
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 22
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 23
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 24
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 25
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 26
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 27
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 28
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 29
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 30
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 31
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 32
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 33
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 34
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 35
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 36
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 37
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 38
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 39
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 40
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 41
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 42
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 43
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 44
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 45
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 46
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 47
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 48
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 49
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 50
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 51
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 52
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 53
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 54
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 55
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 56
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 57
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 58
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 59
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 60
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 61
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 62
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 63
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 64
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 65
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 66
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 67
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 68
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 69
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 70
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 71
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 72
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 73
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 74
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 75
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 76
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 77
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 78
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 79
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 80
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 81
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 82
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 83
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 84
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 85
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 86
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 87
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 88
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 89
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 90
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 91
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 92
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 93
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 94
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 95
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 96
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 97
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 98
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+uid: 99
+skipping satellite  954  with ut_demand 20004
+skipping satellite  976  with ut_demand 20004
+skipping satellite  998  with ut_demand 20004
+skipping satellite  1020  with ut_demand 20004
+skipping satellite  1041  with ut_demand 20004
+skipping satellite  1499  with ut_demand 20004
+skipping satellite  1520  with ut_demand 20004
+skipping satellite  1542  with ut_demand 20004
+skipping satellite  1564  with ut_demand 20004
+Data dir: /home/hkim3019/hypatia/paper/satellite_networks_state/gen_data
+Used data dir to form base output dir: /home/hkim3019/hypatia/paper/satellite_networks_state/gen_data/starlink_550_isls_plus_grid_ground_stations_starlink_algorithm_free_one_only_over_isls_user_terminals_atlanta_failure_0/1000ms_for_25s/manual
+inside all_paths
+20000000000
+21000000000
+22000000000
+23000000000
+24000000000
+all graphs loaded
+Removing existing output pdf.
+Total UT demand: 1000000
+Produced plot: /home/hkim3019/hypatia/paper/satellite_networks_state/gen_data/starlink_550_isls_plus_grid_ground_stations_starlink_algorithm_free_one_only_over_isls_user_terminals_atlanta_failure_0/1000ms_for_25s/manual/pdf/time_vs_networkx_flow_num_ut_100_ut_capacity_10000_mbps_num_gs_197_gs_capacity_20000_mbps_1000.0ms_from_20.0s_to_25.0s.pdf

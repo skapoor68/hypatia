@@ -122,6 +122,30 @@ def get_gs_outgoing_capacity(flow_dict):
                 outgoing_capacity[node] += capacity
     return outgoing_capacity
 
+def get_gs_num_gsl(flow_dict, satellites):
+    """
+    Calculates the number of GSL for each ground station.
+
+    Args:
+        flow_dict: A dictionary representing the graph, where keys are nodes and values are dictionaries mapping outgoing nodes to their capacities.
+
+    Returns:
+        A dictionary where keys are nodes and values are the number of connections.
+    """
+    num_gsls = {}
+    for node, edges in flow_dict.items():
+        # Skip non-satellites
+        if node == 'T' or node == 'S' or int(node) >= len(satellites):
+            continue
+        for neighbor, capacity in edges.items():
+            if neighbor == 'T' or neighbor == 'S':
+                continue
+            if int(neighbor) >= len(satellites) and capacity > 0:
+                if not neighbor in num_gsls.keys():
+                    num_gsls[neighbor] = 0
+                num_gsls[neighbor] += 1
+    return num_gsls
+
 
 def print_flow_mapping(base_output_dir, satellite_network_dir, dynamic_state_update_interval_ms, simulation_end_time_s, target_flow_time_s):
     '''
@@ -181,25 +205,26 @@ def print_flow_mapping(base_output_dir, satellite_network_dir, dynamic_state_upd
     pdf_filename = pdf_dir + "/networkx_connection_mapping_" + str(target_flow_time_s) + "_ut_capacity_" + str(user_terminal_gsl_capacity)+ "_mbps_" + "gs_capacity_" + str(ground_station_gsl_capacity) + "_mbps_" + str(dynamic_state_update_interval_ms) + "ms_for_" + str(simulation_end_time_s) + "s" + ".pdf"
     plt.savefig(pdf_filename)
 
-    demand_dict = get_satellite_traffic(flow_dict, satellites)
+    num_gsl_dict = get_gs_num_gsl(flow_dict, satellites)
 
     # Extract node names and connections
-    node_names = list(demand_dict.keys())
-    demands = list(demand_dict.values())
+    ground_stations = list(num_gsl_dict.keys())
+    num_gsls = list(num_gsl_dict.values())
 
     # Create a bar chart
     plt.figure(2, figsize=(10, 3))  # width:20, height:3
-    plt.xlabel("Satelllite")
-    plt.ylabel("Total Incoming Demand")
-    plt.title("Incoming Traffic at each Satellite at time " + str(target_flow_time_s) + "s")
-    plt.bar(range(len(demand_dict)), demands, align='center', width=0.3, color="yellow")
-    plt.xticks(range(len(demand_dict)), node_names)  # Rotate x-axis labels for better readability
+    plt.xlabel("GS")
+    plt.ylabel("Number of GSLs")
+    plt.title("Number of GSLs at " + str(target_flow_time_s) + "s")
+    plt.bar(range(len(num_gsl_dict)), num_gsls, align='center', width=0.3, color="purple")
+    plt.xticks(range(len(num_gsl_dict)), ground_stations)  # Rotate x-axis labels for better readability
     plt.tight_layout()
 
-    pdf_filename = pdf_dir + "/networkx_satellite_traffic_mapping_" + str(target_flow_time_s) + "_ut_capacity_" + str(user_terminal_gsl_capacity)+ "_mbps_" + "gs_capacity_" + str(ground_station_gsl_capacity) + "_mbps_" + str(dynamic_state_update_interval_ms) + "ms_for_" + str(simulation_end_time_s) + "s" + ".pdf"
+    pdf_filename = pdf_dir + "/networkx_gsl_connections_mapping_" + str(target_flow_time_s) + "_ut_capacity_" + str(user_terminal_gsl_capacity)+ "_mbps_" + "gs_capacity_" + str(ground_station_gsl_capacity) + "_mbps_" + str(dynamic_state_update_interval_ms) + "ms_for_" + str(simulation_end_time_s) + "s" + ".pdf"
     plt.savefig(pdf_filename)
 
     outgoing_demand_dict = get_satellite_traffic(flow_dict, satellites, outgoing=True)
+    print("Num satellites with GSLs:", len(outgoing_demand_dict))
 
     # Extract node names and connections
     node_names = list(outgoing_demand_dict.keys())

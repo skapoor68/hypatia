@@ -34,7 +34,9 @@ import math
 import matplotlib.pyplot as plt
 import pandas as pd
 
-def get_max_flow_for_timeseries(graphs, satellites, ground_stations, user_terminals, dynamic_state_update_interval_ns, simulation_start_time_ns, simulation_end_time_ns) -> int:
+def get_max_flow_for_timeseries(graphs, satellites, ground_stations, user_terminals, 
+                                dynamic_state_update_interval_ns, simulation_start_time_ns, 
+                                simulation_end_time_ns, num_failures=0) -> int:
     """
     Returns the maximum network flow in a time series for
     a given configuration.
@@ -67,6 +69,18 @@ def get_max_flow_for_timeseries(graphs, satellites, ground_stations, user_termin
         for gs in ground_stations:
             # Ground stations to sink has unbounded limit
             graph.add_edge(len(satellites) + gs["gid"], sink, capacity=ground_station_capacity)
+
+        # Find the highest betweeness centrality edges
+        if num_failures != 0:
+            terminals = list(range(len(satellites) + len(ground_stations), len(satellites) + len(ground_stations) + len(user_terminals)))
+            gateways =  list(range(len(satellites), len(satellites) + len(ground_stations)))
+            bottleneck_edges = nx.edge_betweenness_centrality_subset(graph, sources=terminals, targets=gateways, normalized=True)
+            bottleneck_edges = [item for item in bottleneck_edges.items() if (item[0][0] != 'S' and item[0][1] != 'S' and item[0][0] != 'T' and item[0][1] != 'T') and int(item[0][0]) >= 0 and int(item[0][1]) >= 0]
+            top_bottleneck_edges = dict(sorted(bottleneck_edges, key=lambda item: item[1], reverse=True))
+            
+            # Fail the top n centrality edges at each timestep
+            top_bottleneck_edges = list(top_bottleneck_edges.keys())[:num_failures]
+            graph.remove_edges_from(top_bottleneck_edges)
 
         # Find the max flow (demand satisfied)
         # flow_value, flow_dict = nx.maximum_flow(graph, source, sink) 
@@ -102,6 +116,7 @@ def print_max_flow_for_src(base_output_dir, graphs, satellites, ground_stations,
     # Step 1. Assign the super source and super sink nodes
     for t in range(simulation_start_time_ns, simulation_end_time_ns, dynamic_state_update_interval_ns):
         data_flow_filename = data_dir + "/networkx_flow_" + str(t) + ".txt"
+        bottleneck_edges_filename = data_dir + "/bottleneck_edges_" + str(t) + ".txt"
         with open(data_flow_filename, "w+") as data_flow_file:
             # Get the graph at this time
             graph = graphs[t]
@@ -124,6 +139,21 @@ def print_max_flow_for_src(base_output_dir, graphs, satellites, ground_stations,
                 # Ground stations to sink has unbounded limit
                 graph.add_edge(len(satellites) + gs["gid"], sink, capacity=ground_station_capacity)
 
+            # # Find the highest betweeness centrality edges
+            # terminals = list(range(len(satellites) + len(ground_stations), len(satellites) + len(ground_stations) + len(user_terminals)))
+            # gateways =  list(range(len(satellites), len(satellites) + len(ground_stations)))
+            # bottleneck_edges = nx.edge_betweenness_centrality_subset(graph, sources=terminals, targets=gateways, normalized=True)
+            # bottleneck_edges = [item for item in bottleneck_edges.items() if (item[0][0] != 'S' and item[0][1] != 'S' and item[0][0] != 'T' and item[0][1] != 'T') and int(item[0][0]) >= 0 and int(item[0][1]) >= 0]
+            # top_bottleneck_edges = dict(sorted(bottleneck_edges, key=lambda item: item[1], reverse=True))
+            # with open(bottleneck_edges_filename, "w+") as bottleneck_edges_file:
+            #     bottleneck_edges_file.write(str(top_bottleneck_edges))
+            
+            # num_failures = 10
+            # # Fail the top n centrality edges at each timestep
+            # top_bottleneck_edges = list(top_bottleneck_edges.keys())[:num_failures]
+            # print(top_bottleneck_edges)
+            # graph.remove_edges_from(top_bottleneck_edges)
+                
             # Find the max flow (demand satisfied)
             # flow_value, flow_dict = nx.maximum_flow(graph, source, sink) 
 
@@ -221,7 +251,7 @@ def print_all_max_flows(base_output_dir, satellite_network_dir, graph_dir, dynam
 
 
 def get_max_flow(satellite_network_dir, graph_dir, dynamic_state_update_interval_ms,
-                         simulation_start_time_s, simulation_end_time_s) -> int:
+                         simulation_start_time_s, simulation_end_time_s, num_failures=0) -> int:
     """
     Returns the maximum network flow in a time series for
     a given configuration.
@@ -255,5 +285,5 @@ def get_max_flow(satellite_network_dir, graph_dir, dynamic_state_update_interval
         graphs[t] = nx.read_gpickle(graph_path)
 
     print("all graphs loaded")
-    return get_max_flow_for_timeseries(graphs, satellites, ground_stations, user_terminals, dynamic_state_update_interval_ns, simulation_start_time_ns, simulation_end_time_ns)
+    return get_max_flow_for_timeseries(graphs, satellites, ground_stations, user_terminals, dynamic_state_update_interval_ns, simulation_start_time_ns, simulation_end_time_ns, num_failures)
 

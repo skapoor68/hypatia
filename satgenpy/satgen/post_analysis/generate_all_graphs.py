@@ -52,8 +52,6 @@ def generate_all_graphs(base_output_dir, satellite_network_dir, dynamic_state_up
 
     print(simulation_start_time_s, simulation_end_time_s)
 
-    print("Failure id:", failure_id)
-
     # Variables (load in for each thread such that they don't interfere)
     ground_stations = read_ground_stations_extended(satellite_network_dir + "/ground_stations.txt")
     user_terminals = read_user_terminals_extended(satellite_network_dir + "/user_terminals.txt")
@@ -94,6 +92,7 @@ def generate_all_graphs(base_output_dir, satellite_network_dir, dynamic_state_up
 
         # Graph
         sat_net_graph_with_gs = nx.DiGraph()
+        isls = dict()
 
         # ISLs
         for (a,b) in list_isls:
@@ -118,6 +117,13 @@ def generate_all_graphs(base_output_dir, satellite_network_dir, dynamic_state_up
                 sat_net_graph_with_gs.add_edge(
                     b, a, weight=rounded_dist, capacity=isl_capacity
                 )
+                # Creating mapping of satellites to its neighbors
+                if not a in isls:
+                    isls[a] = []
+                isls[a].append(b)
+                if not b in isls:
+                    isls[b] = []
+                isls[b].append(a)
 
         # GSLs
         # Each Satellite can only connect to one ground station at a time unless allow_multiple_gsl is enabled
@@ -173,10 +179,12 @@ def generate_all_graphs(base_output_dir, satellite_network_dir, dynamic_state_up
                     # Current connection is out of range or failing
                     # Disconnect the satellite
                     user_terminal["sid"] = None
-                elif schedule_count != 0:
+                elif schedule_count != 0 and sat_net_graph_with_gs.has_node(-current_connection) and sat_net_graph_with_gs.in_degree(-current_connection, "ut_demand") < ut_gsl_max_capacity * oversubscription_ratio:
                     # Current connection is still in range and active
                     # If it's not time to reallocate, keep this connection.
-                    sat_net_graph_with_gs.add_edge(len(satellites) + len(ground_stations) + user_terminal["uid"], current_connection, weight=rounded_dist, capacity=user_terminal_gsl_capacity, ut_demand=ut_default_demand)
+                    sat_net_graph_with_gs.add_edge(len(satellites) + len(ground_stations) + user_terminal["uid"], -current_connection, weight=rounded_dist, capacity=user_terminal_gsl_capacity, ut_demand=ut_default_demand)
+                    # Load balancer node for making sure the total traffic on UT-Satellite uplink is not over capacity
+                    sat_net_graph_with_gs.add_edge(-current_connection, current_connection, weight=0, capacity=ut_gsl_max_capacity)
                     continue
 
             # Current connection is out of range
@@ -195,7 +203,8 @@ def generate_all_graphs(base_output_dir, satellite_network_dir, dynamic_state_up
                 
                 distance_m = distance_m_ground_station_to_satellite(user_terminal, satellites[sid], str(epoch), str(time))
 
-                if sat_net_graph_with_gs.degree(sid, "ut_demand") >= satellite_max_capacity:
+                # if sat_net_graph_with_gs.degree(sid, "ut_demand") >= isl_capacity * len(isls[sid]):
+                if sat_net_graph_with_gs.has_node(-sid) and sat_net_graph_with_gs.in_degree(-sid, "ut_demand") >= ut_gsl_max_capacity * oversubscription_ratio:
                     # if this satellite has full capacity, don't connect to it
                     continue
 
@@ -207,7 +216,9 @@ def generate_all_graphs(base_output_dir, satellite_network_dir, dynamic_state_up
                 rounded_dist = round(min_dist)
                 user_terminal["sid"] = nearest_sid
                 
-                sat_net_graph_with_gs.add_edge(len(satellites) + len(ground_stations) + user_terminal["uid"], nearest_sid, weight=rounded_dist, capacity=user_terminal_gsl_capacity, ut_demand=ut_default_demand)
+                sat_net_graph_with_gs.add_edge(len(satellites) + len(ground_stations) + user_terminal["uid"], -nearest_sid, weight=rounded_dist, capacity=ut_gsl_max_capacity, ut_demand=ut_default_demand)
+                # Load balancer node for making sure the total traffic on UT-Satellite uplink is not over capacity
+                sat_net_graph_with_gs.add_edge(-nearest_sid, nearest_sid, weight=0, capacity=ut_gsl_max_capacity)
 
             # elif user_terminal["hop_count"] > 1:
             #     # Connected satellite exists and has hop count remaining, decrease hop count
@@ -222,5 +233,4 @@ def generate_all_graphs(base_output_dir, satellite_network_dir, dynamic_state_up
             #     user_terminal["hop_count"] = satellite_handoff_seconds
 
                 # sat_net_graph_with_gs.add_edge(len(satellites) + len(ground_stations) + user_terminal["uid"], nearest_sid, weight=rounded_dist, capacity=user_terminal_gsl_capacity, ut_edmand=ut_default_demand)
-
         nx.write_gpickle(sat_net_graph_with_gs, graph_path_filename)

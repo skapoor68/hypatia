@@ -116,6 +116,16 @@ while [[ $# -gt 0 ]]; do
         exit 1
       fi
       ;;
+    -t|--threads)
+      if [[ -n "$2" ]]; then
+        threads="$2"
+        echo "Threads is set to $threads."
+        shift
+      else
+        echo "Error: Threads requires a value."
+        exit 1
+      fi
+      ;;
     --multiple-gsl)
         allow_multiple_gsl=1
         echo "Multiple GSL per Satellite Enabled."

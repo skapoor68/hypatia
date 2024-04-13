@@ -136,12 +136,12 @@ def main():
     gs_to_graph = dict()
     # Hashmap of hashmap holding num_terminal : (num_gs: max_flow) pairings
     max_flow_dict = dict() 
-    for num_gateway in range(gs_start, gs_end + 1, gs_interval):
+    for num_gateway in range(gs_start, gs_end + gs_interval, gs_interval):
         ut_to_max_flow = dict()
         # ut_start should be from where the last configuration was bottlenecked
         # ut_end should be until we reach the max GS capacity
         max_gs_capacity = num_gateway * ground_station_capacity
-        for num_terminal in range(ut_start, ut_end + 1, ut_interval):
+        for num_terminal in range(ut_start, ut_end + ut_interval, ut_interval):
             # if num_terminal, num_gs max flow is already computed
             # where num_gs <= num_gateway and max_flow is max demand
             max_demand = num_terminal * ut_default_demand

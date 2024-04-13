@@ -6,6 +6,9 @@ gs_config="atlanta"
 ut_config="atlanta"
 allow_multiple_gsl=0
 failure_id=0
+fstart=0
+fend=50
+finterval=10
 
 while [[ $# -gt 0 ]]; do
   case "$1" in
@@ -76,13 +79,30 @@ while [[ $# -gt 0 ]]; do
         exit 1
       fi
       ;;
-    -f|--failure)
+    --fstart)
       if [[ -n "$2" ]]; then
-        failure_id="$2"
-        echo "Failure id is set to $failure_id."
+        fstart="$2"
         shift
       else
-        echo "Error: Failure id requires a value."
+        echo "Error: Failure start requires a value."
+        exit 1
+      fi
+      ;;
+    --fend)
+      if [[ -n "$2" ]]; then
+        fend="$2"
+        shift
+      else
+        echo "Error: Failure end requires a value."
+        exit 1
+      fi
+      ;;
+    --finterval)
+      if [[ -n "$2" ]]; then
+        finterval="$2"
+        shift
+      else
+        echo "Error: Failure num interval requires a value."
         exit 1
       fi
       ;;
@@ -113,16 +133,19 @@ gs_config=ground_stations_$gs_config
 ut_config=user_terminals_$ut_config
 echo "UT config is set to $ut_config."
 echo "GS config is set to $gs_config."
+echo "Failure num start is set to $fstart."
+echo "Failure num end is set to $fend."
+echo "Failure num interval is set to $finterval."
 
 
 # Generate GS and satellite data
-python main_starlink_550.py $end_time $steps isls_plus_grid $gs_config $num_gs $ut_config $num_ut algorithm_free_one_only_over_isls $threads $failure_id
+python main_starlink_550_fail_links.py $start_time $end_time $steps isls_plus_grid $gs_config $num_gs $ut_config $num_ut algorithm_free_one_only_over_isls $failure_id $fstart $fend $finterval $allow_multiple_gsl $threads
 
 # Generate graphs from data
-cd ../../satgenpy
-python satgen/post_analysis/main_generate_graphs.py ~/hypatia/paper/satellite_networks_state/gen_data ~/hypatia/paper/satellite_networks_state/gen_data/starlink_550_isls_plus_grid_${gs_config}_algorithm_free_one_only_over_isls_${ut_config}_failure_${failure_id} $steps $start_time $end_time 1 $failure_id $allow_multiple_gsl
+# cd ../../satgenpy
+# python satgen/post_analysis/main_generate_graphs.py ~/hypatia/paper/satellite_networks_state/gen_data ~/hypatia/paper/satellite_networks_state/gen_data/starlink_550_isls_plus_grid_${gs_config}_algorithm_free_one_only_over_isls_${ut_config}_failure_${failure_id} $steps $start_time $end_time 1 $failure_id $allow_multiple_gsl
 # Generate maximum flow from the graphs
-python satgen/post_analysis/main_print_all_max_flows.py ~/hypatia/paper/satellite_networks_state/gen_data ~/hypatia/paper/satellite_networks_state/gen_data/starlink_550_isls_plus_grid_${gs_config}_algorithm_free_one_only_over_isls_${ut_config}_failure_${failure_id} ~/hypatia/paper/satellite_networks_state/gen_data/starlink_550_isls_plus_grid_${gs_config}_algorithm_free_one_only_over_isls_${ut_config}_failure_${failure_id}/${steps}ms $steps $start_time $end_time
+# python satgen/post_analysis/main_print_all_max_flows.py ~/hypatia/paper/satellite_networks_state/gen_data ~/hypatia/paper/satellite_networks_state/gen_data/starlink_550_isls_plus_grid_${gs_config}_algorithm_free_one_only_over_isls_${ut_config}_failure_${failure_id} ~/hypatia/paper/satellite_networks_state/gen_data/starlink_550_isls_plus_grid_${gs_config}_algorithm_free_one_only_over_isls_${ut_config}_failure_${failure_id}/${steps}ms $steps $start_time $end_time
 
 # Generate routes and rtt from the graphs
 # python satgen/post_analysis/main_print_all_ut_to_gw_routes_and_rtt.py ~/hypatia/paper/satellite_networks_state/gen_data ~/hypatia/paper/satellite_networks_state/gen_data/starlink_550_isls_plus_grid_${gs_config}_algorithm_free_one_only_over_isls_${ut_config}_failure_${failure_id} $steps $start_time $end_time 0 $num_ut

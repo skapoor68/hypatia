@@ -2,6 +2,7 @@
 cd satgenpy
 
 steps=1000
+failure_id=0
 
 while [[ $# -gt 0 ]]; do
   case "$1" in

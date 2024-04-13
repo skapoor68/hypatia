@@ -154,6 +154,18 @@ class MainHelper:
                 output_generated_data_dir + "/" + name + "/ground_stations.txt",
                 num_gateways
             )
+        elif gs_selection == "ground_stations_sydney":
+            satgen.extend_ground_stations(
+                "input_data/ground_stations_sydney.basic.txt",
+                output_generated_data_dir + "/" + name + "/ground_stations.txt",
+                num_gateways
+            )
+        elif gs_selection == "ground_stations_fiji":
+            satgen.extend_ground_stations(
+                "input_data/ground_stations_fiji.basic.txt",
+                output_generated_data_dir + "/" + name + "/ground_stations.txt",
+                num_gateways
+            )
         else:
             raise ValueError("Unknown ground station selection: " + gs_selection)
 
@@ -173,7 +185,13 @@ class MainHelper:
             )
         elif ut_selection == "user_terminals_atlanta":
             satgen.extend_user_terminals(
-                    "input_data/user_terminals_atlanta.txt",
+                    "input_data/user_terminals_atlanta.basic.txt",
+                    output_generated_data_dir + "/" + name + "/user_terminals.txt",
+                    num_user_terminals
+        )
+        elif ut_selection == "user_terminals_fiji":
+            satgen.extend_user_terminals(
+                    "input_data/user_terminals_fiji.basic.txt",
                     output_generated_data_dir + "/" + name + "/user_terminals.txt",
                     num_user_terminals
         )
