@@ -34,6 +34,7 @@ import json
 from astropy import units as u
 from satgen.distance_tools import *
 from satgen.simulate_failures import *
+import pickle
 
 def generate_satellite_shell_index(num_satellites, num_orbits, num_sats_per_orbit):
     satellites_shell_idx = {}
@@ -233,4 +234,6 @@ def generate_all_graphs(base_output_dir, satellite_network_dir, dynamic_state_up
             #     user_terminal["hop_count"] = satellite_handoff_seconds
 
                 # sat_net_graph_with_gs.add_edge(len(satellites) + len(ground_stations) + user_terminal["uid"], nearest_sid, weight=rounded_dist, capacity=user_terminal_gsl_capacity, ut_edmand=ut_default_demand)
-        nx.write_gpickle(sat_net_graph_with_gs, graph_path_filename)
+        # nx.write_gpickle(sat_net_graph_with_gs, graph_path_filename)
+        with open(graph_path_filename, 'wb') as f:
+            pickle.dump(sat_net_graph_with_gs, f)

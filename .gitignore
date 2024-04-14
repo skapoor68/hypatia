@@ -8,4 +8,5 @@ paper/satellite_networks_state/interesting/*
 satviz/viz_outputs/*
 satviz/viz_output_patterns/*
 paper/satgenpy_analysis/paper_data/*
+hypatia-env
 

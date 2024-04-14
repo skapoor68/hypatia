@@ -176,7 +176,7 @@ def main():
              print("Skipping configuration with num_failures", str(num_failures))
              continue
 
-        generate_all_graphs(
+        generate_all_graphs( # with changes does not actually simulate failures
             graph_dir,
             satellite_network_dir,
             step,
@@ -187,7 +187,7 @@ def main():
             allow_multiple_gsl=allow_multiple_gsl
         )
 
-        max_flow = get_max_flow(
+        max_flow = get_max_flow( # gets max flow over enstire simulation from start to end 
             satellite_network_dir,
             graph_dir, 
             step,
@@ -195,7 +195,7 @@ def main():
             end_time,
             num_failures
         )
-        max_flow_dict[num_failures] = max_flow
+        max_flow_dict[num_failures] = max_flow # max flow at each interval of failed ISLs
     
     # After the loop:
     # gs_to_graph := # Gateway : Dict mapping user terminals to max flow

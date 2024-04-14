@@ -33,6 +33,7 @@ import threading
 import math
 import matplotlib.pyplot as plt
 import pandas as pd
+import pickle
 
 def get_max_flow_for_timeseries(graphs, satellites, ground_stations, user_terminals, 
                                 dynamic_state_update_interval_ns, simulation_start_time_ns, 
@@ -94,7 +95,7 @@ def get_max_flow_for_timeseries(graphs, satellites, ground_stations, user_termin
         if max_flow == ut_demand_total:
             return max_flow
 
-    return max_flow
+    return max_flow # max flow is across all time steps
 
 
 def print_max_flow_for_src(base_output_dir, graphs, satellites, ground_stations, user_terminals, dynamic_state_update_interval_ns, simulation_start_time_ns, simulation_end_time_ns):
@@ -241,7 +242,9 @@ def print_all_max_flows(base_output_dir, satellite_network_dir, graph_dir, dynam
 
         graph_path = graph_dir + "/graph_" + str(t) + ".txt"
         # print("Graph:", graph_path)
-        graphs[t] = nx.read_gpickle(graph_path)
+        # graphs[t] = nx.read_gpickle(graph_path)
+        with open(graph_path, 'rb') as f:
+            graphs[t] = pickle.load(f)
         # sat_only_graphs[t] = graphs[t].subgraph(list(range(len(satellites))))
         # distances[t] = nx.floyd_warshall_numpy(sat_only_graphs[t])
         # shortest_paths[t] = dict(nx.all_pairs_shortest_path(graphs[t]))
@@ -282,7 +285,8 @@ def get_max_flow(satellite_network_dir, graph_dir, dynamic_state_update_interval
 
         graph_path = graph_dir + "/graph_" + str(t) + ".txt"
         # print(graph_path)
-        graphs[t] = nx.read_gpickle(graph_path)
+        with open(graph_path, 'rb') as f:
+            graphs[t] = pickle.load(f)
 
     print("all graphs loaded")
     return get_max_flow_for_timeseries(graphs, satellites, ground_stations, user_terminals, dynamic_state_update_interval_ns, simulation_start_time_ns, simulation_end_time_ns, num_failures)
