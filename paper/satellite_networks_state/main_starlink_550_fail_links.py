@@ -26,7 +26,7 @@ import os
 import exputil
 from main_helper import MainHelper
 from satgen.post_analysis.generate_all_graphs import generate_all_graphs
-from satgen.post_analysis.print_all_max_flows import get_max_flow
+from satgen.post_analysis.print_all_max_flows import get_avergage_flow
 from satgen.user_terminals.global_variables import *
 import matplotlib.pyplot as plt
 
@@ -187,7 +187,7 @@ def main():
             allow_multiple_gsl=allow_multiple_gsl
         )
 
-        max_flow = get_max_flow( # gets max flow over enstire simulation from start to end 
+        max_flow = get_avergage_flow( # gets max flow over enstire simulation from start to end 
             satellite_network_dir,
             graph_dir, 
             step,

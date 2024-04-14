@@ -183,9 +183,10 @@ def generate_all_graphs(base_output_dir, satellite_network_dir, dynamic_state_up
                 elif schedule_count != 0 and sat_net_graph_with_gs.has_node(-current_connection) and sat_net_graph_with_gs.in_degree(-current_connection, "ut_demand") < ut_gsl_max_capacity * oversubscription_ratio:
                     # Current connection is still in range and active
                     # If it's not time to reallocate, keep this connection.
-                    sat_net_graph_with_gs.add_edge(len(satellites) + len(ground_stations) + user_terminal["uid"], -current_connection, weight=rounded_dist, capacity=user_terminal_gsl_capacity, ut_demand=ut_default_demand)
-                    # Load balancer node for making sure the total traffic on UT-Satellite uplink is not over capacity
-                    sat_net_graph_with_gs.add_edge(-current_connection, current_connection, weight=0, capacity=ut_gsl_max_capacity)
+                    # sat_net_graph_with_gs.add_edge(len(satellites) + len(ground_stations) + user_terminal["uid"], -current_connection, weight=rounded_dist, capacity=user_terminal_gsl_capacity, ut_demand=ut_default_demand)
+                    # # Load balancer node for making sure the total traffic on UT-Satellite uplink is not over capacity
+                    # sat_net_graph_with_gs.add_edge(-current_connection, current_connection, weight=0, capacity=ut_gsl_max_capacity)
+                    sat_net_graph_with_gs.add_edge(len(satellites) + len(ground_stations) + user_terminal["uid"], current_connection, weight=rounded_dist, capacity=user_terminal_gsl_capacity, ut_demand=ut_default_demand)
                     continue
 
             # Current connection is out of range

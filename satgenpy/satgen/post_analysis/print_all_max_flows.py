@@ -75,7 +75,7 @@ def get_max_flow_for_timeseries(graphs, satellites, ground_stations, user_termin
         if num_failures != 0:
             terminals = list(range(len(satellites) + len(ground_stations), len(satellites) + len(ground_stations) + len(user_terminals)))
             gateways =  list(range(len(satellites), len(satellites) + len(ground_stations)))
-            bottleneck_edges = nx.edge_betweenness_centrality_subset(graph, sources=terminals, targets=gateways, normalized=True)
+            bottleneck_edges = nx.edge_betweenness_centrality_subset(graph, sources=terminals, targets=gateways)
             bottleneck_edges = [item for item in bottleneck_edges.items() if (item[0][0] != 'S' and item[0][1] != 'S' and item[0][0] != 'T' and item[0][1] != 'T') and int(item[0][0]) >= 0 and int(item[0][1]) >= 0]
             top_bottleneck_edges = dict(sorted(bottleneck_edges, key=lambda item: item[1], reverse=True))
             
@@ -97,8 +97,74 @@ def get_max_flow_for_timeseries(graphs, satellites, ground_stations, user_termin
 
     return max_flow # max flow is across all time steps
 
+def get_average_flow_for_timeseries(graphs, satellites, ground_stations, user_terminals, 
+                                dynamic_state_update_interval_ns, simulation_start_time_ns, 
+                                simulation_end_time_ns, num_failures=0) -> int:
+    """
+    Returns the average network flow in a time series for
+    a given configuration.
+    """
 
-def print_max_flow_for_src(base_output_dir, graphs, satellites, ground_stations, user_terminals, dynamic_state_update_interval_ns, simulation_start_time_ns, simulation_end_time_ns):
+    total_flow = 0
+    num_timesteps = 0
+
+    ut_demand_total = 0
+    for ut in user_terminals:
+        ut_demand_total += ut_default_demand
+    # Step 1. Assign the super source and super sink nodes
+    for t in range(simulation_start_time_ns, simulation_end_time_ns, dynamic_state_update_interval_ns):
+        # Keep track of how many steps we take, for computing average flow
+        num_timesteps += 1
+        # Get the graph at this time
+        graph = graphs[t]
+
+        # Add the super-source and super-sinks into the graph
+        source = "S"
+        sink = "T"
+        graph.add_node(source)
+        graph.add_node(sink)
+
+        # Add edges from super-source to sources
+        for ut in user_terminals:
+            # Source to user terminals is capped at each user terminal's demand
+            # graph.add_edge(source, len(satellites) + len(ground_stations) + ut["uid"], capacity=ut["demand"])
+            graph.add_edge(source, len(satellites) + len(ground_stations) + ut["uid"], capacity=ut_default_demand)
+    
+        
+        # Add edges from sinks to super-sink
+        for gs in ground_stations:
+            # Ground stations to sink has unbounded limit
+            graph.add_edge(len(satellites) + gs["gid"], sink, capacity=ground_station_capacity)
+
+        # Find the highest betweeness centrality edges
+        if num_failures != 0:
+            terminals = list(range(len(satellites) + len(ground_stations), len(satellites) + len(ground_stations) + len(user_terminals)))
+            gateways =  list(range(len(satellites), len(satellites) + len(ground_stations)))
+            bottleneck_edges = nx.edge_betweenness_centrality_subset(graph, sources=terminals, targets=gateways)
+            bottleneck_edges = [item for item in bottleneck_edges.items() if (item[0][0] != 'S' and item[0][1] != 'S' and item[0][0] != 'T' and item[0][1] != 'T') and int(item[0][0]) >= 0 and int(item[0][1]) >= 0]
+            top_bottleneck_edges = dict(sorted(bottleneck_edges, key=lambda item: item[1], reverse=True))
+            
+            # Fail the top n centrality edges at each timestep
+            top_bottleneck_edges = list(top_bottleneck_edges.keys())[:num_failures]
+            graph.remove_edges_from(top_bottleneck_edges)
+
+        # Find the max flow (demand satisfied)
+        # flow_value, flow_dict = nx.maximum_flow(graph, source, sink) 
+
+        # Find the max flow (demand satisfied) using the minimum cost (distance)
+        min_cost_flow_dict = nx.max_flow_min_cost(graph, source, sink)   
+        # min_cost = nx.cost_of_flow(G=graph, flowDict=min_cost_flow_dict)
+        min_cost_flow_value = sum((min_cost_flow_dict[u][sink] for u in graph.predecessors(sink)))
+
+        total_flow += min_cost_flow_value
+
+    return total_flow / num_timesteps
+
+
+def print_max_flow_for_src(base_output_dir, graphs, satellites, ground_stations, 
+                           user_terminals, dynamic_state_update_interval_ns, 
+                           simulation_start_time_ns, simulation_end_time_ns, 
+                           num_failures=0):
     
     local_shell = exputil.LocalShell()
 
@@ -117,7 +183,6 @@ def print_max_flow_for_src(base_output_dir, graphs, satellites, ground_stations,
     # Step 1. Assign the super source and super sink nodes
     for t in range(simulation_start_time_ns, simulation_end_time_ns, dynamic_state_update_interval_ns):
         data_flow_filename = data_dir + "/networkx_flow_" + str(t) + ".txt"
-        bottleneck_edges_filename = data_dir + "/bottleneck_edges_" + str(t) + ".txt"
         with open(data_flow_filename, "w+") as data_flow_file:
             # Get the graph at this time
             graph = graphs[t]
@@ -140,20 +205,17 @@ def print_max_flow_for_src(base_output_dir, graphs, satellites, ground_stations,
                 # Ground stations to sink has unbounded limit
                 graph.add_edge(len(satellites) + gs["gid"], sink, capacity=ground_station_capacity)
 
-            # # Find the highest betweeness centrality edges
-            # terminals = list(range(len(satellites) + len(ground_stations), len(satellites) + len(ground_stations) + len(user_terminals)))
-            # gateways =  list(range(len(satellites), len(satellites) + len(ground_stations)))
-            # bottleneck_edges = nx.edge_betweenness_centrality_subset(graph, sources=terminals, targets=gateways, normalized=True)
-            # bottleneck_edges = [item for item in bottleneck_edges.items() if (item[0][0] != 'S' and item[0][1] != 'S' and item[0][0] != 'T' and item[0][1] != 'T') and int(item[0][0]) >= 0 and int(item[0][1]) >= 0]
-            # top_bottleneck_edges = dict(sorted(bottleneck_edges, key=lambda item: item[1], reverse=True))
-            # with open(bottleneck_edges_filename, "w+") as bottleneck_edges_file:
-            #     bottleneck_edges_file.write(str(top_bottleneck_edges))
-            
-            # num_failures = 10
-            # # Fail the top n centrality edges at each timestep
-            # top_bottleneck_edges = list(top_bottleneck_edges.keys())[:num_failures]
-            # print(top_bottleneck_edges)
-            # graph.remove_edges_from(top_bottleneck_edges)
+            # # Find the n highest betweeness centrality edges and fail them
+            if num_failures != 0:
+                terminals = list(range(len(satellites) + len(ground_stations), len(satellites) + len(ground_stations) + len(user_terminals)))
+                gateways =  list(range(len(satellites), len(satellites) + len(ground_stations)))
+                bottleneck_edges = nx.edge_betweenness_centrality_subset(graph, sources=terminals, targets=gateways)
+                bottleneck_edges = [item for item in bottleneck_edges.items() if (item[0][0] != 'S' and item[0][1] != 'S' and item[0][0] != 'T' and item[0][1] != 'T') and int(item[0][0]) >= 0 and int(item[0][1]) >= 0]
+                top_bottleneck_edges = dict(sorted(bottleneck_edges, key=lambda item: item[1], reverse=True))
+                
+                # Fail the top n centrality edges at each timestep
+                top_bottleneck_edges = list(top_bottleneck_edges.keys())[:num_failures]
+                graph.remove_edges_from(top_bottleneck_edges)
                 
             # Find the max flow (demand satisfied)
             # flow_value, flow_dict = nx.maximum_flow(graph, source, sink) 
@@ -202,7 +264,7 @@ def print_max_flow_for_src(base_output_dir, graphs, satellites, ground_stations,
     local_shell.remove(tf.name)
 
 def print_all_max_flows(base_output_dir, satellite_network_dir, graph_dir, dynamic_state_update_interval_ms,
-                         simulation_start_time_s, simulation_end_time_s):
+                         simulation_start_time_s, simulation_end_time_s, num_failures=0):
 
     # Local shell
     local_shell = exputil.LocalShell()
@@ -250,7 +312,7 @@ def print_all_max_flows(base_output_dir, satellite_network_dir, graph_dir, dynam
         # shortest_paths[t] = dict(nx.all_pairs_shortest_path(graphs[t]))
 
     print("all graphs loaded")
-    print_max_flow_for_src(base_output_dir, graphs, satellites, ground_stations, user_terminals, dynamic_state_update_interval_ns, simulation_start_time_ns, simulation_end_time_ns)
+    print_max_flow_for_src(base_output_dir, graphs, satellites, ground_stations, user_terminals, dynamic_state_update_interval_ns, simulation_start_time_ns, simulation_end_time_ns, num_failures)
 
 
 def get_max_flow(satellite_network_dir, graph_dir, dynamic_state_update_interval_ms,
@@ -290,4 +352,45 @@ def get_max_flow(satellite_network_dir, graph_dir, dynamic_state_update_interval
 
     print("all graphs loaded")
     return get_max_flow_for_timeseries(graphs, satellites, ground_stations, user_terminals, dynamic_state_update_interval_ns, simulation_start_time_ns, simulation_end_time_ns, num_failures)
+
+
+def get_avergage_flow(satellite_network_dir, graph_dir, dynamic_state_update_interval_ms,
+                         simulation_start_time_s, simulation_end_time_s, num_failures=0) -> int:
+    """
+    Returns the maximum network flow in a time series for
+    a given configuration.
+    """
+
+    # Variables (load in for each thread such that they don't interfere)
+    ground_stations = read_ground_stations_extended(satellite_network_dir + "/ground_stations.txt")
+    user_terminals = read_user_terminals_extended(satellite_network_dir + "/user_terminals.txt")
+    tles = read_tles(satellite_network_dir + "/tles.txt")
+    satellites = tles["satellites"]
+
+    # Derivatives
+    simulation_start_time_ns = simulation_start_time_s * 1000 * 1000 * 1000
+    simulation_end_time_ns = simulation_end_time_s * 1000 * 1000 * 1000
+    dynamic_state_update_interval_ns = dynamic_state_update_interval_ms * 1000 * 1000
+
+    # max_gsl_length_m = exputil.parse_positive_float(description.get_property_or_fail("max_gsl_length_m"))
+    # max_isl_length_m = exputil.parse_positive_float(description.get_property_or_fail("max_isl_length_m"))
+
+    # Write data file
+    # For each time moment
+    print("inside all_paths")
+
+    graphs = {}
+
+    for t in range(simulation_start_time_ns, simulation_end_time_ns, dynamic_state_update_interval_ns):
+        print(t)
+
+        graph_path = graph_dir + "/graph_" + str(t) + ".txt"
+        # print(graph_path)
+        with open(graph_path, 'rb') as f:
+            graphs[t] = pickle.load(f)
+
+    print("all graphs loaded")
+    return get_average_flow_for_timeseries(graphs, satellites, ground_stations, user_terminals, dynamic_state_update_interval_ns, simulation_start_time_ns, simulation_end_time_ns, num_failures)
+
+
 

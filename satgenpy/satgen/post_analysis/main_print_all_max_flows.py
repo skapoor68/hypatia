@@ -26,10 +26,12 @@ from satgen.post_analysis.print_all_max_flows import print_all_max_flows
 
 def main():
     args = sys.argv[1:]
-    if len(args) != 6:
-        print("Must supply exactly six arguments")
+    if len(args) != 7:
+        print("Must supply exactly seven arguments")
         print("Usage: python -m satgen.post_analysis.main_print_all_max_flows.py [data_dir] [satellite_network_dir] "
-              "[dynamic_state_update_interval_ms] [start_time_s] [end_time_s]")
+              "[dynamic_state_update_interval_ms] [start_time_s] [end_time_s]"
+              "[num_failures]"
+              )
         print(len(args))
         print(args)
         exit(1)
@@ -47,6 +49,7 @@ def main():
             int(args[3]),
             int(args[4]),
             int(args[5]),
+            int(args[6])
         )
 
 
