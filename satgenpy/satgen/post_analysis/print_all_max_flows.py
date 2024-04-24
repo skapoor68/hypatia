@@ -105,6 +105,7 @@ def get_average_flow_for_timeseries(graphs, satellites, ground_stations, user_te
     a given configuration.
     """
 
+    print("Calculating average flow")
     total_flow = 0
     num_timesteps = 0
 
@@ -127,33 +128,24 @@ def get_average_flow_for_timeseries(graphs, satellites, ground_stations, user_te
         # Add edges from super-source to sources
         for ut in user_terminals:
             # Source to user terminals is capped at each user terminal's demand
-            # graph.add_edge(source, len(satellites) + len(ground_stations) + ut["uid"], capacity=ut["demand"])
-            graph.add_edge(source, len(satellites) + len(ground_stations) + ut["uid"], capacity=ut_default_demand)
+            graph.add_edge(source, len(satellites) + len(ground_stations) + ut["uid"], capacity=ut_default_demand, weight=0, type='source_to_ut')
     
-        
         # Add edges from sinks to super-sink
         for gs in ground_stations:
             # Ground stations to sink has unbounded limit
-            graph.add_edge(len(satellites) + gs["gid"], sink, capacity=ground_station_capacity)
+            graph.add_edge(len(satellites) + gs["gid"], sink, capacity=ground_station_capacity, weight=0, type='gs_to_sink')
 
-        # Find the highest betweeness centrality edges
+        # Find the `num_failure` highest betweeness centrality edges and remove them
         if num_failures != 0:
             terminals = list(range(len(satellites) + len(ground_stations), len(satellites) + len(ground_stations) + len(user_terminals)))
             gateways =  list(range(len(satellites), len(satellites) + len(ground_stations)))
             bottleneck_edges = nx.edge_betweenness_centrality_subset(graph, sources=terminals, targets=gateways)
-            bottleneck_edges = [item for item in bottleneck_edges.items() if (item[0][0] != 'S' and item[0][1] != 'S' and item[0][0] != 'T' and item[0][1] != 'T') and int(item[0][0]) >= 0 and int(item[0][1]) >= 0]
-            top_bottleneck_edges = dict(sorted(bottleneck_edges, key=lambda item: item[1], reverse=True))
-            
-            # Fail the top n centrality edges at each timestep
-            top_bottleneck_edges = list(top_bottleneck_edges.keys())[:num_failures]
+            sorted_edges = sorted(bottleneck_edges.items(), key=lambda item: item[1], reverse=True)
+            top_bottleneck_edges = [edge[0] for edge in sorted_edges[:num_failures]]
             graph.remove_edges_from(top_bottleneck_edges)
-
-        # Find the max flow (demand satisfied)
-        # flow_value, flow_dict = nx.maximum_flow(graph, source, sink) 
 
         # Find the max flow (demand satisfied) using the minimum cost (distance)
         min_cost_flow_dict = nx.max_flow_min_cost(graph, source, sink)   
-        # min_cost = nx.cost_of_flow(G=graph, flowDict=min_cost_flow_dict)
         min_cost_flow_value = sum((min_cost_flow_dict[u][sink] for u in graph.predecessors(sink)))
 
         total_flow += min_cost_flow_value
@@ -357,7 +349,7 @@ def get_max_flow(satellite_network_dir, graph_dir, dynamic_state_update_interval
 def get_avergage_flow(satellite_network_dir, graph_dir, dynamic_state_update_interval_ms,
                          simulation_start_time_s, simulation_end_time_s, num_failures=0) -> int:
     """
-    Returns the maximum network flow in a time series for
+    Returns the average network flow in a time series for
     a given configuration.
     """
 
@@ -371,25 +363,17 @@ def get_avergage_flow(satellite_network_dir, graph_dir, dynamic_state_update_int
     simulation_start_time_ns = simulation_start_time_s * 1000 * 1000 * 1000
     simulation_end_time_ns = simulation_end_time_s * 1000 * 1000 * 1000
     dynamic_state_update_interval_ns = dynamic_state_update_interval_ms * 1000 * 1000
-
-    # max_gsl_length_m = exputil.parse_positive_float(description.get_property_or_fail("max_gsl_length_m"))
-    # max_isl_length_m = exputil.parse_positive_float(description.get_property_or_fail("max_isl_length_m"))
-
-    # Write data file
-    # For each time moment
-    print("inside all_paths")
-
+    
     graphs = {}
 
     for t in range(simulation_start_time_ns, simulation_end_time_ns, dynamic_state_update_interval_ns):
-        print(t)
+        print(f"Getting graph for t = {t}")
 
         graph_path = graph_dir + "/graph_" + str(t) + ".txt"
-        # print(graph_path)
         with open(graph_path, 'rb') as f:
             graphs[t] = pickle.load(f)
 
-    print("all graphs loaded")
+    print("All graphs loaded")
     return get_average_flow_for_timeseries(graphs, satellites, ground_stations, user_terminals, dynamic_state_update_interval_ns, simulation_start_time_ns, simulation_end_time_ns, num_failures)
 
 

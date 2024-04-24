@@ -60,7 +60,7 @@ class MainShellsHelper:
 
     def calculate(
             self,
-            output_generated_data_dir,      # Final directory in which the result will be placed
+            output_generated_data_dir,  # gen_data
             duration_s,
             time_step_ms,
             isl_selection,            # isls_{none, plus_grid}
@@ -83,7 +83,8 @@ class MainShellsHelper:
         if gs_selection == "ground_stations_top_100":
             satgen.extend_ground_stations(
                 "input_data/ground_stations_cities_sorted_by_estimated_2025_pop_top_100.basic.txt",
-                output_generated_data_dir + "/" + name + "/ground_stations.txt"
+                output_generated_data_dir + "/" + name + "/ground_stations.txt",
+                100
             )
         elif gs_selection == "ground_stations_top_1000":
             satgen.extend_ground_stations(
@@ -151,35 +152,152 @@ class MainShellsHelper:
             output_generated_data_dir + "/" + name + "/ground_stations.txt"
         )
 
-        # if dynamic_state_algorithm == "algorithm_free_one_only_gs_relays" \
-        #         or dynamic_state_algorithm == "algorithm_free_one_only_over_isls":
-        #     gsl_interfaces_per_satellite = 1
-        # elif dynamic_state_algorithm == "algorithm_paired_many_only_over_isls":
-        #     gsl_interfaces_per_satellite = len(ground_stations)
-        # else:
-        #     raise ValueError("Unknown dynamic state algorithm: " + dynamic_state_algorithm)
+    def calculate_shells_failure(
+            self,
+            output_generated_data_dir,   # gen_data
+            duration_s,
+            time_step_ms,
+            isl_selection,            # isls_{none, plus_grid}
+            gs_selection,             # ground_stations_{top_100, paris_moscow_grid, starlink}
+            num_gateways,
+            ut_selection,
+            num_user_terminals,
+            dynamic_state_algorithm,  # algorithm_{free_one_only_{gs_relays,_over_isls}, paired_many_only_over_isls}
+            num_threads,
+            failure_id,
+            num_shells
+    ):
 
-        # print("Generating GSL interfaces info..")
-        # satgen.generate_simple_gsl_interfaces_info(
-        #     output_generated_data_dir + "/" + name + "/gsl_interfaces_info.txt",
-        #     self.NUM_ORBS * self.NUM_SATS_PER_ORB,
-        #     len(ground_stations),
-        #     gsl_interfaces_per_satellite,  # GSL interfaces per satellite
-        #     1,  # (GSL) Interfaces per ground station
-        #     1,  # Aggregate max. bandwidth satellite (unit unspecified)
-        #     1   # Aggregate max. bandwidth ground station (same unspecified unit)
-        # )
+        # Add base name to setting
+        name = "starlink_current_" + str(num_shells) + "_shells_" + isl_selection + "_" + gs_selection + "_" + dynamic_state_algorithm + "_" + ut_selection + "_failure_" + str(failure_id)
 
-        # # Forwarding state
-        # print("Generating forwarding state...")
-        # satgen.help_dynamic_state(
-        #     output_generated_data_dir,
-        #     num_threads,  # Number of threads
-        #     name,
-        #     time_step_ms,
-        #     duration_s,
-        #     self.MAX_GSL_LENGTH_M,
-        #     self.MAX_ISL_LENGTH_M,
-        #     dynamic_state_algorithm,
-        #     True
-        # )
+        # Create output directories
+        if not os.path.isdir(output_generated_data_dir):
+            os.makedirs(output_generated_data_dir, exist_ok=True)
+        if not os.path.isdir(output_generated_data_dir + "/" + name):
+            os.makedirs(output_generated_data_dir + "/" + name, exist_ok=True)
+
+        graph_dir = "%s/%s/%dms" % (
+            output_generated_data_dir, name, time_step_ms
+        )
+        if not os.path.isdir(graph_dir):
+            os.makedirs(graph_dir, exist_ok=True)
+
+        # print(graph_dir)
+
+        # Ground stations
+        print("Generating ground stations...")
+        if gs_selection == "ground_stations_top_100":
+            satgen.extend_ground_stations(
+                "input_data/ground_stations_cities_sorted_by_estimated_2025_pop_top_100.basic.txt",
+                output_generated_data_dir + "/" + name + "/ground_stations.txt",
+                num_gateways
+            )
+        elif gs_selection == "ground_stations_top_1000":
+            satgen.extend_ground_stations(
+                "input_data/ground_stations_cities_sorted_by_estimated_2025_pop_top_1000.basic.txt",
+                output_generated_data_dir + "/" + name + "/ground_stations.txt",
+                num_gateways
+            )
+        elif gs_selection == "ground_stations_paris_moscow_grid":
+            satgen.extend_ground_stations(
+                "input_data/ground_stations_paris_moscow_grid.basic.txt",
+                output_generated_data_dir + "/" + name + "/ground_stations.txt",
+                num_gateways
+            )
+        elif gs_selection == "ground_stations_atlanta":
+            satgen.extend_ground_stations(
+                "input_data/ground_stations_atlanta.basic.txt",
+                output_generated_data_dir + "/" + name + "/ground_stations.txt",
+                num_gateways
+            )
+        elif gs_selection == "ground_stations_starlink":
+            satgen.extend_ground_stations(
+                "input_data/ground_stations_starlink.basic.txt",
+                output_generated_data_dir + "/" + name + "/ground_stations.txt",
+                num_gateways
+            )
+        elif gs_selection == "ground_stations_sydney":
+            satgen.extend_ground_stations(
+                "input_data/ground_stations_sydney.basic.txt",
+                output_generated_data_dir + "/" + name + "/ground_stations.txt",
+                num_gateways
+            )
+        elif gs_selection == "ground_stations_fiji":
+            satgen.extend_ground_stations(
+                "input_data/ground_stations_fiji.basic.txt",
+                output_generated_data_dir + "/" + name + "/ground_stations.txt",
+                num_gateways
+            )
+        else:
+            raise ValueError("Unknown ground station selection: " + gs_selection)
+
+        # User Terminals
+        print("Generating user terminals...")
+        if ut_selection == "user_terminals_top_100":
+            satgen.extend_user_terminals(
+                    "input_data/user_terminals_top_100.txt",
+                    output_generated_data_dir + "/" + name + "/user_terminals.txt",
+                    num_user_terminals
+            )
+        elif ut_selection == "user_terminals_top_1000":
+            satgen.extend_user_terminals(
+                    "input_data/user_terminals_top_1000.txt",
+                    output_generated_data_dir + "/" + name + "/user_terminals.txt",
+                    num_user_terminals
+            )
+        elif ut_selection == "user_terminals_atlanta":
+            satgen.extend_user_terminals(
+                    "input_data/user_terminals_atlanta.basic.txt",
+                    output_generated_data_dir + "/" + name + "/user_terminals.txt",
+                    num_user_terminals
+        )
+        elif ut_selection == "user_terminals_fiji":
+            satgen.extend_user_terminals(
+                    "input_data/user_terminals_fiji.basic.txt",
+                    output_generated_data_dir + "/" + name + "/user_terminals.txt",
+                    num_user_terminals
+        )
+        # TLEs
+        print("Generating TLEs...")
+        satgen.generate_tles_from_scratch_manual_shells(
+            output_generated_data_dir + "/" + name + "/tles.txt",
+            self.NICE_NAME + "_" + str(self.NUM_SHELLS) + "shells",
+            self.NUM_SHELLS,
+            self.NUM_ORBS,
+            self.NUM_SATS_PER_ORB,
+            self.PHASE_DIFF,
+            self.INCLINATION_DEGREE,
+            self.ECCENTRICITY,
+            self.ARG_OF_PERIGEE_DEGREE,
+            self.MEAN_MOTION_REV_PER_DAY
+        )
+
+        # ISLs
+        print("Generating ISLs...")
+        if isl_selection == "isls_plus_grid":
+            satgen.generate_plus_grid_isls_shells(
+                output_generated_data_dir + "/" + name + "/isls.txt",
+                self.NUM_SHELLS,
+                self.NUM_ORBS,
+                self.NUM_SATS_PER_ORB,
+                isl_shift=0,
+                idx_offset=0
+            )
+        elif isl_selection == "isls_none":
+            satgen.generate_empty_isls(
+                output_generated_data_dir + "/" + name + "/isls.txt"
+            )
+        else:
+            raise ValueError("Unknown ISL selection: " + isl_selection)
+        
+        # Description
+        print("Generating description...")
+        satgen.generate_description_shells(
+            output_generated_data_dir + "/" + name + "/description.txt",
+            self.NUM_ORBS,
+            self.NUM_SATS_PER_ORB,
+            self.MAX_GSL_LENGTH_M,
+            self.MAX_ISL_LENGTH_M
+        )
+        
