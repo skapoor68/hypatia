@@ -139,7 +139,7 @@ def get_average_flow_for_timeseries(graphs, satellites, ground_stations, user_te
         if num_failures != 0:
             terminals = list(range(len(satellites) + len(ground_stations), len(satellites) + len(ground_stations) + len(user_terminals)))
             gateways =  list(range(len(satellites), len(satellites) + len(ground_stations)))
-            bottleneck_edges = nx.edge_betweenness_centrality_subset(graph, sources=terminals, targets=gateways)
+            bottleneck_edges = nx.edge_betweenness_centrality_subset(graph, sources=terminals, targets=gateways, weight='weight')
             sorted_edges = sorted(bottleneck_edges.items(), key=lambda item: item[1], reverse=True)
             top_bottleneck_edges = [edge[0] for edge in sorted_edges[:num_failures]]
             graph.remove_edges_from(top_bottleneck_edges)
