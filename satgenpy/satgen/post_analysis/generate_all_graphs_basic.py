@@ -123,7 +123,7 @@ def generate_all_graphs(graph_path, satellite_network_dir, dynamic_state_update_
                     max_length = max_gsl_length_m[satellites_shell_idx[sid]]
                 distance_m = distance_m_ground_station_to_satellite(ut, satellites[sid], str(epoch), str(time))
                 if distance_m < max_length:
-                    sat_net_graph_with_gs.add_edge(len(satellites) + len(ground_stations) + ut["uid"], sid, weight=distance_m, capacity=ut_gsl_max_capacity)
+                    sat_net_graph_with_gs.add_edge(len(satellites) + len(ground_stations) + ut["uid"], sid, weight=distance_m, capacity=ut_default_demand)
 
         nx.write_gpickle(sat_net_graph_with_gs, graph_path_filename)
 
