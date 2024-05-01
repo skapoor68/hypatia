@@ -99,8 +99,8 @@ def oracle_multiple_gsls(graph_dir, satellite_network_dir, dynamic_state_update_
             for sat_id in gs_neighbor_ids:
                 if sat_id in gs_neighbors_with_capacity:
                     # Increase capacity usage for satellite and ground station
-                    satellite_capacities[sat_id]['gs_capacity'] += ground_station_gsl_capacity
-                    ground_station_capacities[gs['gid']] += ground_station_gsl_capacity
+                    satellite_capacities[sat_id]['gs_capacity'] += ut_default_demand
+                    ground_station_capacities[gs['gid']] += ut_default_demand
                 else:
                     # Remove links from satellites at capacity
                     graph.remove_edge(gs_id, sat_id)

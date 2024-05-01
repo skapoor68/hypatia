@@ -108,8 +108,8 @@ def oracle_single_gsl(graph_dir, satellite_network_dir, dynamic_state_update_int
                 for gs in gs_neighbors:
                     if gs != closest_gs:
                         graph.remove_edge(sat_index, gs)
-                satellite_capacities[sat_index]['gs_capacity'] += ground_station_gsl_capacity        
-                ground_station_capacities[closest_gs - len(satellites)] += ground_station_gsl_capacity
+                satellite_capacities[sat_index]['gs_capacity'] += ut_default_demand        
+                ground_station_capacities[closest_gs - len(satellites)] += ut_default_demand
 
         # Edge failure simulation
         if failure_type == 'Betweenness':
