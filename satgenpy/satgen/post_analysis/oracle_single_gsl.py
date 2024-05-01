@@ -36,16 +36,16 @@ def oracle_single_gsl(graph_dir, satellite_network_dir, dynamic_state_update_int
         # Initialize capacity dictionaries
         satellite_capacities = {}
         ground_station_capacities = {}
-        for satellite in range(len(satellites)):
-            satellite_capacities[satellite] = {'ut_capacity': 0, 'gs_capacity': 0}
-        for ground_station in range(len(ground_stations)):
-            ground_station_capacities[ground_station] = 0
+        for sat_index in range(len(satellites)):
+            satellite_capacities[sat_index] = {'ut_capacity': 0, 'gs_capacity': 0}
+        for gs_index in range(len(ground_stations)):
+            ground_station_capacities[gs_index] = 0
 
          # Filter first hop UT to satellite GSLs
         for ut in user_terminals:
             # Get list of satellites this UT is connected to
-            ut_index = len(satellites) + len(ground_stations) + ut["uid"]
-            ut_neighbors = list(graph.neighbors(ut_index))
+            ut_id = len(satellites) + len(ground_stations) + ut["uid"]
+            ut_neighbor_ids = list(graph.neighbors(ut_id))
 
             # Get current connection
             current_connection = ut["sid"]
@@ -55,60 +55,61 @@ def oracle_single_gsl(graph_dir, satellite_network_dir, dynamic_state_update_int
                 ut["sid"] = current_connection
                 satellite_capacities[current_connection]['ut_capacity'] += ut_default_demand
                 # Remove all other links
-                for sat in ut_neighbors:
-                    if sat != current_connection:
-                        graph.remove_edge(len(satellites) + len(ground_stations) + ut["uid"], sat)
+                for sat_id in ut_neighbor_ids:
+                    if sat_id != current_connection:
+                        graph.remove_edge(len(satellites) + len(ground_stations) + ut["uid"], sat_id)
 
                 continue
 
             # Filter satellites not at capacity
-            ut_neighbors_with_capacity = [sat for sat in ut_neighbors if satellite_capacities[sat]['ut_capacity'] < ut_gsl_max_capacity]
+            ut_neighbors_with_capacity = [sat for sat in ut_neighbor_ids if satellite_capacities[sat]['ut_capacity'] < ut_gsl_max_capacity]
 
             # Find closest neighboring satellite not at capacity
             closest_distance = float('inf')
             closest_sat = None
             for sat in ut_neighbors_with_capacity:
-                dist_m = graph.get_edge_data(ut_index, sat)['weight']
+                dist_m = graph.get_edge_data(ut_id, sat)['weight']
                 if dist_m < closest_distance:
                     closest_distance = dist_m
                     closest_sat = sat
 
             # Remove links to other satellites
             if closest_sat is not None:
-                for sat in ut_neighbors:
-                    if sat != closest_sat:
-                        graph.remove_edge(ut_index, sat)
+                for sat_id in ut_neighbor_ids:
+                    if sat_id != closest_sat:
+                        graph.remove_edge(ut_id, sat_id)
 
                 satellite_capacities[closest_sat]['ut_capacity'] += ut_default_demand
                 ut["sid"] = closest_sat
 
         # Filter last hop satellite to GS GSLs
-        for gs in ground_stations:
-            # Get list of satellites this GS is connected to
-            gs_index = len(satellites) + gs["gid"]
-            gs_neighbors = list(graph.neighbors(gs_index))
+        for sat_index in range(len(satellites)):
+            # Get list of ground stations this satellite is connected to
+            all_neigbors = list(graph.neighbors(sat_index))
+            gs_neighbors = [gs for gs in all_neigbors if gs >= len(satellites)]
 
-            # Filter out satellites at capacity
-            gs_neighbors_with_capacity = [sat for sat in gs_neighbors if satellite_capacities[sat]['gs_capacity'] < ground_station_gsl_capacity 
-                                          and ground_station_capacities[gs["gid"]] < ground_station_capacity]
+            # Filter out ground stations with no capacity
+            gs_neighbors_with_capacity = [
+                gs for gs in gs_neighbors if 
+                satellite_capacities[sat_index]['gs_capacity'] < ground_station_gsl_capacity and 
+                ground_station_capacities[gs - len(satellites)] < ground_station_capacity
+            ]
 
-            # Find closest neighboring satellite not at capacity
+            # Find closest neighboring ground station not at capacity
             closest_distance = float('inf')
-            closest_sat = None
-            for sat in gs_neighbors_with_capacity:
-                dist_m = graph.get_edge_data(gs_index, sat)['weight']
+            closest_gs = None
+            for gs in gs_neighbors_with_capacity:
+                dist_m = graph.get_edge_data(sat_index, gs)['weight']
                 if dist_m < closest_distance:
                     closest_distance = dist_m
-                    closest_sat = sat
-
-            # Remove links from all other satellites
-            if closest_sat is not None:
-                for sat in gs_neighbors:
-                    if sat != closest_sat:
-                        graph.remove_edge(gs_index, sat)
-
-                satellite_capacities[closest_sat]['gs_capacity'] += ground_station_gsl_capacity
-                ground_station_capacities[gs["gid"]] += ground_station_gsl_capacity
+                    closest_gs = gs
+            
+            if closest_gs is not None:
+                for gs in gs_neighbors:
+                    if gs != closest_gs:
+                        graph.remove_edge(sat_index, gs)
+                satellite_capacities[sat_index]['gs_capacity'] += ground_station_gsl_capacity        
+                ground_station_capacities[closest_gs - len(satellites)] += ground_station_gsl_capacity
 
         # Edge failure simulation
         if failure_type == 'Betweenness':
