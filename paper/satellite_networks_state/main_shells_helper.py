@@ -61,16 +61,14 @@ class MainShellsHelper:
     def calculate(
             self,
             output_generated_data_dir,  # gen_data
-            duration_s,
-            time_step_ms,
             isl_selection,            # isls_{none, plus_grid}
             gs_selection,             # ground_stations_{top_100, paris_moscow_grid}
-            dynamic_state_algorithm,  # algorithm_{free_one_only_{gs_relays,_over_isls}, paired_many_only_over_isls}
-            num_threads
+            ut_selection,              # user_terminals_{top_100, atlanta}
+            num_user_terminals
     ):
 
         # Add base name to setting
-        name = self.BASE_NAME + "_" + str(self.NUM_SHELLS) + "shells_" + isl_selection + "_" + gs_selection + "_" + dynamic_state_algorithm
+        name = self.BASE_NAME + "_" + str(self.NUM_SHELLS) + "shells_" + isl_selection + "_" + gs_selection
 
         # Create output directories
         if not os.path.isdir(output_generated_data_dir):
@@ -101,8 +99,40 @@ class MainShellsHelper:
                 "input_data/ground_stations_newyork_london.basic.txt",
                 output_generated_data_dir + "/" + name + "/ground_stations.txt"
             )
+        elif gs_selection == "ground_stations_starlink":
+            satgen.extend_ground_stations(
+                "input_data/ground_stations_starlink.basic.txt",
+                output_generated_data_dir + "/" + name + "/ground_stations.txt",
+                198
+            )
         else:
             raise ValueError("Unknown ground station selection: " + gs_selection)
+        
+        print("Generating user terminals...")
+        if ut_selection == "user_terminals_top_100":
+            satgen.extend_user_terminals(
+                    "input_data/user_terminals_top_100.txt",
+                    output_generated_data_dir + "/" + name + "/user_terminals.txt",
+                    num_user_terminals
+            )
+        elif ut_selection == "user_terminals_top_1000":
+            satgen.extend_user_terminals(
+                    "input_data/user_terminals_top_1000.txt",
+                    output_generated_data_dir + "/" + name + "/user_terminals.txt",
+                    num_user_terminals
+            )
+        elif ut_selection == "user_terminals_atlanta":
+            satgen.extend_user_terminals(
+                    "input_data/user_terminals_atlanta.basic.txt",
+                    output_generated_data_dir + "/" + name + "/user_terminals.txt",
+                    num_user_terminals
+        )
+        elif ut_selection == "user_terminals_fiji":
+            satgen.extend_user_terminals(
+                    "input_data/user_terminals_fiji.basic.txt",
+                    output_generated_data_dir + "/" + name + "/user_terminals.txt",
+                    num_user_terminals
+        )
 
         # TLEs
         print("Generating TLEs...")

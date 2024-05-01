@@ -98,25 +98,23 @@ main_helper = MainShellsHelper(
 
 def main():
     args = sys.argv[1:]
-    if len(args) != 6:
-        print("Must supply exactly six arguments")
-        print("Usage: python main_starlink_550.py [duration (s)] [time step (ms)] "
+    if len(args) != 4:
+        print("Must supply exactly four arguments")
+        print("Usage: python main_starlink_shells.py [duration (s)] [time step (ms)] "
               "[isls_plus_grid / isls_none] "
               "[ground_stations_{top_100, paris_moscow_grid}] "
               "[algorithm_{free_one_only_over_isls, free_one_only_gs_relays, paired_many_only_over_isls}] "
-              "[num threads]")
+              "[user_terminals_{atlanta, global}] "
+              "[num_user_terminals]")
         exit(1)
     else:
         main_helper.calculate(
             "gen_data",
-            int(args[0]),
-            int(args[1]),
-            args[2],
-            args[3],
-            args[4],
-            int(args[5]),
+            args[0], # isls_plus_grid / isls_none
+            args[1], # ground_stations_{top_100, paris_moscow_grid}
+            args[2], # user_terminals_{atlanta, global}
+            int(args[3]) # num_user_terminals
         )
-
 
 if __name__ == "__main__":
     main()
