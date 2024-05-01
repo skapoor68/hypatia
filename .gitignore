@@ -9,4 +9,4 @@ satviz/viz_outputs/*
 satviz/viz_output_patterns/*
 paper/satgenpy_analysis/paper_data/*
 hypatia-env
-
+.bashrc
