@@ -86,7 +86,7 @@ def oracle_single_gsl(graph_dir, satellite_network_dir, dynamic_state_update_int
         for sat_index in range(len(satellites)):
             # Get list of ground stations this satellite is connected to
             all_neigbors = list(graph.neighbors(sat_index))
-            gs_neighbors = [gs for gs in all_neigbors if gs >= len(satellites)]
+            gs_neighbors = [gs for gs in all_neigbors if len(satellites) <= gs < len(satellites) + len(ground_stations)]
 
             # Filter out ground stations with no capacity
             gs_neighbors_with_capacity = [
