@@ -1,4 +1,4 @@
-from satgen.post_analysis.utils import find_all_paths
+from satgen.post_analysis.utils import calculate_rtts
 from .graph_tools import *
 from satgen.isls import *
 from satgen.ground_stations import *
@@ -138,23 +138,11 @@ def oracle_multiple_gsls(graph_dir, satellite_network_dir, dynamic_state_update_
         max_flow, flow_dict = nx.maximum_flow(graph, source, sink)
         print(f"Max flow at time {time_seconds}: {max_flow}")
 
-        ut_start = 4606
-        ut_end = 4705
+        # Calculate RTTs
+        ut_start = len(satellites) + len(ground_stations) - 2
+        ut_end = ut_start + len(user_terminals) - 1
         sink = "T"
-        all_user_paths = {}
-        ut_path_lengths = {}
-        ut_path_rtts = {}
-        PROPAGATION_SPEED = 299792458
-
-        for ut_id in range(ut_start, ut_end + 1):
-            paths = find_all_paths(flow_dict, ut_id, sink)
-            if paths:
-                all_user_paths[ut_id] = paths
-                path_lengths = [compute_path_length_with_graph(path, graph) for path in paths]
-                ut_path_lengths[ut_id] = path_lengths
-                ut_path_rtts[ut_id] = [(2 * length / PROPAGATION_SPEED) * 1000 for length in path_lengths]
-            else:
-                print(f"No paths found for user terminal {ut_id}")
+        ut_path_rtts = calculate_rtts(ut_start, ut_end, graph, flow_dict, sink)
 
         for ut_id, rtts in ut_path_rtts.items():
             print(f"User terminal {ut_id} has RTT(s): {rtts} ms")

@@ -45,7 +45,7 @@ print("printing all different graphs")
 for satgenpy_generated_constellation in [
     "starlink_current_5shells_isls_plus_grid_ground_stations_starlink",
 ]:
-    oracle_type = 'single_gsl' # 'single_gsl' or 'multiple_gsls'
+    oracle_type = 'multiple_gsls' # 'single_gsl' or 'multiple_gsls'
     update_interval_ms = 1000
     duration_s = 60
     failure_type = 'None' # "None" or 'Betweenness' or 'Random'
